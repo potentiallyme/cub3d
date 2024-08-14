@@ -46,7 +46,7 @@ CMPLT	=	@printf "\r$(SPINK)$(BOLD)                         L I B F T  C O M P I 
 # CHECK
 CHECK_DIR	:=	check
 SRC_CHECK	:=	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-				ft_iterate_double.c ft_iterate.c ft_isalnum_string.c ft_isalpha_string.c
+				ft_iterate_double.c ft_iterate.c ft_isspace.c ft_isalnum_string.c ft_isalpha_string.c
 CHECK		:=	$(SRC_CHECK:%=$(CHECK_DIR)/%)
 
 # GNL	
