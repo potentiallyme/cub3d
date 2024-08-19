@@ -1,5 +1,6 @@
 minilibx-linux
 .objs
+.vscode
 cub3D
 libft/libft.a
 

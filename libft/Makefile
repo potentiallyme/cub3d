@@ -51,7 +51,7 @@ CHECK		:=	$(SRC_CHECK:%=$(CHECK_DIR)/%)
 
 # GNL	
 GNL_DIR		:= 	gnl
-SRC_GNL		:= 	get_next_line.c get_next_line_utils.c
+SRC_GNL		:= 	get_next_line.c get_next_line_utils.c return_gnl.c
 GNL			:= 	$(SRC_GNL:%=$(GNL_DIR)/%) 
 
 #LIST
@@ -86,7 +86,7 @@ PUT			:=	$(SRC_PUT:%=$(PUT_DIR)/%)
 # STRING
 STR_DIR		:=	string
 SRC_STR		:=	ft_atoi.c ft_itoa.c ft_char_trim.c ft_count_chars.c ft_cut_chars.c ft_split.c ft_strchr.c \
-				ft_strdup.c ft_striteri.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
+				ft_strdup.c ft_striteri.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_split_2.c\
 				ft_strmapi.c ft_strncmp.c ft_strstr.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
 				ft_strdup_double.c ft_strcmp.c ft_strlen_double.c ft_strjoin.c ft_strndup.c ft_atol.c
 STR 		:= 	$(SRC_STR:%=$(STR_DIR)/%)

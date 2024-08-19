@@ -6,7 +6,7 @@
 NAME		= cub3D
 CC			= @clang
 CFLAGS		= -Wall -Wextra -Werror
-LFLAGS		= -Llibft -lft -lreadline
+LFLAGS		= -lXext -lX11 -lm -lz -o
 HEAD		= includes/cub3D.h
 MK			= @mkdir -p
 RM			= @rm -rf
@@ -32,9 +32,24 @@ MLX_PATH = minilibx-linux
 # CUB3D
 CUBE		:= cube.c
 
+# UTILS
+UTL_DIR		:= utils
+SRC_UTL		:= extension_utils.c list_utils.c init_utils.c frees.c
+UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
+
+# INITS
+INT_DIR		:= inits
+SRC_INT		:= init_data.c
+INT			:= $(SRC_INT:%=$(INT_DIR)/%)
+
+# PARSING
+PRS_DIR		:= parsing
+SRC_PRS		:= parse_file.c parse_textures.c
+PRS			:= $(SRC_PRS:%=$(PRS_DIR)/%)
+
 # ALL SOURCES
 SRCS_DIR	:= src
-ALL_SRCS	:= $(CUBE)
+ALL_SRCS	:= $(CUBE) $(UTL) $(INT) $(PRS)
 SRCS		:= $(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS
@@ -94,7 +109,7 @@ $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(LFLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(LFLAGS) $(NAME) $(MLX)
 	@printf "\r"
 	$(CMPLT)
 

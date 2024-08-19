@@ -6,18 +6,18 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/14 16:44:06 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/08/19 14:50:08 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../libft/libft.h"
-# include "minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <stdlib.h>
 
-# define S_W 1900 // screen width
-# define S_H 1000 // screen height
+# define S_W 960 // screen width
+# define S_H 720 // screen height
 # define NO 1
 # define SO 2
 # define EA 3
@@ -25,53 +25,77 @@
 
 typedef struct s_file // ! used for parsing
 {
-	char	*s;
-	t_file	*next;
+	char *s;
+	struct s_file *next;
 }			t_file;
 
-typedef struct s_info // ! used for parsing for now
+typedef struct s_info
 {
-	// * raw file
+	int exit;
+	int map_w; // map width
+	int map_h; // map height
 	char	*file;
 	t_file	*linked_file;
-	// * map info (1s and 0s)
-	char	**map;
-	// * direction texture paths
+	char	**map2d;
 	char	*north;
 	char	*south;
 	char	*west;
 	char	*east;
-	// * colours rgb format:(255, 255, 255)
-	char	*floor;
-	char *ceiling
+	int		*floor;
+	int		*ceiling;
 }			t_info;
-// ? need to merge s_info and s_data moving forward, tbd
-typedef struct s_data // the data structure
-{
-	char **map2d; // the map
-	int p_x;      // player x position in the map
-	int p_y;      // player y position in the map
-	int map_w;    // map width
-	int map_h;    // map height
-}			t_data;
 
 typedef struct s_player // the player structure
 {
 	int ply_x; // player x position in pixels
 	int ply_y; // player y position in pixels
+	int p_x;   // player x position in the map
+	int p_y;   // player y position in the map
 }			t_player;
 
-typedef struct s_ray // the ray structure
+typedef struct s_ray
 {
 }			t_ray;
 
-typedef struct s_mlx // the mlx structure
+typedef struct s_data // the mlx structure
 {
-	mlx_image_t *img; // the image
-	mlx_t *mlx_p;     // the mlx pointer
-	t_ray *ray;       // the ray structure
-	t_data *data;     // the data structure
-	t_player *ply;    // the player structure
-}			t_mlx;
+	int exit;
+	void *mlx;
+	void *win;
+	t_ray *ray;    // the ray structure
+	t_info *info;  // the file info and map
+	t_player *ply; // the player structure
+}			t_data;
+
+// * inits
+t_data		*init_mlx(void);
+t_info		*init_data(char **av);
+t_ray		*init_ray(void);
+t_player	*init_player(t_info *info);
+
+// * parse_file
+int			check_file(t_info *data);
+
+// * parse_textures
+char		*return_texture_paths(t_file *file, char *dir);
+int			recursive_check(t_info *data, t_file *file, char *s, int i);
+int			check_textures(t_info *data, t_file *file);
+int			check_texture_paths(t_info *data);
+
+// * extension_utils
+int			is_xpm(char *s);
+int			is_cub(char *s);
+int			is_png(char *s);
+
+// * frees
+void		free_file_list(t_file *file);
+void		*free_during_init(t_info *data);
+void		free_mlx(t_data *game, int exit_code);
+// * list_utils
+void		add_to_list(t_file **lst, t_file *new);
+void		string_to_list(t_info *data);
+
+// * init_utils
+char		**return_map(t_info *data);
 
 #endif

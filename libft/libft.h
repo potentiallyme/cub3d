@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
-/*   Updated: 2024/08/14 16:44:41 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/08/19 14:20:49 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int					ft_iterate(char *s, int (*f)(char *, int));
 // gnl
 # define BUFFER_SIZE 42
 
+char				*return_gnl(int fd);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strchr(const char *s, int i);
 char				*ft_strdup(const char *s);
@@ -112,6 +113,7 @@ int					ft_count_chars(char *s, char *chars);
 char				*ft_cut_chars(char *s, char *cut);
 char				*ft_itoa(long n);
 char				**ft_split(char const *s, char c);
+char				**ft_split_2(char const *s, char c1, char c2);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(char *s1, char *s2);
 char				*ft_strdup(const char *s);
