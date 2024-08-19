@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
-/*   Updated: 2024/08/19 14:20:49 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:02:46 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,6 @@ char				*ft_strrchr(const char *s, int c);
 char				*ft_strtrim(char const *s, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char *s1, char *s2, int f);
-char				*ft_strndup(const char *s, size_t n);
+char				*ft_strndup(const char *s, int n);
 
 #endif

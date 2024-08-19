@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 16:47:12 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:23:26 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	recursive_check(t_info *data, t_file *file, char *s, int i)
 		}
 		tmp = tmp->next;
 	}
-	ft_printf("%s: %i\n", s, n);
 	if (i == 0)
 		return (n + (recursive_check(data, file, "SO", 1)));
 	else if (i == 1)
@@ -71,10 +70,9 @@ int	check_textures(t_info *data, t_file *file)
 
 	tmp = file;
 	int i = recursive_check(data, tmp, "NO", 0);
-	ft_printf("rec: %i\n", i);
 	if (i != 4)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 int	check_texture_paths(t_info *data)
@@ -83,5 +81,6 @@ int	check_texture_paths(t_info *data)
 	
 	len = ft_strlen(data->north);
 	// if (!is_xpm(data->north))
+	// ! Set to mlx (img to file) if unsuccesful, fail
 	return 0;
 }

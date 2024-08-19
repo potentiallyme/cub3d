@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 16:49:12 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/08/19 18:23:11 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 void	cub_three_d(char **av)
 {
-	t_data *game;
+	t_data	*game;
 
 	game = init_mlx();
 	game->info = init_data(av);
 	if (!game->info)
+	{
 		free_mlx(game, 1);
-	ft_printf("All good\n");
+		ft_printf("errors\n");
+	}
+	else
+		ft_printf("All good\n");
 	return ;
 	game->ray = init_ray();
 	game->ply = init_player(game->info);
