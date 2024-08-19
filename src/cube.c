@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/14 16:46:13 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/08/19 13:29:33 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,7 @@ int	main(int ac, char **av)
 	if ((ac != 2 || !check_cub(av[1])))
 		return (0);
 	cub_three_d(av);
+	cast_rays();
+	render_walls();
 	return (0);
 }

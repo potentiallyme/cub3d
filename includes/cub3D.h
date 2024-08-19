@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/14 16:44:06 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/08/19 15:45:16 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include "../libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
+#include <math.h>
+#include <stdio.h>
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
@@ -22,6 +24,10 @@
 # define SO 2
 # define EA 3
 # define WE 4
+
+# define TILE_SIZE 30
+# define FOV 60 // field of view
+#define NUM_RAYS 320  // Number of rays to cast
 
 typedef struct s_file // ! used for parsing
 {
@@ -57,12 +63,18 @@ typedef struct s_data // the data structure
 
 typedef struct s_player // the player structure
 {
-	int ply_x; // player x position in pixels
-	int ply_y; // player y position in pixels
+	int p_x; // player x position in pixels
+	int p_y; // player y position in pixels
+	double	angle;
+	float	fov_radian;
+	
 }			t_player;
 
 typedef struct s_ray // the ray structure
 {
+	double	ray_angle;
+	double	distance; //distance to wall
+	int	wall_flag;
 }			t_ray;
 
 typedef struct s_mlx // the mlx structure
