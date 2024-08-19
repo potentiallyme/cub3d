@@ -6,7 +6,11 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/24 06:01:07 by lmoran           ###   ########.fr       */
+=======
+/*   Updated: 2024/08/14 16:44:41 by lmoran           ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +51,10 @@ int					ft_isalpha_string(char *s);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
+<<<<<<< HEAD
+=======
+int					is_space(char c);
+>>>>>>> main
 int					ft_iterate_double(char **s, int (*f)(char **, int, int));
 int					ft_iterate(char *s, int (*f)(char *, int));
 
