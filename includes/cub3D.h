@@ -19,7 +19,8 @@
 # include "../libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <stdlib.h>
-<<<<<<< HEAD
+# include <math.h>
+# include <stdio.h>
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
@@ -52,9 +53,6 @@ typedef struct s_mlx //the mlx structure
  t_data   *data; // the data structure
  t_player  *ply; // the player structure
 } t_mlx;
-=======
-#include <math.h>
-#include <stdio.h>
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
@@ -64,7 +62,7 @@ typedef struct s_mlx //the mlx structure
 # define WE 4
 
 # define TILE_SIZE 30
-# define FOV 60 // field of view
+# define FOV (60 * M_PI / 180) // field of view = 60
 #define NUM_RAYS 320  // Number of rays to cast
 
 typedef struct s_file // ! used for parsing
@@ -123,6 +121,5 @@ typedef struct s_mlx // the mlx structure
 	t_data *data;     // the data structure
 	t_player *ply;    // the player structure
 }			t_mlx;
->>>>>>> main
 
 #endif
