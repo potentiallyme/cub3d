@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/08/20 15:49:31 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/08/21 17:18:31 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	cast_rays(t_mlx *mlx)
 			mlx->ray->distance = v_inter;
 		else
 			mlx->ray->distance = h_inter;
-		rendering();
+		rendering(mlx, ray);
 		ray++;
 		mlx->ray->ray_angle += mlx->ply->fov_radian / S_W;
 	}

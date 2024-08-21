@@ -88,6 +88,7 @@ typedef struct s_info // ! used for parsing for now
 	char *ceiling
 }			t_info;
 // ? need to merge s_info and s_data moving forward, tbd
+
 typedef struct s_data // the data structure
 {
 	char **map2d; // the map
@@ -113,13 +114,45 @@ typedef struct s_ray // the ray structure
 	int	wall_flag;
 }			t_ray;
 
+typedef struct s_texture
+{
+	uint32_t	width;
+	uint32_t	height;
+	uint8_t		bytes_per_pixel;
+	uint8_t*	pixels;
+}	t_texture;
+
+typedef struct s_tex
+{
+	t_texture	*no_img;
+	t_texture	*so_img;
+	t_texture	*we_img;
+	t_texture	*ea_img;
+}	t_tex;
+
+typedef struct s_instance
+{
+	int32_t	x;
+	int32_t	y;
+	int32_t	z;
+}	t_instance;
+
+typedef struct s_image
+{
+	const uint32_t	width;
+	const uint32_t	height;
+	uint8_t*		pixels;
+	t_instance*	instances;
+}	t_image;
+
 typedef struct s_mlx // the mlx structure
 {
-	mlx_image_t *img; // the image
 	mlx_t *mlx_p;     // the mlx pointer
 	t_ray *ray;       // the ray structure
 	t_data *data;     // the data structure
 	t_player *ply;    // the player structure
+	t_image *img; // the image
+	t_tex *tex; 
 }			t_mlx;
 
 #endif
