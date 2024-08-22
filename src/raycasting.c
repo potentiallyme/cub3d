@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/08/21 17:18:31 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/08/22 17:50:03 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,16 +138,20 @@ void	cast_rays(t_mlx *mlx)
 	int		ray;
 
 	ray = 0;
-	mlx->ray->ray_angle = mlx->ply->angle - (mlx->ply->fov_radian / 2); //start angle
+	mlx->ray->ray_angle = mlx->ply->angle
+		- (mlx->ply->fov_radian / 2); //start angle
 	while (ray < S_W)
 	{
-		// mlx->ray->wall_flag = 0;
+		mlx->ray->wall_flag = 0; //for rendering wall
 		h_inter = get_h_inter(mlx, normalize_angle(mlx->ray->ray_angle));
 		v_inter = get_v_inter(mlx, normalize_angle(mlx->ray->ray_angle));
 		if (v_inter <= h_inter)
 			mlx->ray->distance = v_inter;
 		else
+		{
 			mlx->ray->distance = h_inter;
+			mlx->ray->wall_flag = 1; //for rendering wall
+		}
 		rendering(mlx, ray);
 		ray++;
 		mlx->ray->ray_angle += mlx->ply->fov_radian / S_W;

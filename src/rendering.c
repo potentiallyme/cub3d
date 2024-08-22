@@ -6,44 +6,94 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/08/21 17:18:40 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/08/22 17:53:20 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	render_floor_ceiling(t_mlx *mlx)
+void	new_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
+	// if (x < 0)
+	// 	return ;
+	// else if (x >= S_W)
+	// 	return ;
+	// if (y < 0)
+	// 	return ;
+	// else if (y >= S_H)
+	// 	return ;
+	// is above better check?
+	if (x < 0 || y < 0 || x >= S_W || y >= S_H)
+		return ;
+	mlx_put_pixel(mlx->img, x, y, color);
+}
+
+int	get_color()
+{
+	//(0, 255, 255) to 0x89CFF3FF type??
+}
+
+void	render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel, double b_pixel)
+{
+	int	i;
+	int	color;
+
+	color = get_color(); //how??
+	i = b_pixel;
+	while (i < S_H)
+		new_mlx_pixel_put(mlx, ray, i++, color); //floor
+	i = 0;
+	while (i < t_pixel)
+		new_mlx_pixel_put(mlx, ray, i++, color); //ceiling
+}
+
+t_texture	*get_texture(t_mlx *mlx, int wall_flag)
+{
+	mlx->ray->ray_angle = normalize_angle(mlx->ray->ray_angle);
+	if (wall_flag == 0)
+	{
+		if (mlx->ray->ray_angle > M_PI / 2
+			&& mlx->ray->ray_angle < 3 * (M_PI / 2))
+			return (mlx->tex->ea_img);
+		else
+			return (mlx->tex->we_img);
+	}
+	else
+	{
+		if (mlx->ray->ray_angle > 0 && mlx->ray->ray_angle < M_PI)
+			return (mlx->tex->so_img);
+		else
+			return (mlx->tex->no_img);
+	}
 	
 }
 
-t_texture	*get_texture(t_mlx *mlx)
-{
-	
-}
-
-void    render_walls()
+void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel, double wall_h)
 {
 	t_texture	*texture;
 
-	texture = get_texture();
-
+	texture = get_texture(mlx, mlx->ray->wall_flag);
+	while (t_pixel < b_pixel)
+	{
+		new_mlx_pixel_put(mlx, mlx->ray->index, t_pixel, color) //parameters?? color?
+		t_pixel++;
+	}
 }
 
 void	rendering(t_mlx *mlx, int ray)
 {
 	double	wall_height;
-	double	wall_top;
-	double	wall_bottom;
+	double	top_pixel;
+	double	bottom_pixel;
 
 	wall_height = (TILE_SIZE / mlx->ray->distance)
 		* ((S_W / 2) / tan(mlx->ply->fov_radiant / 2));
-	wall_top = (S_H / 2) - (wall_height / 2);
-	wall_bottom = (S_H / 2) + (wall_height / 2);
-	if (wall_top > S_H)
-		wall_top = S_H;
-	if (wall_bottom < 0)
-		wall_bottom = 0;
-	render_walls();
-	render_floor_ceiling();
+	top_pixel = (S_H / 2) - (wall_height / 2);
+	bottom_pixel = (S_H / 2) + (wall_height / 2);
+	if (top_pixel > S_H)
+		top_pixel = S_H;
+	if (bottom_pixel < 0)
+		bottom_pixel = 0;
+	render_walls(mlx, top_pixel, bottom_pixel, wall_height);
+	render_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
 }

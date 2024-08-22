@@ -197,6 +197,7 @@ void cub_three_d(char **av)
 	data = init_data(av);
 	if (!data)
 		return ;
+	//mlx_loop_hook, mlx_key_hook, etc here?? from yumi
 }
 
 int	main(int ac, char **av)
@@ -204,8 +205,6 @@ int	main(int ac, char **av)
 	if ((ac != 2 || !check_cub(av[1])))
 		return (0);
 	cub_three_d(av);
-	cast_rays();
-	render_walls();
 	return (0);
 >>>>>>> main
 }

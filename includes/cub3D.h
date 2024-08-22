@@ -17,7 +17,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "../libft/libft.h"
-# include "minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
@@ -39,20 +39,6 @@ typedef struct s_player //the player structure
  int  ply_x; // player x position in pixels
  int  ply_y; // player y position in pixels
 } t_player;
-
-typedef struct s_ray //the ray structure
-{
-
-} t_ray;
-
-typedef struct s_mlx //the mlx structure
-{
- mlx_image_t  *img; // the image
- mlx_t   *mlx_p; // the mlx pointer
- t_ray   *ray; // the ray structure
- t_data   *data; // the data structure
- t_player  *ply; // the player structure
-} t_mlx;
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
@@ -111,24 +97,25 @@ typedef struct s_ray // the ray structure
 {
 	double	ray_angle;
 	double	distance; //distance to wall
-	int	wall_flag;
+	int		wall_flag;
+	int		index; //for rendering
 }			t_ray;
 
-typedef struct s_texture
-{
-	uint32_t	width;
-	uint32_t	height;
-	uint8_t		bytes_per_pixel;
-	uint8_t*	pixels;
-}	t_texture;
+// typedef struct s_texture
+// {
+// 	uint32_t	width;
+// 	uint32_t	height;
+// 	uint8_t		bytes_per_pixel;
+// 	uint8_t*	pixels;
+// }	t_texture;
 
-typedef struct s_tex
+typedef struct s_texure
 {
-	t_texture	*no_img;
-	t_texture	*so_img;
-	t_texture	*we_img;
-	t_texture	*ea_img;
-}	t_tex;
+	t_image	*no_img;
+	t_image	*so_img;
+	t_image	*we_img;
+	t_image	*ea_img;
+}	t_texure;
 
 typedef struct s_instance
 {
@@ -147,12 +134,14 @@ typedef struct s_image
 
 typedef struct s_mlx // the mlx structure
 {
-	mlx_t *mlx_p;     // the mlx pointer
+	t_mlx *mlx_p;     // the mlx pointer
 	t_ray *ray;       // the ray structure
 	t_data *data;     // the data structure
 	t_player *ply;    // the player structure
 	t_image *img; // the image
-	t_tex *tex; 
+	t_texure *tex; 
 }			t_mlx;
+
+double	normalize_angle(double angle);
 
 #endif
