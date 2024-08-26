@@ -21,9 +21,44 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
+# include <stdint.h>
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
+
+//mouse
+# define LEFT_CLICK 	1
+# define RIGHT_CLICK 	2
+# define MIDDLE_CLICK	3
+# define SCROLL_UP		4
+# define SCROLL_DOWN	5
+//keyboard
+# define KEY_1			18
+# define KEY_2			19
+# define KEY_3			20
+# define KEY_4			21
+# define KEY_Q			12
+# define KEY_W			13
+# define KEY_E			14
+# define KEY_R			15
+# define KEY_A			0
+# define KEY_S			1
+# define KEY_D			2
+# define KEY_I			34
+# define KEY_O			31
+# define KEY_P			35
+# define KEY_J			38
+# define KEY_K			40
+# define KEY_L			37
+# define KEY_LEFT		123
+# define KEY_RIGHT		124
+# define KEY_UP 	126
+# define KEY_DOWN	125
+
+# define KEY_TAB	48
+# define KEY_MAJ	257
+# define KEY_ESC	53
+# define KEY_TAB	48
 
 typedef struct s_data //the data structure
 {
@@ -71,23 +106,23 @@ typedef struct s_info // ! used for parsing for now
 	char	*east;
 	// * colours rgb format:(255, 255, 255)
 	char	*floor;
-	char *ceiling
+	char 	*ceiling
 }			t_info;
 // ? need to merge s_info and s_data moving forward, tbd
 
 typedef struct s_data // the data structure
 {
 	char **map2d; // the map
-	int p_x;      // player x position in the map
-	int p_y;      // player y position in the map
-	int map_w;    // map width
-	int map_h;    // map height
+	int 	p_x;      // player x position in the map
+	int 	p_y;      // player y position in the map
+	int 	map_w;    // map width
+	int 	map_h;    // map height
 }			t_data;
 
 typedef struct s_player // the player structure
 {
-	int p_x; // player x position in pixels
-	int p_y; // player y position in pixels
+	int 	p_x; // player x position in pixels
+	int 	p_y; // player y position in pixels
 	double	angle;
 	float	fov_radian;
 	
@@ -109,13 +144,13 @@ typedef struct s_ray // the ray structure
 // 	uint8_t*	pixels;
 // }	t_texture;
 
-typedef struct s_texure
+typedef struct s_texture
 {
 	t_image	*no_img;
 	t_image	*so_img;
 	t_image	*we_img;
 	t_image	*ea_img;
-}	t_texure;
+}	t_texture;
 
 typedef struct s_instance
 {
@@ -129,17 +164,17 @@ typedef struct s_image
 	const uint32_t	width;
 	const uint32_t	height;
 	uint8_t*		pixels;
-	t_instance*	instances;
+	t_instance*		instances;
 }	t_image;
 
 typedef struct s_mlx // the mlx structure
 {
-	t_mlx *mlx_p;     // the mlx pointer
-	t_ray *ray;       // the ray structure
-	t_data *data;     // the data structure
-	t_player *ply;    // the player structure
-	t_image *img; // the image
-	t_texure *tex; 
+	t_mlx 		*mlx_p;     // the mlx pointer
+	t_ray 		*ray;       // the ray structure
+	t_data 		*data;     // the data structure
+	t_player 	*ply;    // the player structure
+	t_image 	*img; // the image
+	t_texture 	*tex; 
 }			t_mlx;
 
 double	normalize_angle(double angle);
