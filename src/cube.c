@@ -190,14 +190,26 @@ int	check_cub(char *s)
 			&& s[len - 3] == 'c' && s[len - 4] == '.');
 }
 
+void	draw_map_pixel(void *ml)
+{
+	t_mlx *mlx;
+
+	mlx = ml;
+	//handles images needed
+	handle_ply_movement(mlx);
+}
+
 void cub_three_d(char **av)
 {
 	t_info *data;
+	t_mlx	mlx;
 	
 	data = init_data(av);
 	if (!data)
 		return ;
-	//mlx_loop_hook, mlx_key_hook, etc here?? from yumi
+	mlx_key_hook(mlx.mlx_ptr, &key_press, &mlx);
+	mlx_loop_hook(mlx.mlx_ptr, &draw_map_pixel, &mlx)
+	mlx_loop(mlx.mlx_ptr);
 }
 
 int	main(int ac, char **av)

@@ -52,13 +52,18 @@
 # define KEY_L			37
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
-# define KEY_UP 	126
-# define KEY_DOWN	125
+# define KEY_FOWARD 	126
+# define KEY_BACKWARD	125
 
 # define KEY_TAB	48
 # define KEY_MAJ	257
 # define KEY_ESC	53
 # define KEY_TAB	48
+
+//key press detect
+#define KEY_RELEASE 0
+#define KEY_PRESS   1
+#define KEY_REPEAT  2
 
 typedef struct s_data //the data structure
 {
@@ -73,6 +78,9 @@ typedef struct s_player //the player structure
 {
  int  ply_x; // player x position in pixels
  int  ply_y; // player y position in pixels
+ int		rot;	// rotation flag(movement)
+ int		l_r;	// left right flag(movement)
+ int		u_d;	// up down flag(movement)
 } t_player;
 
 # define S_W 1900 // screen width
@@ -177,6 +185,14 @@ typedef struct s_mlx // the mlx structure
 	t_texture 	*tex; 
 }			t_mlx;
 
+typedef struct s_keydata
+{
+	int32_t         key;
+	int32_t         action; //key press detect
+}				t_keydata;
+
+
 double	normalize_angle(double angle);
+void	handle_ply_movement(t_mlx *mlx);
 
 #endif
