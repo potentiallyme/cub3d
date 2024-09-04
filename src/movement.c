@@ -43,16 +43,28 @@ void	key_press(t_keydata keydata, void *ml)
 	else if (keydata.key == KEY_D && (keydata.action == MLX_PRESS))
 		mlx->ply->l_r = 1;
 	else if (keydata.key == KEY_LEFT && (keydata.action == MLX_PRESS))
-		mlx->ply->rot = -1;
+		mlx->ply->rot = -1; //rotation flag
 	else if (keydata == KEY_RIGHT)
-		mlx->ply->rot = 1;
+		mlx->ply->rot = 1; //rotation flag
 	ft_release(keydata, mlx);
 }
 
-void	handle_ply_movement(t_mlx *mlx)
+void	handle_ply_movement(t_mlx *mlx) //mlx_loop_hook->draw_map_pixel
 {
 	double move_x;
 	double move_y;
+
+	if (mlx->ply->rot == 1)
+
+	if (mlx->ply->rot == -1)
+
+	if (mlx->ply->l_r == 1)
+
+	if (mlx->ply->l_r == -1)
+
+	if (mlx->ply->u_d == 1)
+	
+	if (mlx->ply->u_d == -1)
 
 	//continue here
 }
