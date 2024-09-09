@@ -2,23 +2,47 @@
 
 #include "../includes/cub3D_bonus.h"
 
-void    draw_minimap(t_mlx* mlx)
+
+void    fill_tiles_color(t_mlx *mlx, int x, int y, color)
 {
-    int map_array_x;
-    int map_array_y;
+    
+}
+
+void    render_minimap_tiles(t_mlx* mlx)
+{
+    int x;
+    int y;
     int ply_x;
     int ply_y;
 
-    map_array_y = 0;
+    y = 0;
     ply_y = 0;
     while (y < mlx->data->map_h)
     {
-        map_array_x = 0;
+        x = 0;
         ply_x = 0;
         while (x < mlx->data->map_w)
         {
-        //sq_map???? difference between map2d
+            if (mlx->data->square_map[y][x] == '1')
+                fill_tiles_color(mlx, ply_x, ply_y, GREY);
+            else
+                fill_tiles_color(mlx, ply_x, ply_y, WHITE);
+            x++;
+            ply_x += TILE_SIZE;
         }
+        y++;
+        ply_y += TILE_SIZE;
     }
 
+}
+
+void render_minimap_player(t_mlx *mlx, int p_x, int p_y)
+{
+
+}
+
+void    render_minimap(t_mlx* mlx)
+{
+    render_minimap_tiles(mlx);
+    render_minimap_player(mlx, mlx->ply->p_x, mlx->ply->p_y);
 }

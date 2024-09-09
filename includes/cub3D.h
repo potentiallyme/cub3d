@@ -65,17 +65,16 @@
 #define KEY_PRESS   1
 #define KEY_REPEAT  2
 
+//colors
+# define BLACK 0x000000FF
+# define GREY 0x808080FF
+# define BLUE 0x87CEEBFF
+# define GREEN 0x008000FF
+# define ORANGE 0xFF9300FF
+# define RED 0xFF0000FF
+# define WHITE 0xFFFFFFFF
+
 //movement
-
-
-typedef struct s_data //the data structure
-{
- char **map2d; // the map
- int  p_x;  // player x position in the map
- int  p_y;  // player y position in the map
- int  map_w;  // map width
- int  map_h;  // map height
-} t_data;
 
 typedef struct s_player //the player structure
 {
@@ -128,6 +127,7 @@ typedef struct s_data // the data structure
 	int 	p_y;      // player y position in the map
 	int 	map_w;    // map width
 	int 	map_h;    // map height
+	char	**square_map; //minimap, also easier for movement check?
 }			t_data;
 
 typedef struct s_player // the player structure
