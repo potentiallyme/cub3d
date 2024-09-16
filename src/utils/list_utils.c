@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:57:27 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 17:16:50 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:59:57 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	add_to_list(t_file **lst, t_file *new)
 
 void	check_and_add(t_info *data, t_file *new, char *tmp)
 {
-	int	i;
-	t_file *second;
+	int		i;
+	t_file	*second;
 
 	i = 0;
 	second = 0;
-	if ((tmp[0] == 'N' && tmp[1] == 'O' && tmp[2] == ' ') ||
-		(tmp[0] == 'S' && tmp[1] == 'O' && tmp[2] == ' ') ||
-		(tmp[0] == 'E' && tmp[1] == 'A' && tmp[2] == ' ') ||
-		(tmp[0] == 'W' && tmp[1] == 'E' && tmp[2] == ' '))
+	if ((tmp[0] == 'N' && tmp[1] == 'O' && tmp[2] == ' ') || (tmp[0] == 'S'
+			&& tmp[1] == 'O' && tmp[2] == ' ') || (tmp[0] == 'E'
+			&& tmp[1] == 'A' && tmp[2] == ' ') || (tmp[0] == 'W'
+			&& tmp[1] == 'E' && tmp[2] == ' '))
 	{
 		second = malloc(sizeof(t_file));
 		new->s = ft_strndup(tmp, 2);

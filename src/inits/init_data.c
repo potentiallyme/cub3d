@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/16 18:58:04 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:59:32 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_data	*init_mlx(void)
 	return (game);
 }
 
-void pr_str(t_file *f)
+void	pr_str(t_file *f)
 {
-	t_file *tpm;
-	
+	t_file	*tpm;
+
 	tpm = f;
 	while (tpm)
 	{
@@ -43,7 +43,7 @@ void pr_str(t_file *f)
 	}
 }
 
-void print_data(t_info *data)
+void	print_data(t_info *data)
 {
 	ft_printf("file:\n%s\n", data->file);
 	pr_str(data->linked_file);
@@ -64,7 +64,7 @@ t_info	*init_data(char **av)
 	string_to_list(data);
 	data->map2d = return_map(data);
 	data->floor = malloc(sizeof(int) * 2);
-	data->ceiling= malloc(sizeof(int) * 2);
+	data->ceiling = malloc(sizeof(int) * 2);
 	if (check_file(data) != 4)
 		return (free_during_init(data));
 	data->floor = 0;

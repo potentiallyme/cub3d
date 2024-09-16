@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/16 18:57:21 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:59:30 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	check_format(char **s)
 	return (SUCCESS);
 }
 
-int recheck_format(int *i)
+int	recheck_format(int *i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (i[j])
@@ -93,11 +93,11 @@ void	print_textures(t_info *data, int i)
 		data->floor[2], data->ceiling[0], data->ceiling[1], data->ceiling[2]);
 }
 
-char **fill_spaces(char **map)
+char	**fill_spaces(char **map)
 {
-	int i;
-	int j;
-	char **s;
+	int		i;
+	int		j;
+	char	**s;
 
 	i = 0;
 	s = ft_strdup_double(map);

@@ -6,15 +6,15 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:46:33 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 16:31:56 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:59:59 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int check_if_map(char *s)
+int	check_if_map(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] && s[i] != '1')
@@ -24,9 +24,9 @@ int check_if_map(char *s)
 	return (0);
 }
 
-t_file *return_map_start(t_file *file)
+t_file	*return_map_start(t_file *file)
 {
-	t_file *tmp;
+	t_file	*tmp;
 
 	tmp = file;
 	while (tmp)
@@ -41,27 +41,27 @@ t_file *return_map_start(t_file *file)
 	return (NULL);
 }
 
-int count_lines(t_file *file)
+int	count_lines(t_file *file)
 {
-	t_file *tmp;
-	int c;
+	t_file	*tmp;
+	int		c;
 
 	tmp = file;
 	c = 0;
 	while (tmp)
 	{
 		c++;
-		tmp = tmp->next;	
+		tmp = tmp->next;
 	}
 	return (c);
 }
 
-char **return_map(t_info *data)
+char	**return_map(t_info *data)
 {
-	t_file *tmp;
-	char **map;
-	int i;
-	
+	t_file	*tmp;
+	char	**map;
+	int		i;
+
 	tmp = return_map_start(data->linked_file);
 	if (!tmp)
 		return (NULL);
