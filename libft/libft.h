@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
-/*   Updated: 2024/08/19 18:02:46 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 17:12:14 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int					ft_isalpha_string(char *s);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
-int					is_space(char c);
+int					ft_isspace(char c);
 int					ft_iterate_double(char **s, int (*f)(char **, int, int));
 int					ft_iterate(char *s, int (*f)(char *, int));
 
@@ -112,6 +112,7 @@ char				*ft_char_trim(char *s, char quote);
 int					ft_count_chars(char *s, char *chars);
 char				*ft_cut_chars(char *s, char *cut);
 char				*ft_itoa(long n);
+int					ft_linelen(char **s);
 char				**ft_split(char const *s, char c);
 char				**ft_split_2(char const *s, char c1, char c2);
 char				*ft_strchr(const char *s, int c);
@@ -122,7 +123,7 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 int					ft_strlen_double(char **s);
-size_t				ft_strlen(const char *s);
+int					ft_strlen(const char *s);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strstr(char *s1, char *s2);

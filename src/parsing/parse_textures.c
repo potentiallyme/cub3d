@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 18:23:26 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:06:07 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ int	check_texture_paths(t_info *data)
 	len = ft_strlen(data->north);
 	// if (!is_xpm(data->north))
 	// ! Set to mlx (img to file) if unsuccesful, fail
-	return 0;
+	return (FAIL);
 }

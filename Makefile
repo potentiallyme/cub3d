@@ -44,7 +44,7 @@ INT			:= $(SRC_INT:%=$(INT_DIR)/%)
 
 # PARSING
 PRS_DIR		:= parsing
-SRC_PRS		:= parse_file.c parse_textures.c
+SRC_PRS		:= parse_file.c parse_textures.c parse_map.c
 PRS			:= $(SRC_PRS:%=$(PRS_DIR)/%)
 
 # ALL SOURCES

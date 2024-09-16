@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 14:50:08 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:05:47 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # define SO 2
 # define EA 3
 # define WE 4
+# define TRUE 1
+# define FALSE 0
+# define SUCCESS 1
+# define FAIL 0
 
 typedef struct s_file // ! used for parsing
 {
@@ -72,6 +76,9 @@ t_data		*init_mlx(void);
 t_info		*init_data(char **av);
 t_ray		*init_ray(void);
 t_player	*init_player(t_info *info);
+
+// * parse_map
+int check_map(char **map);
 
 // * parse_file
 int			check_file(t_info *data);

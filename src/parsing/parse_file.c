@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 18:30:36 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:57:21 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ int	check_format(char **s)
 	int	i;
 
 	if (!s || !s[2])
-		return (0);
+		return (FAIL);
 	i = 0;
 	while (s[i])
 	{
 		n = ft_atoi(s[i]);
 		if (n < 0 || n > 255 || i > 2)
-			return (0);
+			return (FAIL);
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 int recheck_format(int *i)
@@ -38,10 +38,10 @@ int recheck_format(int *i)
 	while (i[j])
 	{
 		if (i[j] < 0 || i[j] > 255)
-			return (1);
+			return (SUCCESS);
 		j++;
 	}
-	return (0);
+	return (FAIL);
 }
 
 void	set_rgb(t_info *data, char **split, char c)
@@ -89,8 +89,30 @@ void	print_textures(t_info *data, int i)
 {
 	ft_printf("i: %i\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", i, data->north,
 		data->south, data->west, data->east);
-	ft_printf("F: %i,%i,%i\nC: %i,%i,%i\n", data->floor[0], data->floor[1],
+	ft_printf("F: %i,%i,%i\nC: %i,%i,%i\n\n", data->floor[0], data->floor[1],
 		data->floor[2], data->ceiling[0], data->ceiling[1], data->ceiling[2]);
+}
+
+char **fill_spaces(char **map)
+{
+	int i;
+	int j;
+	char **s;
+
+	i = 0;
+	s = ft_strdup_double(map);
+	while (s[i])
+	{
+		j = 0;
+		while (s[i][j])
+		{
+			if (s[i][j] == ' ')
+				s[i][j] = 'E';
+			j++;
+		}
+		i++;
+	}
+	return (s);
 }
 
 int	check_file(t_info *data)
@@ -101,8 +123,8 @@ int	check_file(t_info *data)
 	i += check_textures(data, data->linked_file);
 	i += check_rgb(data, 'F');
 	i += check_rgb(data, 'C');
-	print_textures(data, i);
-	// i = check_map(data->map2d);
+	// print_textures(data, i);
+	i += check_map(fill_spaces(data->map2d));
 	// i = check_texture_paths(data); // ? IMG TO FILE part
 	return (i);
 }

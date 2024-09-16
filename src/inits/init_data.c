@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 18:25:12 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/16 18:58:04 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void pr_str(t_file *f)
 	}
 }
 
+void print_data(t_info *data)
+{
+	ft_printf("file:\n%s\n", data->file);
+	pr_str(data->linked_file);
+	ft_printf("map:\n");
+	ft_putstr_double(data->map2d);
+}
+
 t_info	*init_data(char **av)
 {
 	t_info	*data;
@@ -57,14 +65,7 @@ t_info	*init_data(char **av)
 	data->map2d = return_map(data);
 	data->floor = malloc(sizeof(int) * 2);
 	data->ceiling= malloc(sizeof(int) * 2);
-	// return NULL;
-	
-	ft_printf("file:\n%s\n", data->file);
-	pr_str(data->linked_file);
-	ft_printf("map:\n");
-	ft_putstr_double(data->map2d);
-	
-	if (check_file(data) != 3)
+	if (check_file(data) != 4)
 		return (free_during_init(data));
 	data->floor = 0;
 	data->ceiling = 0;
