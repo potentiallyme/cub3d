@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 18:30:36 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:13:13 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int recheck_format(int *i)
 	j = 0;
 	while (i[j])
 	{
+		ft_printf("i[%i] = %i\n", j, i[j]);
 		if (i[j] < 0 || i[j] > 255)
-			return (1);
+			return (0);
 		j++;
 	}
-	return (0);
+	return (1);
 }
 
 void	set_rgb(t_info *data, char **split, char c)
@@ -61,24 +62,38 @@ void	set_rgb(t_info *data, char **split, char c)
 	ft_free(split);
 }
 
-int	check_rgb(t_info *data, char c)
+int rgb_error(t_info *data, char c)
 {
-	t_file	*tmp;
+	if (c == 'F')
+		data->floor[0] = -1;
+	else if (c == 'C')	
+		data->ceiling[0] = -1;
+	return (0);
+}
+
+int	check_rgb(t_info *data, t_file *tmp, char c)
+{
 	char	**split;
 	int		n;
+	int 	i;
 
-	tmp = data->linked_file;
 	n = 0;
+	i = 0;
 	while (tmp)
 	{
-		if (tmp->s[0] == c && tmp->s[1] == ' ')
+		while (tmp->s[i] == ' ')
+			i++;
+		if (tmp->s[i] == c && tmp->s[i + 1] == ' ')
 		{
-			split = ft_split(tmp->s + 2, ',');
+			split = ft_split(tmp->s + i + 2, ',');
 			if (n == 0 && check_format(split))
 				set_rgb(data, split, c);
+			else
+				return (rgb_error(data, c));
 			n++;
 		}
 		tmp = tmp->next;
+		i = 0;
 	}
 	if (c == 'F')
 		return (n + recheck_format(data->floor));
@@ -87,7 +102,7 @@ int	check_rgb(t_info *data, char c)
 
 void	print_textures(t_info *data, int i)
 {
-	ft_printf("i: %i\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", i, data->north,
+	ft_printf("\ni: %i\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", i, data->north,
 		data->south, data->west, data->east);
 	ft_printf("F: %i,%i,%i\nC: %i,%i,%i\n", data->floor[0], data->floor[1],
 		data->floor[2], data->ceiling[0], data->ceiling[1], data->ceiling[2]);
@@ -96,13 +111,16 @@ void	print_textures(t_info *data, int i)
 int	check_file(t_info *data)
 {
 	int	i;
+	t_file	*tmp;
 
 	i = 0;
 	i += check_textures(data, data->linked_file);
-	i += check_rgb(data, 'F');
-	i += check_rgb(data, 'C');
-	print_textures(data, i);
+	tmp = data->linked_file;
+	i += check_rgb(data, tmp, 'F');
+	tmp = data->linked_file;
+	i += check_rgb(data, tmp, 'C');
 	// i = check_map(data->map2d);
 	// i = check_texture_paths(data); // ? IMG TO FILE part
+	print_textures(data, i);
 	return (i);
 }

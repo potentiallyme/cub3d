@@ -4,9 +4,9 @@
 # **************************************************************************** #
 
 NAME		= cub3D
-CC			= @clang
+CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
-LFLAGS		= -lXext -lX11 -lm -lz -o
+LFLAGS		= -Lminilibx-linux -lmlx -L/lib/x86_64-linux-gnu -lX11 -lXext -lXrandr -lXi -lm -Iminilibx-linux -o
 HEAD		= includes/cub3D.h
 MK			= @mkdir -p
 RM			= @rm -rf
@@ -97,7 +97,7 @@ $(INDI)▓▓░░░░░░░░░░░░░░░░░░▒▒▒▒�
 # 								     RULES									   #
 # **************************************************************************** #
 
-all: $(MLX) $(LIBFT) $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(OBJS_DIR)/%.o: %.c $(HEAD)
 	$(MK) $(@D)
@@ -129,7 +129,7 @@ clean:
 
 fclean: clean
 	@make fclean -C $(LIBFT_PATH)
-	@rm -rf $(NAME) $(MLX) $(MLX_A)
+	@rm -rf $(NAME)
 	@printf "\b\b$(FADE)$(RED)(MLX REMOVED!)$(PEACH)\n\n"
 	$(RM) $(NAME)
 

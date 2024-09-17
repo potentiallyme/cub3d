@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 18:25:12 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:08:12 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ t_data	*init_mlx(void)
 	t_data	*game;
 
 	game = malloc(sizeof(t_data));
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		free_mlx(game, 1);
-	game->win = mlx_new_window(game->mlx, S_W, S_H, "cub3D");
-	if (!game->win)
-		free_mlx(game, 1);
+	// game->mlx = mlx_init(); // ! can't test
+	// if (!game->mlx)
+	// 	free_mlx(game, 1);
+	// game->win = mlx_new_window(game->mlx, S_W, S_H, "cub3D");
+	// if (!game->win)
+	// 	free_mlx(game, 1);
 	// set up mouse loop?
+	// ? Temporary
+	game->mlx = 0;
+	game->win = 0;
+	//
 	game->ray = 0;
 	game->info = 0;
 	game->ply = 0;
@@ -57,17 +61,16 @@ t_info	*init_data(char **av)
 	data->map2d = return_map(data);
 	data->floor = malloc(sizeof(int) * 2);
 	data->ceiling= malloc(sizeof(int) * 2);
-	// return NULL;
-	
-	ft_printf("file:\n%s\n", data->file);
+	// ft_printf("file:\n%s\n", data->file);
 	pr_str(data->linked_file);
-	ft_printf("map:\n");
-	ft_putstr_double(data->map2d);
+	// ft_printf("map:\n");
+	// ft_putstr_double(data->map2d);
 	
-	if (check_file(data) != 3)
+	if (check_file(data) != 5)
 		return (free_during_init(data));
 	data->floor = 0;
 	data->ceiling = 0;
+	ft_printf("INIT_DATA SUCCESS");
 	return (data);
 }
 

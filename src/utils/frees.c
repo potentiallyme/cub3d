@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:57 by lmoran            #+#    #+#             */
-/*   Updated: 2024/08/19 16:43:18 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/12 13:46:52 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	*free_during_init(t_info *data)
 
 void free_mlx(t_data *game, int exit_code)
 {
+	ft_printf("FREE_MLX\n");
 	if (!game)
 		exit(exit_code);
 	if (game->mlx && game->win)
