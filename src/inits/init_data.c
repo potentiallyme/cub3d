@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:33:55 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 14:41:37 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_info	*init_data(char **av)
 	data->map2d = return_map(data);
 	data->floor = malloc(sizeof(int) * 2);
 	data->ceiling= malloc(sizeof(int) * 2);
-	if (check_file(data) != 5)
+	if (check_file(data) != 6)
 		return (free_during_init(data));
 	data->floor = 0;
 	data->ceiling = 0;

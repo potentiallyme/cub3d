@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:24:02 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 14:42:24 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ int	check_file(t_info *data)
 	i += check_rgb(data, tmp, 'F');
 	tmp = data->linked_file;
 	i += check_rgb(data, tmp, 'C');
-	// i = check_map(data->map2d);
+	i += check_map(fill_spaces(data->map2d));
 	// i = check_texture_paths(data); // ? IMG TO FILE part
-	print_textures(data, i);
 	return (i);
 }
