@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/12 14:13:13 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 14:16:46 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ int	check_format(char **s)
 	int	i;
 
 	if (!s || !s[2])
-		return (0);
+		return (FAIL);
 	i = 0;
 	while (s[i])
 	{
 		n = ft_atoi(s[i]);
 		if (n < 0 || n > 255 || i > 2)
-			return (0);
+			return (FAIL);
 		i++;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
-int recheck_format(int *i)
+int	recheck_format(int *i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (i[j])
@@ -104,8 +104,30 @@ void	print_textures(t_info *data, int i)
 {
 	ft_printf("\ni: %i\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", i, data->north,
 		data->south, data->west, data->east);
-	ft_printf("F: %i,%i,%i\nC: %i,%i,%i\n", data->floor[0], data->floor[1],
+	ft_printf("F: %i,%i,%i\nC: %i,%i,%i\n\n", data->floor[0], data->floor[1],
 		data->floor[2], data->ceiling[0], data->ceiling[1], data->ceiling[2]);
+}
+
+char	**fill_spaces(char **map)
+{
+	int		i;
+	int		j;
+	char	**s;
+
+	i = 0;
+	s = ft_strdup_double(map);
+	while (s[i])
+	{
+		j = 0;
+		while (s[i][j])
+		{
+			if (s[i][j] == ' ')
+				s[i][j] = 'E';
+			j++;
+		}
+		i++;
+	}
+	return (s);
 }
 
 int	check_file(t_info *data)

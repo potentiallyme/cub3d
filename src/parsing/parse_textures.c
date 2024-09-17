@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/12 14:13:03 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 14:17:26 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ char	*return_texture_paths(t_file *file, char *dir)
 	return (NULL);
 }
 
-void set_texture(t_info *data, t_file *file)
+void	set_texture(t_info *data, t_file *file)
 {
 	if (!ft_strcmp(file->s, "NO") && file->next)
-		data->north = ft_strdup(file->next->s);	
+		data->north = ft_strdup(file->next->s);
 	else if (!ft_strcmp(file->s, "SO") && file->next)
-		data->south = ft_strdup(file->next->s);	
+		data->south = ft_strdup(file->next->s);
 	else if (!ft_strcmp(file->s, "EA") && file->next)
-		data->east = ft_strdup(file->next->s);	
+		data->east = ft_strdup(file->next->s);
 	else if (!ft_strcmp(file->s, "WE") && file->next)
 		data->west = ft_strdup(file->next->s);
 }
@@ -67,9 +67,10 @@ int	recursive_check(t_info *data, t_file *file, char *s, int i)
 int	check_textures(t_info *data, t_file *file)
 {
 	t_file	*tmp;
+	int		i;
 
 	tmp = file;
-	int i = recursive_check(data, tmp, "NO", 0);
+	i = recursive_check(data, tmp, "NO", 0);
 	if (i != 4)
 		return (0);
 	return (1);
@@ -77,11 +78,9 @@ int	check_textures(t_info *data, t_file *file)
 
 int	check_texture_paths(t_info *data)
 {
-	// int	len;
-	(void)data;
-	// len = ft_strlen(data->north);
-	// if (!is_xpm(data->north))
-	// ! Set to mlx (img to file) if unsuccesful, fail
-	// ? Called in check_file in parse_file
-	return 0;
+	int	len;
+
+	len = ft_strlen(data->north);
+	// ! CHECK STRUCTURES
+	return (FAIL);
 }

@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/12 14:08:12 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 14:16:05 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,24 @@ t_data	*init_mlx(void)
 	return (game);
 }
 
-void pr_str(t_file *f)
+void	pr_str(t_file *f)
 {
-	t_file *tpm;
-	
+	t_file	*tpm;
+
 	tpm = f;
 	while (tpm)
 	{
 		ft_printf("tpm->s: %s\n", tpm->s);
 		tpm = tpm->next;
 	}
+}
+
+void	print_data(t_info *data)
+{
+	ft_printf("file:\n%s\n", data->file);
+	pr_str(data->linked_file);
+	ft_printf("map:\n");
+	ft_putstr_double(data->map2d);
 }
 
 t_info	*init_data(char **av)
