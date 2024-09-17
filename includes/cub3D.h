@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/16 18:05:47 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 14:25:51 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ void		free_mlx(t_data *game, int exit_code);
 // * list_utils
 void		add_to_list(t_file **lst, t_file *new);
 void		string_to_list(t_info *data);
+
+// * parse_utils
+void	print_data(t_info *data);
+void	print_textures(t_info *data, int i);
 
 // * init_utils
 char		**return_map(t_info *data);

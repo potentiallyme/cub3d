@@ -34,7 +34,7 @@ CUBE		:= cube.c
 
 # UTILS
 UTL_DIR		:= utils
-SRC_UTL		:= extension_utils.c list_utils.c init_utils.c frees.c
+SRC_UTL		:= extension_utils.c list_utils.c init_utils.c frees.c parse_utils.c
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # INITS

@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 17:57:27 by lmoran            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/12 13:51:51 by lmoran           ###   ########.fr       */
-=======
-/*   Updated: 2024/09/16 18:59:57 by lmoran           ###   ########.fr       */
->>>>>>> refs/remotes/origin/lmoran
+/*   Created: 2024/09/17 14:20:26 by lmoran            #+#    #+#             */
+/*   Updated: 2024/09/17 14:20:29 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +33,15 @@ void	add_to_list(t_file **lst, t_file *new)
 
 void	check_and_add(t_info *data, t_file *new, char *tmp)
 {
-<<<<<<< HEAD
 	t_file *second;
 	int i;
-=======
-	int		i;
-	t_file	*second;
->>>>>>> refs/remotes/origin/lmoran
 
-	second = 0;
-<<<<<<< HEAD
-	i = 0;
-	while (tmp[i] == ' ')
+ 	while (tmp[i] == ' ')
 		i++;
 	if ((tmp[i] == 'N' && tmp[i + 1] == 'O' && tmp[i + 2] == ' ') ||
 		(tmp[i] == 'S' && tmp[i + 1] == 'O' && tmp[i + 2] == ' ') ||
 		(tmp[i] == 'E' && tmp[i + 1] == 'A' && tmp[i + 2] == ' ') ||
 		(tmp[i] == 'W' && tmp[i + 1] == 'E' && tmp[i + 2] == ' '))
-=======
-	if ((tmp[0] == 'N' && tmp[1] == 'O' && tmp[2] == ' ') || (tmp[0] == 'S'
-			&& tmp[1] == 'O' && tmp[2] == ' ') || (tmp[0] == 'E'
-			&& tmp[1] == 'A' && tmp[2] == ' ') || (tmp[0] == 'W'
-			&& tmp[1] == 'E' && tmp[2] == ' '))
->>>>>>> refs/remotes/origin/lmoran
 	{
 		second = malloc(sizeof(t_file));
 		new->s = ft_strndup(tmp + i, 2);

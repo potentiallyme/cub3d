@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:17:26 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 14:21:28 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	check_textures(t_info *data, t_file *file)
 	return (1);
 }
 
-int	check_texture_paths(t_info *data)
-{
-	int	len;
+// int	check_texture_paths(t_info *data)
+// {
+// 	// int	len;
 
-	len = ft_strlen(data->north);
-	// ! CHECK STRUCTURES
-	return (FAIL);
-}
+// 	// len = ft_strlen(data->north);
+// 	// ! CHECK STRUCTURES
+// 	return (FAIL);
+// }
