@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:17:56 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:06:15 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 void	cub_three_d(char **av)
 {
-	t_data	*game;
+	t_mlx	*game;
 
 	game = init_mlx();
 	// ! Home pc can't run mlx, can't test if all inits worked but should work fine
-	game->info = init_data(av);
-	if (!game->info)
+	game->data = init_data(av);
+	if (!game->data)
 		free_mlx(game, 1);
 	game->ray = init_ray();
-	game->ply = init_player(game->info);
-	if (!game || !game->info)
+	game->ply = init_player(game->data);
+	if (!game || !game->data)
 		return ;
+	mlx_key_hook(game->win, &key_press, game);
+	// mlx_loop_hook(mlx.mlx_ptr, &draw_map_pixel, &mlx); //?where is draw_map_pixel
+	mlx_loop(game->mlx_p);
 }
 
 int	main(int ac, char **av)

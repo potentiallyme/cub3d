@@ -3,4 +3,4 @@ minilibx-linux
 .vscode
 cub3D
 libft/libft.a
-
+.vscode/settings.json

@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:26 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:20:29 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 15:35:40 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_to_list(t_file **lst, t_file *new)
 	}
 }
 
-void	check_and_add(t_info *data, t_file *new, char *tmp)
+void	check_and_add(t_data *data, t_file *new, char *tmp)
 {
 	t_file *second;
 	int i;
@@ -56,7 +56,7 @@ void	check_and_add(t_info *data, t_file *new, char *tmp)
 	}
 }
 
-void	string_to_list(t_info *data)
+void	string_to_list(t_data *data)
 {
 	int		i;
 	char	**tmp;

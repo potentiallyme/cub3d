@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:46:33 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/16 18:59:59 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 15:34:43 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	count_lines(t_file *file)
 	return (c);
 }
 
-char	**return_map(t_info *data)
+char	**return_map(t_data *data)
 {
 	t_file	*tmp;
 	char	**map;

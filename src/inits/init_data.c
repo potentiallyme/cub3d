@@ -6,18 +6,18 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:41:37 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:01:59 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-t_data	*init_mlx(void)
+t_mlx	*init_mlx(void)
 {
-	t_data	*game;
+	t_mlx	*game;
 
-	game = malloc(sizeof(t_data));
-	// game->mlx = mlx_init(); // ! can't test at home
+	game = malloc(sizeof(t_mlx));
+	// game->mlx_p = mlx_init(); // ! can't test at home
 	// if (!game->mlx)
 	// 	free_mlx(game, 1);
 	// game->win = mlx_new_window(game->mlx, S_W, S_H, "cub3D");
@@ -25,23 +25,21 @@ t_data	*init_mlx(void)
 	// 	free_mlx(game, 1);
 	// set up mouse loop?
 	// ? Temporary
-	game->mlx = 0;
+	game->mlx_p = 0;
 	game->win = 0;
 	//
 	game->ray = 0;
-	game->info = 0;
 	game->ply = 0;
-	game->exit = 0;
 	return (game);
 }
 
-t_info	*init_data(char **av)
+t_data	*init_data(char **av)
 {
-	t_info	*data;
+	t_data	*data;
 	int		fd;
 
 	fd = open(av[1], O_RDWR);
-	data = malloc(sizeof(t_info));
+	data = malloc(sizeof(t_data));
 	data->exit = 0;
 	data->file = return_gnl(fd);
 	data->linked_file = 0;
@@ -53,6 +51,8 @@ t_info	*init_data(char **av)
 		return (free_during_init(data));
 	data->floor = 0;
 	data->ceiling = 0;
+	data->p_x = 0; // find player char then send to init_player
+	data->p_y = 0;
 	ft_printf("INIT_DATA SUCCESS");
 	return (data);
 }
@@ -62,8 +62,17 @@ t_ray	*init_ray(void)
 	return (NULL);
 }
 
-t_player	*init_player(t_info *info)
+t_player	*init_player(t_data *data)
 {
-	(void)info;
-	return (NULL);
+	t_player *ply;
+
+	ply = malloc(sizeof(t_player));
+	ply->angle = 0;
+	ply->fov_radian = 0;
+	ply->l_r = 0;
+	ply->ply_x = data->p_x; // ? NEED IN PARSING (FIND PLAYER CHAR)
+	ply->ply_y = data->p_y;
+	ply->rot = 0;
+	ply->u_d = 0;
+	return (ply);
 }

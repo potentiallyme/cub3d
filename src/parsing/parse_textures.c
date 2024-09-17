@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:21:28 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 15:02:22 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*return_texture_paths(t_file *file, char *dir)
 	return (NULL);
 }
 
-void	set_texture(t_info *data, t_file *file)
+void	set_texture(t_data *data, t_file *file)
 {
 	if (!ft_strcmp(file->s, "NO") && file->next)
 		data->north = ft_strdup(file->next->s);
@@ -38,7 +38,7 @@ void	set_texture(t_info *data, t_file *file)
 		data->west = ft_strdup(file->next->s);
 }
 
-int	recursive_check(t_info *data, t_file *file, char *s, int i)
+int	recursive_check(t_data *data, t_file *file, char *s, int i)
 {
 	t_file	*tmp;
 	int		n;
@@ -64,7 +64,7 @@ int	recursive_check(t_info *data, t_file *file, char *s, int i)
 	return (n);
 }
 
-int	check_textures(t_info *data, t_file *file)
+int	check_textures(t_data *data, t_file *file)
 {
 	t_file	*tmp;
 	int		i;
@@ -76,11 +76,8 @@ int	check_textures(t_info *data, t_file *file)
 	return (1);
 }
 
-// int	check_texture_paths(t_info *data)
+// int	check_texture_paths(t_data *data)
 // {
-// 	// int	len;
-
-// 	// len = ft_strlen(data->north);
 // 	// ! CHECK STRUCTURES
 // 	return (FAIL);
 // }

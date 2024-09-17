@@ -32,24 +32,34 @@ MLX_PATH = minilibx-linux
 # CUB3D
 CUBE		:= cube.c
 
-# UTILS
-UTL_DIR		:= utils
-SRC_UTL		:= extension_utils.c list_utils.c init_utils.c frees.c parse_utils.c
-UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
-
 # INITS
 INT_DIR		:= inits
 SRC_INT		:= init_data.c
 INT			:= $(SRC_INT:%=$(INT_DIR)/%)
 
+# MOVEMENT
+MVT_DIR		:= movement
+SRC_MVT		:= collisions.c keypresses.c
+MVT			:= $(SRC_MVT:%=$(MVT_DIR)/%)		
+
 # PARSING
 PRS_DIR		:= parsing
-SRC_PRS		:= parse_file.c parse_textures.c parse_map.c
+SRC_PRS		:= parse_file.c parse_rgb.c parse_map.c parse_textures.c
 PRS			:= $(SRC_PRS:%=$(PRS_DIR)/%)
+
+# RAYCASTING
+RC_DIR		:= raycasting
+SRC_RC		:= ray_check.c raycasting.c rendering.c
+RC			:= $(SRC_RC:%=$(RC_DIR)/%)	
+
+# UTILS
+UTL_DIR		:= utils
+SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c
+UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # ALL SOURCES
 SRCS_DIR	:= src
-ALL_SRCS	:= $(CUBE) $(UTL) $(INT) $(PRS)
+ALL_SRCS	:= $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL)
 SRCS		:= $(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS

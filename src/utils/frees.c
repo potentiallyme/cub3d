@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 14:20:45 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/17 15:34:18 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_file_list(t_file *file)
 	}
 }
 
-void	free_textures(t_info *data)
+void	free_textures(t_data *data)
 {
 	if (data->north)
 		free(data->north);
@@ -38,7 +38,7 @@ void	free_textures(t_info *data)
 		free(data->west);
 }
 
-void	*free_during_init(t_info *data)
+void	*free_during_init(t_data *data)
 {
 	ft_free(data->map2d);
 	free_file_list(data->linked_file);
@@ -49,18 +49,18 @@ void	*free_during_init(t_info *data)
 	return (NULL);
 }
 
-void	free_mlx(t_data *game, int exit_code)
+void	free_mlx(t_mlx *game, int exit_code)
 {
 	ft_printf("FREE_MLX\n");
 	if (!game)
 		exit(exit_code);
-	if (game->mlx && game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
+	if (game->mlx_p && game->win)
+		mlx_destroy_window(game->mlx_p, game->win);
+	if (game->mlx_p)
 	{
-		mlx_destroy_display(game->mlx);
-		mlx_loop_end(game->mlx);
-		free(game->mlx);
+		mlx_destroy_display(game->mlx_p);
+		mlx_loop_end(game->mlx_p);
+		free(game->mlx_p);
 	}
 	free(game);
 	exit(exit_code);
