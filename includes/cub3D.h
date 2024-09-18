@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 16:16:54 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/18 15:55:40 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,16 +123,16 @@ typedef struct s_data
 	char			*south;
 	char			*west;
 	char			*east;
-	int			*floor;
-	int			*ceiling;
+	int				*floor;
+	int				*ceiling;
 }					t_data;
 
 typedef struct s_ray
 {
-	double			ray_angle;
-	double distance; // distance to wall
-	int				wall_flag;
-	int index; // for rendering
+	double		ray_angle;
+	double 		distance; // distance to wall
+	int			wall_flag;
+	int 		index; // for rendering
 }					t_ray;
 
 // typedef struct s_texture
@@ -168,12 +168,13 @@ typedef struct s_texture
 
 typedef struct s_mlx // the mlx structure
 {
-	void *win;
-	void *mlx_p;  // the mlx pointer
-	t_ray *ray;    // the ray structure
-	t_data *data;  // the data structure
-	t_player *ply; // the player structure
-	t_image *img;  // the image
+	void 		*win;
+	void 		*mlx_p;  // the mlx pointer
+	t_ray 		*ray;    // the ray structure
+	t_data 		*data;  // the data structure
+	t_player	*ply; // the player structure
+	t_image		*img;  // the image
+	t_file		*file;
 	t_texture *tex;
 }					t_mlx;
 
@@ -194,7 +195,7 @@ void				rotate_view(t_mlx *mlx, int i);
 void				ft_release(t_keydata keydata, t_mlx *mlx);
 int					key_press(t_keydata keydata, void *ml);
 void				move_player(t_mlx *mlx, double move_x, double move_y);
-void				handle_ply_movement(t_mlx *mlx);
+void				handle_ply_movement(t_mlx *mlx, double move_x, double move_y);
 int					wall_hit(t_mlx *mlx, double x, double y);
 int					check_direction(double angle, char c);
 
@@ -216,7 +217,7 @@ double				adjust_inter(double angle, double inter, double step,
 void				rendering(t_mlx *mlx, int ray);
 void				render_walls(t_mlx *mlx, double t_pixel, double b_pixel,
 						double wall_h);
-t_image			*get_texture(t_mlx *mlx, int wall_flag);
+t_image				*get_texture(t_mlx *mlx, int wall_flag);
 void				render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel,
 						double b_pixel);
 void				new_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
@@ -231,6 +232,7 @@ int					is_png(char *s);
 void				free_file_list(t_file *file);
 void				*free_during_init(t_data *data);
 void				free_mlx(t_mlx *game, int exit_code);
+void				ft_exit(t_mlx *mlx);
 
 // * init_utils
 char				**return_map(t_data *data);

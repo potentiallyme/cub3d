@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 15:34:18 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:18:50 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,16 @@ void	free_mlx(t_mlx *game, int exit_code)
 	}
 	free(game);
 	exit(exit_code);
+}
+
+void	ft_exit(t_mlx *mlx) //new add
+{
+	// temporary
+	mlx_destroy_image(mlx->mlx_p, mlx->img);
+	mlx_destroy_window(mlx->mlx_p, mlx->win);
+	free_file_list(mlx->file);
+	free_textures(mlx->tex);
+	free_mlx(mlx, 0);
+	ft_putstr_fd("Game Closed\n", 1);
+	exit(0);
 }

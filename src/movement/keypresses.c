@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keypresses.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/17 16:14:08 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/18 15:44:56 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ void	ft_release(t_keydata keydata, t_mlx *mlx)
 		mlx->ply->rot = 0;
 }
 
-void ft_exit(t_mlx *mlx)
-{
-	// temporary
-	free_mlx(mlx, 0);
-}
-
 int	key_press(t_keydata keydata, void *ml)
 {
 	t_mlx *mlx;
@@ -75,7 +69,7 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 {
 	int	new_x;
 	int	new_y;
-	int map_array_x;
+	int	map_array_x;
 	int	map_array_y;
 
 	new_x = roundf(mlx->ply->ply_x + move_x);
@@ -89,12 +83,9 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 	}
 }
 
-void	handle_ply_movement(t_mlx *mlx) //mlx_loop_hook->draw_map_pixel
+void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y) //mlx_loop_hook->draw_map_pixel
 {
 	//add PLAYER_SPEED??
-	double move_x;
-	double move_y;
-
 	if (mlx->ply->rot == 1)
 		rotate_view(mlx, 1);
 	if (mlx->ply->rot == -1)

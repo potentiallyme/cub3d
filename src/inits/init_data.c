@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 16:01:59 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:18:28 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
+
+void	get_player_pos(t_data *mlx) //new add
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (mlx->map2d[i])
+	{
+		j = 0;
+		while (mlx->map2d[i][j])
+		{
+			if (mlx->map2d[i][j] == 'N' || mlx->map2d[i][j] == 'S'
+				|| mlx->map2d[i][j] == 'W' || mlx->map2d[i][j] == 'E')
+			{
+				mlx->p_x = j;
+				mlx->p_y = i;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
 
 t_mlx	*init_mlx(void)
 {
