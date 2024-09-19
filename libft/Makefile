@@ -8,7 +8,7 @@ NAME	=	libft.a
 # 								  COMMANDS									   #
 # **************************************************************************** #
 
-CC		=	cc
+CC		=	@clang
 CFLAGS	=	-Wall -Wextra -Werror
 IFLAGS	=	-Iinc
 MK		=	@mkdir -p

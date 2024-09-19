@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:26 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 15:35:40 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:04:27 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	check_and_add(t_data *data, t_file *new, char *tmp)
 	t_file *second;
 	int i;
 
+	i = 0;
  	while (tmp[i] == ' ')
 		i++;
 	if ((tmp[i] == 'N' && tmp[i + 1] == 'O' && tmp[i + 2] == ' ') ||

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/18 15:55:40 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:41:50 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,15 @@ typedef struct s_data
 	char			*file;
 	t_file			*linked_file;
 	char			**map2d;
-	char			**square_map;
+	char			**square_map; //
 	char			*north;
 	char			*south;
 	char			*west;
 	char			*east;
 	int				*floor;
 	int				*ceiling;
+	char 			**c_floor;
+	char			**c_ceiling;
 }					t_data;
 
 typedef struct s_ray
@@ -152,8 +154,9 @@ typedef struct s_instance
 
 typedef struct s_image
 {
-	const uint32_t	width;
-	const uint32_t	height;
+	void 			*img;
+	int				width;
+	int				height;
 	uint8_t			*pixels;
 	t_instance		*instances;
 }					t_image;
@@ -175,7 +178,7 @@ typedef struct s_mlx // the mlx structure
 	t_player	*ply; // the player structure
 	t_image		*img;  // the image
 	t_file		*file;
-	t_texture *tex;
+	t_texture	*tex;
 }					t_mlx;
 
 typedef struct s_keydata
@@ -189,6 +192,7 @@ t_mlx				*init_mlx(void);
 t_data				*init_data(char **av);
 t_ray				*init_ray(void);
 t_player			*init_player(t_data *data);
+void	set_mlx_images(t_mlx *game);
 
 // ! MOVEMENT
 void				rotate_view(t_mlx *mlx, int i);

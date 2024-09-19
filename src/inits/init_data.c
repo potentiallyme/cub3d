@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/18 16:18:28 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:28:57 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,13 @@ t_mlx	*init_mlx(void)
 	t_mlx	*game;
 
 	game = malloc(sizeof(t_mlx));
-	// game->mlx_p = mlx_init(); // ! can't test at home
-	// if (!game->mlx)
-	// 	free_mlx(game, 1);
-	// game->win = mlx_new_window(game->mlx, S_W, S_H, "cub3D");
-	// if (!game->win)
-	// 	free_mlx(game, 1);
+	game->mlx_p = mlx_init();
+	if (!game->mlx_p)
+		free_mlx(game, 1);
+	game->win = mlx_new_window(game->mlx_p, S_W, S_H, "cub3D");
+	if (!game->win)
+		free_mlx(game, 1);
 	// set up mouse loop?
-	// ? Temporary
-	game->mlx_p = 0;
-	game->win = 0;
-	//
-	game->ray = 0;
-	game->ply = 0;
 	return (game);
 }
 
@@ -70,25 +64,30 @@ t_data	*init_data(char **av)
 	string_to_list(data);
 	data->map2d = return_map(data);
 	data->floor = malloc(sizeof(int) * 2);
-	data->ceiling= malloc(sizeof(int) * 2);
+	data->ceiling = malloc(sizeof(int) * 2);
 	if (check_file(data) != 6)
 		return (free_during_init(data));
-	data->floor = 0;
-	data->ceiling = 0;
 	data->p_x = 0; // find player char then send to init_player
 	data->p_y = 0;
-	ft_printf("INIT_DATA SUCCESS");
+	ft_printf("INIT_DATA SUCCESS\n");
 	return (data);
 }
 
 t_ray	*init_ray(void)
 {
-	return (NULL);
+	t_ray	*ray;
+
+	ray = malloc(sizeof(t_ray));
+	ray->distance = 0;
+	ray->index = 0;
+	ray->ray_angle = 0;
+	ray->wall_flag = 0;
+	return (ray);
 }
 
 t_player	*init_player(t_data *data)
 {
-	t_player *ply;
+	t_player	*ply;
 
 	ply = malloc(sizeof(t_player));
 	ply->angle = 0;
@@ -99,4 +98,23 @@ t_player	*init_player(t_data *data)
 	ply->rot = 0;
 	ply->u_d = 0;
 	return (ply);
+}
+
+void	set_mlx_images(t_mlx *game)
+{
+	t_texture *tx;
+	
+	tx = game->tex;
+	tx->no_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->north,&(tx->no_img->width),&(tx->no_img->height));
+	if (!tx->no_img->img)
+		ft_exit(game);
+	tx->so_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->south,&(tx->so_img->width),&(tx->so_img->height));
+	if (!tx->so_img->img)
+		ft_exit(game);
+	tx->ea_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->east,&(tx->ea_img->width),&(tx->ea_img->height));
+	if (!tx->ea_img->img)
+		ft_exit(game);
+	tx->we_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->west,&(tx->we_img->width),&(tx->we_img->height));
+	if (!tx->we_img->img)
+		ft_exit(game);
 }

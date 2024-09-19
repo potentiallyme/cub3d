@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 15:26:32 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/19 16:10:26 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ void	set_rgb(t_data *data, char **split, char c)
 {
 	if (c == 'F')
 	{
+		data->c_floor = ft_strdup_double(split);
 		data->floor[0] = ft_atoi(split[0]);
 		data->floor[1] = ft_atoi(split[1]);
 		data->floor[2] = ft_atoi(split[2]);
 	}
 	else if (c == 'C')
 	{
+		data->c_ceiling = ft_strdup_double(split);
 		data->ceiling[0] = ft_atoi(split[0]);
 		data->ceiling[1] = ft_atoi(split[1]);
 		data->ceiling[2] = ft_atoi(split[2]);

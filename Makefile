@@ -4,7 +4,7 @@
 # **************************************************************************** #
 
 NAME		= cub3D
-CC			= gcc
+CC			= @clang
 CFLAGS		= -Wall -Wextra -Werror
 LFLAGS		= -Lminilibx-linux -lmlx -L/lib/x86_64-linux-gnu -lX11 -lXext -lXrandr -lXi -lm -Iminilibx-linux -o
 HEAD		= includes/cub3D.h
@@ -49,7 +49,7 @@ PRS			:= $(SRC_PRS:%=$(PRS_DIR)/%)
 
 # RAYCASTING
 RC_DIR		:= raycasting
-SRC_RC		:= ray_check.c raycasting.c rendering.c
+SRC_RC		:= raycasting.c rendering.c
 RC			:= $(SRC_RC:%=$(RC_DIR)/%)	
 
 # UTILS

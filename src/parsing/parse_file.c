@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 15:26:38 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:55:26 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	check_file(t_data *data)
 	tmp = data->linked_file;
 	i += check_rgb(data, tmp, 'C');
 	i += check_map(fill_spaces(data->map2d));
-	// i = check_texture_paths(data); // ? IMG TO FILE part
+	// i = check_texture_paths(data); // ?  TO FILE part
+	print_textures(data, i);
 	return (i);
 }

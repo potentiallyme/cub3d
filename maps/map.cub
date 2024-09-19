@@ -1,11 +1,11 @@
-        SO textures/wolfenstein/purple_stone.xpm
-                                                WE textures/wolfenstein/red_brick.xpm
+        SO ./textures/ClaimedE.xpm
+                                                WE ./textures/ClaimedE.xpm
 
                         F 220,100,10
-                NO textures/wolfenstein/grey_stone.xpm
+                NO ./textures/ClaimedE.xpm
 
 C 225,30,0
-EA textures/wolfenstein/wood.xpm
+EA ./textures/ClaimedE.xpm
 
         11111111111 1111111111111
         1000000000111000000000001

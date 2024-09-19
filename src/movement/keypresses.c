@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/18 15:44:56 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:30:04 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	ft_release(t_keydata keydata, t_mlx *mlx)
 
 int	key_press(t_keydata keydata, void *ml)
 {
-	t_mlx *mlx;
+	t_mlx	*mlx;
+	
 	mlx = ml;
 	if (keydata.key == KEY_ESC && (keydata.action == KEY_PRESS))
 		ft_exit(mlx);
