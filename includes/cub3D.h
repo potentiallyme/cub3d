@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 17:41:50 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:31:46 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
@@ -65,9 +67,9 @@
 # define KEY_TAB 48
 
 // key press detect
-# define KEY_RELEASE 0
-# define KEY_PRESS 1
-# define KEY_REPEAT 2
+# define KEY_PRESS 2
+# define KEY_RELEASE 3
+# define KEY_REPEAT 4
 
 // colors
 # define BLACK 0x000000FF
@@ -157,7 +159,10 @@ typedef struct s_image
 	void 			*img;
 	int				width;
 	int				height;
-	uint8_t			*pixels;
+	int 			pixel_bits;
+	int 			size_line;
+	int				endian;
+	int				*pixels;
 	t_instance		*instances;
 }					t_image;
 
@@ -196,8 +201,8 @@ void	set_mlx_images(t_mlx *game);
 
 // ! MOVEMENT
 void				rotate_view(t_mlx *mlx, int i);
-void				ft_release(t_keydata keydata, t_mlx *mlx);
-int					key_press(t_keydata keydata, void *ml);
+int					key_release(int keycode, t_mlx *ml);
+int					key_press(int keydata, t_mlx *ml);
 void				move_player(t_mlx *mlx, double move_x, double move_y);
 void				handle_ply_movement(t_mlx *mlx, double move_x, double move_y);
 int					wall_hit(t_mlx *mlx, double x, double y);

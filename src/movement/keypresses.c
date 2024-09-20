@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/19 18:30:04 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:41:00 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,39 @@ void	rotate_view(t_mlx *mlx, int i)
 	}
 }
 
-void	ft_release(t_keydata keydata, t_mlx *mlx)
+int	key_release(int keycode, t_mlx *ml)
 {
-	if (keydata.key == KEY_W && (keydata.action == KEY_RELEASE))
-		mlx->ply->u_d = 0;
-	else if (keydata.key == KEY_S && (keydata.action == KEY_RELEASE))
-		mlx->ply->u_d = 0;
-	else if (keydata.key == KEY_A && (keydata.action == KEY_RELEASE))
-		mlx->ply->l_r = 0;
-	else if (keydata.key == KEY_D && (keydata.action == KEY_RELEASE))
-		mlx->ply->l_r = 0;
-	else if (keydata.key == KEY_LEFT && keydata.action == KEY_RELEASE)
-		mlx->ply->rot = 0;
-	else if (keydata.key == KEY_RIGHT && keydata.action == KEY_RELEASE)
-		mlx->ply->rot = 0;
+	if (keycode == XK_w)
+		ml->ply->u_d = 0;
+	else if (keycode == XK_s)
+		ml->ply->u_d = 0;
+	else if (keycode == XK_a)
+		ml->ply->l_r = 0;
+	else if (keycode == XK_d)
+		ml->ply->l_r = 0;
+	else if (keycode == XK_Left)
+		ml->ply->rot = 0;
+	else if (keycode == XK_Right)
+		ml->ply->rot = 0;
+	return (1);
 }
 
-int	key_press(t_keydata keydata, void *ml)
+int	key_press(int keycode, t_mlx *ml)
 {
-	t_mlx	*mlx;
-	
-	mlx = ml;
-	if (keydata.key == KEY_ESC && (keydata.action == KEY_PRESS))
-		ft_exit(mlx);
-	else if (keydata.key == KEY_W && (keydata.action == KEY_PRESS))
-		mlx->ply->u_d = 1;
-	else if (keydata.key == KEY_S && (keydata.action == KEY_PRESS))
-		mlx->ply->u_d = 1;
-	else if (keydata.key == KEY_A && (keydata.action == KEY_PRESS))
-		mlx->ply->l_r = -1;
-	else if (keydata.key == KEY_D && (keydata.action == KEY_PRESS))
-		mlx->ply->l_r = 1;
-	else if (keydata.key == KEY_LEFT && (keydata.action == KEY_PRESS))
-		mlx->ply->rot = -1; //rotation flag
-	else if (keydata.key == KEY_RIGHT)
-		mlx->ply->rot = 1; //rotation flag
-	ft_release(keydata, mlx);
+	if (keycode == 65307)
+		ft_exit(ml);
+	else if (keycode == XK_w && ml->ply->u_d == 0)
+		ml->ply->u_d = -1;
+	else if (keycode == XK_s && ml->ply->u_d == 0)
+		ml->ply->u_d = 1;
+	else if (keycode == XK_a && ml->ply->l_r == 0)
+		ml->ply->l_r = -1;
+	else if (keycode == XK_d && ml->ply->l_r == 0)
+		ml->ply->l_r = 1;
+	else if (keycode == XK_Left && ml->ply->rot == 0)
+		ml->ply->rot = -1;
+	else if (keycode == XK_Right && ml->ply->rot == 0)
+		ml->ply->rot = 1;
 	return (1);
 }
 
@@ -84,7 +81,7 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 	}
 }
 
-void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y) //mlx_loop_hook->draw_map_pixel
+void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y)
 {
 	//add PLAYER_SPEED??
 	if (mlx->ply->rot == 1)

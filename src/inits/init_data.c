@@ -6,13 +6,13 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 18:28:57 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/20 16:52:10 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void	get_player_pos(t_data *mlx) //new add
+void	get_player_pos(t_data *mlx)
 {
 	int	i;
 	int	j;
@@ -47,7 +47,6 @@ t_mlx	*init_mlx(void)
 	game->win = mlx_new_window(game->mlx_p, S_W, S_H, "cub3D");
 	if (!game->win)
 		free_mlx(game, 1);
-	// set up mouse loop?
 	return (game);
 }
 
@@ -67,7 +66,7 @@ t_data	*init_data(char **av)
 	data->ceiling = malloc(sizeof(int) * 2);
 	if (check_file(data) != 6)
 		return (free_during_init(data));
-	data->p_x = 0; // find player char then send to init_player
+	data->p_x = 0;
 	data->p_y = 0;
 	ft_printf("INIT_DATA SUCCESS\n");
 	return (data);
@@ -93,28 +92,47 @@ t_player	*init_player(t_data *data)
 	ply->angle = 0;
 	ply->fov_radian = 0;
 	ply->l_r = 0;
-	ply->ply_x = data->p_x; // ? NEED IN PARSING (FIND PLAYER CHAR)
+	ply->ply_x = data->p_x;
 	ply->ply_y = data->p_y;
 	ply->rot = 0;
 	ply->u_d = 0;
 	return (ply);
 }
 
+void	set_mlx_pixels(t_texture *tx)
+{
+	tx->no_img->pixels = (int *)mlx_get_data_addr(tx->no_img->img, \
+	&tx->no_img->pixel_bits, &tx->no_img->size_line, &tx->no_img->endian);
+
+	tx->so_img->pixels = (int *)mlx_get_data_addr(tx->so_img->img, \
+	&tx->so_img->pixel_bits, &tx->so_img->size_line, &tx->so_img->endian);
+
+	tx->ea_img->pixels = (int *)mlx_get_data_addr(tx->ea_img->img, \
+	&tx->ea_img->pixel_bits, &tx->ea_img->size_line, &tx->ea_img->endian);
+
+	tx->we_img->pixels = (int *)mlx_get_data_addr(tx->we_img->img, \
+	&tx->we_img->pixel_bits, &tx->we_img->size_line, &tx->we_img->endian);
+}
+
 void	set_mlx_images(t_mlx *game)
 {
-	t_texture *tx;
-	
+	t_texture	*tx;
+
 	tx = game->tex;
-	tx->no_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->north,&(tx->no_img->width),&(tx->no_img->height));
+	tx->no_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->north, \
+	&(tx->no_img->width),&(tx->no_img->height));
 	if (!tx->no_img->img)
 		ft_exit(game);
-	tx->so_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->south,&(tx->so_img->width),&(tx->so_img->height));
+	tx->so_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->south, \
+	&(tx->so_img->width), &(tx->so_img->height));
 	if (!tx->so_img->img)
 		ft_exit(game);
-	tx->ea_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->east,&(tx->ea_img->width),&(tx->ea_img->height));
+	tx->ea_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->east, \
+	&(tx->ea_img->width), &(tx->ea_img->height));
 	if (!tx->ea_img->img)
 		ft_exit(game);
-	tx->we_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->west,&(tx->we_img->width),&(tx->we_img->height));
+	tx->we_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->west, \
+	&(tx->we_img->width), &(tx->we_img->height));
 	if (!tx->we_img->img)
 		ft_exit(game);
 }

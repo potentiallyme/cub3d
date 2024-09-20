@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/19 16:57:29 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:39:41 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,20 @@ int	get_color(int r, int g, int b, int a)
 
 void	render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel, double b_pixel)
 {
-	int	i;
-	char **floor_color;
-	char **ceiling_color;
+	int		i;
+	char	**floor_color;
+	char	**ceiling_color;
 
-	// color = get_color();
 	i = b_pixel;
-	floor_color = mlx->data->c_floor; // *int = [244,54,12]
+	floor_color = mlx->data->c_floor;
 	while (i < S_H)
-		new_mlx_pixel_put(mlx, ray, i++, get_color(ft_atoi(floor_color[0]), ft_atoi(floor_color[1]), ft_atoi(floor_color[2]), 255));
+		new_mlx_pixel_put(mlx, ray, i++, get_color(ft_atoi(floor_color[0]), \
+		ft_atoi(floor_color[1]), ft_atoi(floor_color[2]), 255));
 	i = 0;
 	ceiling_color = mlx->data->c_ceiling;
 	while (i < t_pixel)
-		new_mlx_pixel_put(mlx, ray, i++, get_color(ft_atoi(ceiling_color[0]), ft_atoi(ceiling_color[1]), ft_atoi(ceiling_color[2]), 255));
+		new_mlx_pixel_put(mlx, ray, i++, get_color(ft_atoi(ceiling_color[0]), \
+		ft_atoi(ceiling_color[1]), ft_atoi(ceiling_color[2]), 255));
 
 }
 
@@ -64,12 +65,17 @@ t_image	*get_texture(t_mlx *mlx, int wall_flag)
 
 void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel, double wall_h)
 {
+	double	y_o;
 	t_image	*texture;
+	double	factor;
 
 	texture = get_texture(mlx, mlx->ray->wall_flag);
+	factor = (double)texture->height / wall_h;
+	y_o = (t_pixel - (S_H / 2) + (wall_h / 2)) * factor;
 	while (t_pixel < b_pixel)
 	{
-		new_mlx_pixel_put(mlx, mlx->ray->index, t_pixel, 0x000000FF); //parameters?? color?
+		new_mlx_pixel_put(mlx, mlx->ray->index, t_pixel, 0x000000FF);
+		y_o += factor;
 		t_pixel++;
 	}
 	(void)wall_h;
@@ -90,6 +96,7 @@ void	rendering(t_mlx *mlx, int ray)
 		top_pixel = S_H;
 	if (bottom_pixel < 0)
 		bottom_pixel = 0;
+	mlx->ray->index = ray;
 	render_walls(mlx, top_pixel, bottom_pixel, wall_height);
 	render_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
 }

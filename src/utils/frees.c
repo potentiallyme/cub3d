@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 18:12:03 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/20 17:36:54 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_exit(t_mlx *mlx) //new add
 {
 	// temporary
 	// mlx_destroy_image(mlx->mlx_p, mlx->img);
-	ft_printf("YOOOO\n");
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
 	free_file_list(mlx->file);
 	free_textures(mlx->data);
