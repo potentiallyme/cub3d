@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/20 17:39:41 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/24 20:15:25 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	new_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	mlx_pixel_put(mlx->mlx_p, mlx->win, x, y, color);
 }
 
-int	get_color(int r, int g, int b, int a)
+int	get_color(int r, int g, int b)
 {
-	return (r << 24 | g << 16 | b << 8 | a << 0);
+	return (r << 16 | g << 8 | b << 0);
 }
 
 void	render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel, double b_pixel)
@@ -34,12 +34,12 @@ void	render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel, double b_pixel)
 	floor_color = mlx->data->c_floor;
 	while (i < S_H)
 		new_mlx_pixel_put(mlx, ray, i++, get_color(ft_atoi(floor_color[0]), \
-		ft_atoi(floor_color[1]), ft_atoi(floor_color[2]), 255));
+		ft_atoi(floor_color[1]), ft_atoi(floor_color[2])));
 	i = 0;
 	ceiling_color = mlx->data->c_ceiling;
 	while (i < t_pixel)
 		new_mlx_pixel_put(mlx, ray, i++, get_color(ft_atoi(ceiling_color[0]), \
-		ft_atoi(ceiling_color[1]), ft_atoi(ceiling_color[2]), 255));
+		ft_atoi(ceiling_color[1]), ft_atoi(ceiling_color[2])));
 
 }
 
@@ -98,5 +98,5 @@ void	rendering(t_mlx *mlx, int ray)
 		bottom_pixel = 0;
 	mlx->ray->index = ray;
 	render_walls(mlx, top_pixel, bottom_pixel, wall_height);
-	render_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
+	// render_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
 }

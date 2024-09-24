@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/20 17:55:46 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/24 18:54:09 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,42 @@ void img_set(t_mlx *mlx, t_image *img, int height, int width)
 	&img->size_line, &img->endian);
 }
 
-void put_pixels(t_mlx *mlx, t_img *img, int x, int y)
+void draw_pix(t_image *img, int x, int y, int color)
 {
-	if ()
+	int c_b;
+	int px;
+
+	c_b = img->pixel_bits / 8;
+	px = (y * img->size_line) / c_b + x;
+	*(img->pixels + px) = color;
 }
 
 int	draw_map_pixel(void *ml) //new add
 {
 	t_mlx	*mlx;
 	t_image image;
-	int x = 0;
-	int y = 0;
+	int x;
+	int y = -1;
 
 	mlx = ml;
 	image.img = NULL;
 	img_set(mlx, &image, S_H, S_W);
-	y = 0;
-	while (y < S_H)
+	while (++y < S_H / 2)
 	{
-		x = 0;
-		while (x < S_W)
+		x = -1;
+		while (++x < S_W)
 		{
-			
+			draw_pix(&image, x, y, get_color(ft_atoi(mlx->data->c_ceiling[0]), \
+		ft_atoi(mlx->data->c_ceiling[1]), ft_atoi(mlx->data->c_ceiling[2])));
+			draw_pix(&image, x, y + (S_H / 2), get_color(ft_atoi(mlx->data->c_floor[0]), \
+		ft_atoi(mlx->data->c_floor[1]), ft_atoi(mlx->data->c_floor[2])));
 		}
 	}
+	mlx_put_image_to_window(mlx->mlx_p, mlx->win, image.img, 0, 0);
+	// mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->tex->no_img, 0, 0);
 	handle_ply_movement(mlx, 0, 0);
+	// return 0;
 	cast_rays(mlx);
-	mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->tex->no_img->img, 0, 0);
 	return (1);
 }
 
@@ -97,13 +106,12 @@ void	cub_three_d(char **av)
 		free_mlx(game, 1);
 	set_mlx_images(game);
 	game->ray = init_ray();
-	game->ply = init_player(game->data);
-	if (!game || !game->data)
-		return ;
+	game->ply = init_player(game);
+	if (!game || !game->data || !game->ply)
+		return (ft_exit(game)); // ! need to check for what to free
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, game);
 	mlx_loop_hook(game->mlx_p, draw_map_pixel, game);
-	ft_printf("here");
 	mlx_loop(game->mlx_p);
 	ft_exit(game);
 }

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/20 17:31:46 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/24 18:49:26 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@
 # define EA 3
 # define WE 4
 
-# define TILE_SIZE 30
+# define TILE_SIZE 32
 # define FOV (60 * M_PI / 180) // field of view = 60
 # define NUM_RAYS 320          // Number of rays to cast
 
@@ -116,7 +116,7 @@ typedef struct s_data
 	int				map_w;
 	int				map_h;
 	int				p_x;
-	int				p_y;
+	int				p_y; // char position in 2d map
 	char			*file;
 	t_file			*linked_file;
 	char			**map2d;
@@ -147,7 +147,7 @@ typedef struct s_ray
 // 	uint8_t*	pixels;
 // }	t_texture;
 
-typedef struct s_instance
+typedef struct s_instance// player y position in pixels
 {
 	int32_t			x;
 	int32_t			y;
@@ -191,12 +191,13 @@ typedef struct s_keydata
 	int32_t			key;
 	int32_t action; // key press detect
 }					t_keydata;
+int	get_color(int r, int g, int b);
 
 // ! INITS
 t_mlx				*init_mlx(void);
 t_data				*init_data(char **av);
 t_ray				*init_ray(void);
-t_player			*init_player(t_data *data);
+t_player	*init_player(t_mlx *game);
 void	set_mlx_images(t_mlx *game);
 
 // ! MOVEMENT
@@ -213,6 +214,7 @@ int					check_file(t_data *data);
 int					check_map(char **map);
 int					check_rgb(t_data *data, t_file *tmp, char c);
 int					check_textures(t_data *data, t_file *file);
+int	is_player(char c);
 
 // ! RAYCASTING
 void				cast_rays(t_mlx *mlx);

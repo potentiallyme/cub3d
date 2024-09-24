@@ -6,34 +6,38 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/20 16:52:10 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/24 18:50:38 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void	get_player_pos(t_data *mlx)
+int	get_player_pos(t_data *mlx)
 {
 	int	i;
 	int	j;
+	int n;
 
 	i = 0;
+	n = 0;
 	while (mlx->map2d[i])
 	{
 		j = 0;
 		while (mlx->map2d[i][j])
 		{
-			if (mlx->map2d[i][j] == 'N' || mlx->map2d[i][j] == 'S'
-				|| mlx->map2d[i][j] == 'W' || mlx->map2d[i][j] == 'E')
+			if (is_player(mlx->map2d[i][j]))
 			{
 				mlx->p_x = j;
 				mlx->p_y = i;
-				return ;
+				n++;
 			}
+			if (n > 1)
+				return (FAIL);
 			j++;
 		}
 		i++;
 	}
+	return (SUCCESS);
 }
 
 t_mlx	*init_mlx(void)
@@ -66,8 +70,6 @@ t_data	*init_data(char **av)
 	data->ceiling = malloc(sizeof(int) * 2);
 	if (check_file(data) != 6)
 		return (free_during_init(data));
-	data->p_x = 0;
-	data->p_y = 0;
 	ft_printf("INIT_DATA SUCCESS\n");
 	return (data);
 }
@@ -84,16 +86,39 @@ t_ray	*init_ray(void)
 	return (ray);
 }
 
-t_player	*init_player(t_data *data)
+void get_angle(t_mlx *game, t_player *ply)
+{
+	char c;
+
+	c = game->data->map2d[game->data->p_y][game->data->p_x];
+	if (c == 'N')
+		ply->angle = 3 * M_PI / 2;
+	else if (c == 'S')
+		ply->angle = M_PI / 2;
+	else if (c == 'E')
+		ply->angle = 0;
+	else if (c == 'W')
+		ply->angle = M_PI;
+	printf("c: %c ng: %f\n",c, ply->angle);
+	ply->ply_x = (game->data->p_x * TILE_SIZE) + TILE_SIZE / 2;
+	ply->ply_y = (game->data->p_y * TILE_SIZE) + TILE_SIZE / 2;
+	ply->fov_radian = (FOV * M_PI / 180);
+}
+
+t_player	*init_player(t_mlx *game)
 {
 	t_player	*ply;
 
 	ply = malloc(sizeof(t_player));
-	ply->angle = 0;
 	ply->fov_radian = 0;
 	ply->l_r = 0;
-	ply->ply_x = data->p_x;
-	ply->ply_y = data->p_y;
+	if (get_player_pos(game->data) == FAIL)
+	{
+		free(ply);
+		return (NULL);
+	}
+	get_angle(game, ply);
+	printf("ang: %f\n", ply->angle);
 	ply->rot = 0;
 	ply->u_d = 0;
 	return (ply);

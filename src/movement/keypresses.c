@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/20 17:41:00 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/24 18:39:06 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 	int	map_array_y;
 
 	new_x = roundf(mlx->ply->ply_x + move_x);
+	printf("%i in\n", new_x);
 	new_y = roundf(mlx->ply->ply_y + move_y);
 	map_array_x = new_x / TILE_SIZE;
 	map_array_y = new_y / TILE_SIZE;
@@ -87,7 +88,7 @@ void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y)
 	if (mlx->ply->rot == 1)
 		rotate_view(mlx, 1);
 	if (mlx->ply->rot == -1)
-		rotate_view(mlx, -1);
+		rotate_view(mlx, 0);
 	if (mlx->ply->l_r == 1)
 	{
 		move_x = -sin(mlx->ply->angle);
@@ -108,5 +109,6 @@ void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y)
 		move_x = -cos(mlx->ply->angle);
 		move_y = -sin(mlx->ply->angle);
 	}
+	printf("angle: %f, x: %f, y: %f\n", mlx->ply->angle, move_x, move_y);
 	move_player(mlx, move_x, move_y);
 }
