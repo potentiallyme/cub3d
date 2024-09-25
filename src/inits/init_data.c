@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/24 18:50:38 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:31:38 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_player	*init_player(t_mlx *game)
 	return (ply);
 }
 
-void	set_mlx_pixels(t_texture *tx)
+void	set_mlx_pixels(t_texture *tx) //!
 {
 	tx->no_img->pixels = (int *)mlx_get_data_addr(tx->no_img->img, \
 	&tx->no_img->pixel_bits, &tx->no_img->size_line, &tx->no_img->endian);

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/24 20:15:25 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:32:02 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,44 +43,100 @@ void	render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel, double b_pixel)
 
 }
 
-t_image	*get_texture(t_mlx *mlx, int wall_flag)
+t_image	*get_texture(t_mlx *mlx, int wall_flag) //!
 {
 	mlx->ray->ray_angle = normalize_angle(mlx->ray->ray_angle);
 	if (wall_flag == 0)
 	{
 		if (mlx->ray->ray_angle > M_PI / 2
 			&& mlx->ray->ray_angle < 3 * (M_PI / 2))
-			return (mlx->tex->ea_img);
+			return (mlx->tex->ea_img->img); //new add "->img"
 		else
-			return (mlx->tex->we_img);
+			return (mlx->tex->we_img->img);
 	}
 	else
 	{
 		if (mlx->ray->ray_angle > 0 && mlx->ray->ray_angle < M_PI)
-			return (mlx->tex->so_img);
+			return (mlx->tex->so_img->img);
 		else
-			return (mlx->tex->no_img);
+			return (mlx->tex->no_img->img);
 	}
 }
 
-void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel, double wall_h)
+// void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel, double wall_h)
+// {
+// 	double	y_o;
+// 	t_image	*texture;
+// 	double	factor;
+
+// 	texture = get_texture(mlx, mlx->ray->wall_flag);
+// 	factor = (double)texture->height / wall_h;
+// 	y_o = (t_pixel - (S_H / 2) + (wall_h / 2)) * factor;
+// 	while (t_pixel < b_pixel)
+// 	{
+// 		new_mlx_pixel_put(mlx, mlx->ray->index, t_pixel, 0x000000FF);
+// 		y_o += factor;
+// 		t_pixel++;
+// 	}
+// 	(void)wall_h;
+// 	(void)texture;
+// }
+
+int	reverse_bytes(int c)//!
 {
-	double	y_o;
-	t_image	*texture;
-	double	factor;
+	unsigned int	b;
 
-	texture = get_texture(mlx, mlx->ray->wall_flag);
-	factor = (double)texture->height / wall_h;
-	y_o = (t_pixel - (S_H / 2) + (wall_h / 2)) * factor;
-	while (t_pixel < b_pixel)
-	{
-		new_mlx_pixel_put(mlx, mlx->ray->index, t_pixel, 0x000000FF);
-		y_o += factor;
-		t_pixel++;
-	}
-	(void)wall_h;
-	(void)texture;
+	b = 0;
+	b |= (c & 0xFF) << 24;
+	b |= (c & 0xFF00) << 8;
+	b |= (c & 0xFF0000) >> 8;
+	b |= (c & 0xFF000000) >> 24;
+	return (b);
 }
+
+double	get_x_o(t_image	*texture, t_mlx *mlx)//!
+{
+	double	x_o;
+
+	if (mlx->ray->wall_flag == 1)
+		x_o = (int)fmodf((mlx->ray->horiz_x * \
+		(texture->width / TILE_SIZE)), texture->width);
+	else
+		x_o = (int)fmodf((mlx->ray->vert_y * \
+		(texture->width / TILE_SIZE)), texture->width);
+	return (x_o);
+}
+
+void render_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h)//!
+{
+    double x_o;
+    double y_o;
+    t_image *texture;
+    uint32_t *arr;
+    double factor;
+
+    texture = get_texture(mlx, mlx->ray->wall_flag);
+    if (!texture)
+        return;
+    arr = (uint32_t *)texture->pixels;
+    factor = (double)texture->height / wall_h;
+    x_o = get_x_o(texture, mlx);
+    y_o = (t_pix - (S_H / 2) + (wall_h / 2)) * factor;
+
+    if (y_o < 0) y_o = 0;
+    if (y_o >= texture->height) y_o = texture->height - 1;
+
+    while (t_pix < b_pix)
+    {
+        if (y_o >= 0 && y_o < texture->height && x_o >= 0 && x_o < texture->width)
+        {
+            new_mlx_pixel_put(mlx, mlx->ray->index, t_pix, reverse_bytes(arr[(int)y_o * texture->width + (int)x_o]));
+        }
+        y_o += factor;
+        t_pix++;
+    }
+}
+
 
 void	rendering(t_mlx *mlx, int ray)
 {
@@ -97,6 +153,6 @@ void	rendering(t_mlx *mlx, int ray)
 	if (bottom_pixel < 0)
 		bottom_pixel = 0;
 	mlx->ray->index = ray;
-	render_walls(mlx, top_pixel, bottom_pixel, wall_height);
+	render_wall(mlx, top_pixel, bottom_pixel, wall_height);
 	// render_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
 }

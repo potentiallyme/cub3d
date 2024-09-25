@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/24 18:49:26 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:31:06 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@
 # define TILE_SIZE 32
 # define FOV (60 * M_PI / 180) // field of view = 60
 # define NUM_RAYS 320          // Number of rays to cast
+# define ROTATION_SPEED 0.045
 
 typedef struct s_player // the player structure
 {
@@ -137,6 +138,10 @@ typedef struct s_ray
 	double 		distance; // distance to wall
 	int			wall_flag;
 	int 		index; // for rendering
+	double	horiz_x; //new add
+	double	horiz_y;//new add
+	double	vert_x; //new add
+	double	vert_y; //new add
 }					t_ray;
 
 // typedef struct s_texture
@@ -226,8 +231,8 @@ double				adjust_inter(double angle, double inter, double step,
 
 // ! RENDERING
 void				rendering(t_mlx *mlx, int ray);
-void				render_walls(t_mlx *mlx, double t_pixel, double b_pixel,
-						double wall_h);
+// void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel, double wall_h);
+void render_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h);
 t_image				*get_texture(t_mlx *mlx, int wall_flag);
 void				render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel,
 						double b_pixel);

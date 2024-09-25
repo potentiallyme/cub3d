@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/24 18:39:06 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/25 17:06:40 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 void	rotate_view(t_mlx *mlx, int i)
 {
-	//add ROTATE_SPEED??
+	//add ROTATE_SPEED??Yes!!
 	if (i == 1)
 	{
+		mlx->ply->angle += ROTATION_SPEED;
 		if (mlx->ply->angle > 2 * M_PI)
 			mlx->ply->angle -= 2 * M_PI;
 	}
 	else
 	{
+		mlx->ply->angle -= ROTATION_SPEED;
 		if (mlx->ply->angle < 0)
 			mlx->ply->angle += 2 * M_PI;
 	}
+	printf("after rotate angle: %f\n", mlx->ply->angle);
 }
 
 int	key_release(int keycode, t_mlx *ml)
@@ -48,17 +51,17 @@ int	key_press(int keycode, t_mlx *ml)
 {
 	if (keycode == 65307)
 		ft_exit(ml);
-	else if (keycode == XK_w && ml->ply->u_d == 0)
-		ml->ply->u_d = -1;
-	else if (keycode == XK_s && ml->ply->u_d == 0)
+	else if (keycode == XK_w)
 		ml->ply->u_d = 1;
-	else if (keycode == XK_a && ml->ply->l_r == 0)
+	else if (keycode == XK_s)
+		ml->ply->u_d = -1;
+	else if (keycode == XK_a)
 		ml->ply->l_r = -1;
-	else if (keycode == XK_d && ml->ply->l_r == 0)
+	else if (keycode == XK_d)
 		ml->ply->l_r = 1;
-	else if (keycode == XK_Left && ml->ply->rot == 0)
+	else if (keycode == XK_Left)
 		ml->ply->rot = -1;
-	else if (keycode == XK_Right && ml->ply->rot == 0)
+	else if (keycode == XK_Right)
 		ml->ply->rot = 1;
 	return (1);
 }
@@ -71,8 +74,10 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 	int	map_array_y;
 
 	new_x = roundf(mlx->ply->ply_x + move_x);
-	printf("%i in\n", new_x);
 	new_y = roundf(mlx->ply->ply_y + move_y);
+	printf("ply_x:%i, ply_y:%i\n", mlx->ply->ply_x, mlx->ply->ply_y);
+	printf("move_x:%f, move_y:%f\n", move_x, move_y);
+	printf("new_x:%i, new_y:%i\n", new_x, new_y);
 	map_array_x = new_x / TILE_SIZE;
 	map_array_y = new_y / TILE_SIZE;
 	if (mlx->data->map2d[map_array_y][map_array_x] != '1') //add other conditions?
@@ -85,6 +90,7 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y)
 {
 	//add PLAYER_SPEED??
+	printf("rot flag: %i, l_r flag: %i, u_d flag: %i\n", mlx->ply->rot, mlx->ply->l_r, mlx->ply->u_d);
 	if (mlx->ply->rot == 1)
 		rotate_view(mlx, 1);
 	if (mlx->ply->rot == -1)

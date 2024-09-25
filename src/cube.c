@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/24 18:54:09 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/25 18:07:11 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,34 +38,72 @@ void draw_pix(t_image *img, int x, int y, int color)
 	*(img->pixels + px) = color;
 }
 
-int	draw_map_pixel(void *ml) //new add
-{
-	t_mlx	*mlx;
-	t_image image;
-	int x;
-	int y = -1;
+// int	draw_map_pixel(void *ml) //new add
+// {
+// 	t_mlx	*mlx;
+// 	t_image image;
+// 	int x;
+// 	int y = -1;
 
-	mlx = ml;
-	image.img = NULL;
-	img_set(mlx, &image, S_H, S_W);
-	while (++y < S_H / 2)
-	{
-		x = -1;
-		while (++x < S_W)
-		{
-			draw_pix(&image, x, y, get_color(ft_atoi(mlx->data->c_ceiling[0]), \
-		ft_atoi(mlx->data->c_ceiling[1]), ft_atoi(mlx->data->c_ceiling[2])));
-			draw_pix(&image, x, y + (S_H / 2), get_color(ft_atoi(mlx->data->c_floor[0]), \
-		ft_atoi(mlx->data->c_floor[1]), ft_atoi(mlx->data->c_floor[2])));
-		}
-	}
-	mlx_put_image_to_window(mlx->mlx_p, mlx->win, image.img, 0, 0);
-	// mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->tex->no_img, 0, 0);
-	handle_ply_movement(mlx, 0, 0);
-	// return 0;
-	cast_rays(mlx);
-	return (1);
+// 	mlx = ml;
+// 	image.img = mlx_new_image(mlx->mlx_p, S_W, S_H);;
+// 	img_set(mlx, &image, S_H, S_W);
+// 	while (++y < S_H / 2)
+// 	{
+// 		x = -1;
+// 		while (++x < S_W)
+// 		{
+// 			draw_pix(&image, x, y, get_color(ft_atoi(mlx->data->c_ceiling[0]), \
+// 		ft_atoi(mlx->data->c_ceiling[1]), ft_atoi(mlx->data->c_ceiling[2])));
+// 			draw_pix(&image, x, y + (S_H / 2), get_color(ft_atoi(mlx->data->c_floor[0]), \
+// 		ft_atoi(mlx->data->c_floor[1]), ft_atoi(mlx->data->c_floor[2])));
+// 		}
+// 	}
+// 	mlx_destroy_image(mlx->mlx_p, image.img);
+// 	image.img = NULL;
+// 	handle_ply_movement(mlx, 0, 0);
+// 	// return 0;
+// 	cast_rays(mlx);
+// 	mlx_put_image_to_window(mlx->mlx_p, mlx->win, image.img, 0, 0);
+// 	// mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->tex->no_img, 0, 0);
+// 	return (1);
+// }
+
+int draw_map_pixel(void *ml)
+{
+    t_mlx *mlx;
+    t_image image;
+    int x;
+    int y = -1;
+
+    mlx = ml;
+    img_set(mlx, &image, S_H, S_W);
+    if (!image.img)
+        return (0);
+
+    while (++y < S_H / 2)
+    {
+        x = -1;
+        while (++x < S_W)
+        {
+            draw_pix(&image, x, y, get_color(ft_atoi(mlx->data->c_ceiling[0]),
+                ft_atoi(mlx->data->c_ceiling[1]), ft_atoi(mlx->data->c_ceiling[2])));
+            draw_pix(&image, x, y + (S_H / 2), get_color(ft_atoi(mlx->data->c_floor[0]),
+                ft_atoi(mlx->data->c_floor[1]), ft_atoi(mlx->data->c_floor[2])));
+        }
+    }
+
+    mlx_put_image_to_window(mlx->mlx_p, mlx->win, image.img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->tex->no_img->img, 0, 0); //to see the wall texture
+    mlx_destroy_image(mlx->mlx_p, image.img);
+    image.img = NULL;
+
+    handle_ply_movement(mlx, 0, 0);
+    cast_rays(mlx);
+
+    return (1);
 }
+
 
 t_texture *init_tex()
 {
@@ -92,6 +130,11 @@ t_texture *init_tex()
 	tex->so_img->instances = malloc(sizeof(t_instance));
 	tex->ea_img->instances = malloc(sizeof(t_instance));
 	tex->we_img->instances = malloc(sizeof(t_instance));
+	if (!tex->no_img || !tex->so_img || !tex->we_img || !tex->ea_img)
+    {
+        free(tex);
+        return NULL;
+    } // new add
 	return (tex);
 }
 
