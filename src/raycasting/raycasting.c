@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/25 18:24:30 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:33:58 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ double	adjust_inter(double angle, double inter, double step, int h)
 	return (inter);
 }
 
-double	get_h_inter(t_mlx *mlx, double angle)
+double	get_h_inter(t_mlx *mlx, double angle)//!
 {
 	double	h_x;
 	double	h_y;
@@ -59,12 +59,12 @@ double	get_h_inter(t_mlx *mlx, double angle)
 		h_x += x_step;
 		h_y += y_step;
 	}
-	mlx->ray->horiz_x = h_x; //new add
-	mlx->ray->horiz_y = h_y; //new add
+	mlx->ray->horiz_x = h_x; //!new add
+	mlx->ray->horiz_y = h_y; //!new add
 	return (sqrt(pow(h_x - mlx->ply->ply_x, 2) + pow(h_y - mlx->ply->ply_y, 2)));
 }
 
-double	get_v_inter(t_mlx *mlx, double angle)
+double	get_v_inter(t_mlx *mlx, double angle)//!
 {
 	double	v_x;
 	double	v_y;
@@ -90,8 +90,8 @@ double	get_v_inter(t_mlx *mlx, double angle)
 		v_x += x_step;
 		v_y += y_step;
 	}
-	mlx->ray->vert_x = v_x;//new add
-	mlx->ray->vert_y = v_y;//new add
+	mlx->ray->vert_x = v_x;//!new add
+	mlx->ray->vert_y = v_y;//!new add
 	return (sqrt(pow(v_x - mlx->ply->ply_x, 2) + pow(v_y - mlx->ply->ply_y, 2)));
 
 }

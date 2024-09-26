@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/25 18:31:06 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:00:41 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@
 # define FOV (60 * M_PI / 180) // field of view = 60
 # define NUM_RAYS 320          // Number of rays to cast
 # define ROTATION_SPEED 0.045
+# define PLAYER_SPEED 4
 
 typedef struct s_player // the player structure
 {
@@ -217,6 +218,7 @@ int					check_direction(double angle, char c);
 // ! PARSING
 int					check_file(t_data *data);
 int					check_map(char **map);
+char				**make_square_map(t_data *m);
 int					check_rgb(t_data *data, t_file *tmp, char c);
 int					check_textures(t_data *data, t_file *file);
 int	is_player(char c);
@@ -264,5 +266,12 @@ void				string_to_list(t_data *data);
 void				pr_str(t_file *f);
 void				print_data(t_data *data);
 void				print_textures(t_data *data, int i);
+
+// * map_utils
+int					get_maxlen(char **map);
+int					get_h_map(char **map);
+char				*fill_map(char *map_line, int maxlen);
+int					check_w_map(char **map);
+int					check_h_map(char **map);
 
 #endif

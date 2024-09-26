@@ -6,13 +6,13 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/25 18:31:38 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:31:52 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	get_player_pos(t_data *mlx)
+int	get_player_pos(t_data *mlx) //! square_map? map2d? use square->crash
 {
 	int	i;
 	int	j;
@@ -66,6 +66,7 @@ t_data	*init_data(char **av)
 	data->linked_file = 0;
 	string_to_list(data);
 	data->map2d = return_map(data);
+	//! data->square_map = make_square_map(data);
 	data->floor = malloc(sizeof(int) * 2);
 	data->ceiling = malloc(sizeof(int) * 2);
 	if (check_file(data) != 6)
@@ -124,7 +125,7 @@ t_player	*init_player(t_mlx *game)
 	return (ply);
 }
 
-void	set_mlx_pixels(t_texture *tx) //!
+void	set_mlx_pixels(t_texture *tx) //!not used
 {
 	tx->no_img->pixels = (int *)mlx_get_data_addr(tx->no_img->img, \
 	&tx->no_img->pixel_bits, &tx->no_img->size_line, &tx->no_img->endian);

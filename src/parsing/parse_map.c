@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/24 18:46:04 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:21:31 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,30 @@ int	check_map(char **map)
 	}
 	ft_free(map);
 	return (SUCCESS);
+}
+
+char	**make_square_map(t_data *m) //new add
+{
+	int	i;
+	int maxlen;
+
+	maxlen = get_maxlen(m->map2d);
+	i = 0;
+	m->square_map = ft_calloc(sizeof(char *), get_h_map(m->map2d + 1));
+	if (!m->square_map)
+		return (NULL);
+	while (m->map2d[i])
+	{
+		if (ft_strlen(m->map2d[i]) == maxlen)
+			m->square_map[i] = ft_strdup(m->map2d[i]);
+		else
+			m->square_map[i] = fill_map(m->map2d[i], maxlen);
+		i++;
+	}
+	m->square_map[i] = NULL;
+	m->map_h = get_h_map(m->square_map);
+	m->map_w = ft_strlen(m->square_map[0]);
+	if (!check_w_map(m->square_map) || !check_h_map(m->square_map)) //or just check_map? or check_around?
+		return (free_during_init(m), NULL);
+	return (m->square_map);
 }

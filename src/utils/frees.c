@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/20 17:36:54 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:09:09 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	free_textures(t_data *data)
 void	*free_during_init(t_data *data)
 {
 	ft_free(data->map2d);
+	// ft_free(data->square_map); //new add
 	free_file_list(data->linked_file);
 	free(data->file);
 	free_textures(data);

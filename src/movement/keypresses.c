@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/25 17:06:40 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:34:32 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	rotate_view(t_mlx *mlx, int i)
 {
-	//add ROTATE_SPEED??Yes!!
+	//add ROTATE_SPEED??Yes!!but why
 	if (i == 1)
 	{
 		mlx->ply->angle += ROTATION_SPEED;
@@ -66,7 +66,7 @@ int	key_press(int keycode, t_mlx *ml)
 	return (1);
 }
 
-void	move_player(t_mlx *mlx, double move_x, double move_y)
+void	move_player(t_mlx *mlx, double move_x, double move_y) //! add square_map check?
 {
 	int	new_x;
 	int	new_y;
@@ -80,7 +80,7 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 	printf("new_x:%i, new_y:%i\n", new_x, new_y);
 	map_array_x = new_x / TILE_SIZE;
 	map_array_y = new_y / TILE_SIZE;
-	if (mlx->data->map2d[map_array_y][map_array_x] != '1') //add other conditions?
+	if (mlx->data->map2d[map_array_y][map_array_x] != '1') //add other conditions with square_map?
 	{
 		mlx->ply->ply_x = new_x;
 		mlx->ply->ply_y = new_y;
@@ -89,7 +89,7 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 
 void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y)
 {
-	//add PLAYER_SPEED??
+	//!add PLAYER_SPEED??
 	printf("rot flag: %i, l_r flag: %i, u_d flag: %i\n", mlx->ply->rot, mlx->ply->l_r, mlx->ply->u_d);
 	if (mlx->ply->rot == 1)
 		rotate_view(mlx, 1);

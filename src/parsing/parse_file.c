@@ -6,13 +6,13 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 17:55:26 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:32:39 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-char	**fill_spaces(char **map)
+char	**fill_spaces(char **map) //! could be combined/used for creating square_map?
 {
 	int		i;
 	int		j;
@@ -27,8 +27,11 @@ char	**fill_spaces(char **map)
 		{
 			if (s[i][j] == ' ')
 				s[i][j] = 'E';
+			printf("%c", s[i][j]);
 			j++;
 		}
+		printf("\n");
+		printf("%c", s[i][j]);
 		i++;
 	}
 	return (s);

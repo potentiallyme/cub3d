@@ -54,7 +54,7 @@ RC			:= $(SRC_RC:%=$(RC_DIR)/%)
 
 # UTILS
 UTL_DIR		:= utils
-SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c
+SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # ALL SOURCES
