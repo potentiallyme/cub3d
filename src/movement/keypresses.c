@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keypresses.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/27 19:26:00 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:51:43 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	move_player(t_mlx *mlx, double move_x, double move_y) //! add square_map ch
 	// printf("new_x:%i, new_y:%i\n", new_x, new_y);
 	map_array_x = new_x / TILE_SIZE;
 	map_array_y = new_y / TILE_SIZE;
-	if (mlx->data->map2d[map_array_y][map_array_x] != '1') //add other conditions with square_map?
+	if (mlx->data->map2d[map_array_y][map_array_x] != '1'
+		&& mlx->data->square_map[map_array_y][mlx->ply->ply_x / TILE_SIZE] != '1'
+		&& mlx->data->square_map[mlx->ply->ply_y / TILE_SIZE][map_array_x] != '1') //add other conditions with square_map?
 	{
 		mlx->ply->ply_x = new_x;
 		mlx->ply->ply_y = new_y;
@@ -89,7 +91,6 @@ void	move_player(t_mlx *mlx, double move_x, double move_y) //! add square_map ch
 
 void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y)
 {
-	//!add PLAYER_SPEED??
 	// printf("rot flag: %i, l_r flag: %i, u_d flag: %i\n", mlx->ply->rot, mlx->ply->l_r, mlx->ply->u_d);
 	if (mlx->ply->rot == 1)
 		rotate_view(mlx, 1);
@@ -97,23 +98,23 @@ void	handle_ply_movement(t_mlx *mlx, double move_x, double move_y)
 		rotate_view(mlx, 0);
 	if (mlx->ply->l_r == 1)
 	{
-		move_x = -sin(mlx->ply->angle);
-		move_y = cos(mlx->ply->angle);
+		move_x = -sin(mlx->ply->angle) * PLAYER_SPEED;
+		move_y = cos(mlx->ply->angle) * PLAYER_SPEED;
 	}
 	if (mlx->ply->l_r == -1)
 	{
-		move_x = sin(mlx->ply->angle);
-		move_y = -cos(mlx->ply->angle);
+		move_x = sin(mlx->ply->angle) * PLAYER_SPEED;
+		move_y = -cos(mlx->ply->angle) * PLAYER_SPEED;
 	}
 	if (mlx->ply->u_d == 1)
 	{
-		move_x = cos(mlx->ply->angle);
-		move_y = sin(mlx->ply->angle);
+		move_x = cos(mlx->ply->angle) * PLAYER_SPEED;
+		move_y = sin(mlx->ply->angle) * PLAYER_SPEED;
 	}
 	if (mlx->ply->u_d == -1)
 	{
-		move_x = -cos(mlx->ply->angle);
-		move_y = -sin(mlx->ply->angle);
+		move_x = -cos(mlx->ply->angle) * PLAYER_SPEED;
+		move_y = -sin(mlx->ply->angle) * PLAYER_SPEED;
 	}
 	// printf("angle: %f, x: %f, y: %f\n", mlx->ply->angle, move_x, move_y);
 	move_player(mlx, move_x, move_y);

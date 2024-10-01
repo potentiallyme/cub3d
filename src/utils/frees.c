@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/27 19:42:25 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:53:17 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*free_during_init(t_data *data)
 {
 	ft_printf("%sINIT_DATA FAIL%s\n", red, rst);
 	ft_free(data->map2d);
-	// ft_free(data->square_map); //new add
+	ft_free(data->square_map); //new add
 	free_file_list(data->linked_file);
 	free(data->file);
 	free_textures(data);

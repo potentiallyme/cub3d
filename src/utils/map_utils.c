@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/26 15:41:27 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/01 17:37:58 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ int	get_maxlen(char **map)
 	int	max;
 
 	i = 0;
-	max = ft_strlen(map[0]);
+	max = 0;
 	while (map[i])
 	{
-		if ((int)ft_strlen(map[i]) > max)
-			max = ft_strlen(map[i]);
+		int len = ft_strlen(map[i]);
+		if (len > max)
+			max = len;
 		i++;
 	}
-	return (i);
+	return (max);
 }
+
 
 int	get_h_map(char **map)
 {
@@ -74,7 +76,7 @@ int	check_w_map(char **map)
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ')
 			{
-				if (map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
+				if (i > 0 && (map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
 				{
 					write(1, "Error\ninvalid map!\n", 23);
 					return (0);
@@ -100,7 +102,7 @@ int	check_h_map(char **map)
 		{
 			if (map[i][j] != '1' && map[i][j] != ' ')
 			{
-				if (map[i - 1][j] == ' ' || map[i + 1][j] == ' ')
+				if (i > 0 && (map[i - 1][j] == ' ' || map[i + 1][j] == ' '))
 				{
 					write(1, "Error\ninvalid map!\n", 23);
 					return (0);
