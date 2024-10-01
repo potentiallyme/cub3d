@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/01 18:58:49 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/01 19:48:17 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void img_set(t_mlx *mlx, t_image *img, int height, int width)
 
 void draw_pix(t_image *img, int x, int y, int color)
 {
-    int c_b;
+    int color_bytes;
     int px;
 
-    c_b = img->pixel_bits / 8;
-    if (c_b != 0)
+    color_bytes = img->pixel_bits / 8;
+    if (color_bytes != 0)
     {
-        px = (y * img->size_line) / c_b + x;
+        px = (y * img->size_line) / color_bytes + x;
         *(img->pixels + px) = color;
     }
 }
