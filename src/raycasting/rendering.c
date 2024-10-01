@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/09/26 13:56:08 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/27 22:50:05 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 void	new_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
-	if (x < 0 || y < 0 || x >= S_W || y >= S_H)
+	if (x < 0)
+		return ;
+	else if (x >= S_W)
+		return ;
+	if (y < 0)
+		return ;
+	else if (y >= S_H)
 		return ;
 	mlx_pixel_put(mlx->mlx_p, mlx->win, x, y, color);
 }
@@ -50,17 +56,18 @@ t_image	*get_texture(t_mlx *mlx, int wall_flag) //!
 	{
 		if (mlx->ray->ray_angle > M_PI / 2
 			&& mlx->ray->ray_angle < 3 * (M_PI / 2))
-			return (mlx->tex->ea_img->img); //new add "->img"
+			return (mlx->tex->ea_img); //new add ""
 		else
-			return (mlx->tex->we_img->img);
+			return (mlx->tex->we_img);
 	}
 	else
 	{
 		if (mlx->ray->ray_angle > 0 && mlx->ray->ray_angle < M_PI)
-			return (mlx->tex->so_img->img);
+			return (mlx->tex->so_img);
 		else
-			return (mlx->tex->no_img->img);
+			return (mlx->tex->no_img);
 	}
+	return (mlx->tex->no_img);
 }
 
 // void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel, double wall_h)
@@ -107,34 +114,36 @@ double	get_x_o(t_image	*texture, t_mlx *mlx)//!
 	return (x_o);
 }
 
-void render_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h)//!
+void render_wall(t_mlx *mlx, double t_pix, double b_pix, double wall_h)//!
 {
     double x_o;
     double y_o;
     t_image *texture;
     uint32_t *arr;
     double factor;
-
+	
     texture = get_texture(mlx, mlx->ray->wall_flag);
     if (!texture)
-        return;
+        return ;
+	
     arr = (uint32_t *)texture->pixels;
     factor = (double)texture->height / wall_h;
     x_o = get_x_o(texture, mlx);
     y_o = (t_pix - (S_H / 2) + (wall_h / 2)) * factor;
 
-    if (y_o < 0) y_o = 0;
-    if (y_o >= texture->height) y_o = texture->height - 1;
-
+    if (y_o < 0)
+		y_o = 0;
+	// int i = 0;
+	// while (arr[i])
+	// 	printf("%i\n", arr[i]);
+    // // if (y_o >= texture->height) y_o = texture->height - 1;
     while (t_pix < b_pix)
     {
-        if (y_o >= 0 && y_o < texture->height && x_o >= 0 && x_o < texture->width)
-        {
-            new_mlx_pixel_put(mlx, mlx->ray->index, t_pix, reverse_bytes(arr[(int)y_o * texture->width + (int)x_o]));
-        }
-        y_o += factor;
+		ft_printf("jere]\n");
+        draw_pix(texture, mlx->ray->index, t_pix, 0xFF00FF);
         t_pix++;
     }
+	mlx_put_image_to_window(mlx->mlx_p, mlx->win, texture->img, 0, 0);
 }
 
 
@@ -143,16 +152,19 @@ void	rendering(t_mlx *mlx, int ray)
 	double	wall_height;
 	double	top_pixel;
 	double	bottom_pixel;
+	// printf("dst: %lf\n", (TILE_SIZE / mlx->ray->distance)* (S_W / 2) /tan(mlx->ply->fov_radian)/2);
 
+	mlx->ray->distance *= cos(normalize_angle(mlx->ray->ray_angle - mlx->ply->angle));
 	wall_height = (TILE_SIZE / mlx->ray->distance)
 		* ((S_W / 2) / tan(mlx->ply->fov_radian / 2));
-	top_pixel = (S_H / 2) - (wall_height / 2);
 	bottom_pixel = (S_H / 2) + (wall_height / 2);
+	top_pixel = (S_H / 2) - (wall_height / 2);
 	if (top_pixel > S_H)
 		top_pixel = S_H;
 	if (bottom_pixel < 0)
 		bottom_pixel = 0;
 	mlx->ray->index = ray;
+	// printf("t: %f, b: %f, w: %f\n", top_pixel, bottom_pixel, wall_height);
 	render_wall(mlx, top_pixel, bottom_pixel, wall_height);
 	// render_floor_ceiling(mlx, ray, top_pixel, bottom_pixel);
 }

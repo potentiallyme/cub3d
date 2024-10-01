@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/26 16:31:52 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/27 20:43:25 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_data	*init_data(char **av)
 	data->ceiling = malloc(sizeof(int) * 2);
 	if (check_file(data) != 6)
 		return (free_during_init(data));
-	ft_printf("INIT_DATA SUCCESS\n");
+	ft_printf("%sINIT_DATA SUCCESS%s\n", green, rst);
 	return (data);
 }
 
@@ -100,7 +100,7 @@ void get_angle(t_mlx *game, t_player *ply)
 		ply->angle = 0;
 	else if (c == 'W')
 		ply->angle = M_PI;
-	printf("c: %c ng: %f\n",c, ply->angle);
+	// printf("c: %c ng: %f\n",c, ply->angle);
 	ply->ply_x = (game->data->p_x * TILE_SIZE) + TILE_SIZE / 2;
 	ply->ply_y = (game->data->p_y * TILE_SIZE) + TILE_SIZE / 2;
 	ply->fov_radian = (FOV * M_PI / 180);
@@ -119,7 +119,6 @@ t_player	*init_player(t_mlx *game)
 		return (NULL);
 	}
 	get_angle(game, ply);
-	printf("ang: %f\n", ply->angle);
 	ply->rot = 0;
 	ply->u_d = 0;
 	return (ply);

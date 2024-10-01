@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/26 16:00:41 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/27 22:15:17 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 # define KEY_RELEASE 3
 # define KEY_REPEAT 4
 
-// colors
+// colors for map
 # define BLACK 0x000000FF
 # define GREY 0x808080FF
 # define BLUE 0x87CEEBFF
@@ -79,6 +79,16 @@
 # define ORANGE 0xFF9300FF
 # define RED 0xFF0000FF
 # define WHITE 0xFFFFFFFF
+
+// colors for printf
+# define rst "\033[0m"
+# define black "\033[0;30m"
+# define red "\033[0;31m"
+# define green "\033[0;32m"
+# define yellow "\033[0;33m"
+# define blue "\033[0;34m"
+# define purple "\033[0;35m"
+# define white "\033[0;37m"
 
 // movement
 
@@ -198,6 +208,7 @@ typedef struct s_keydata
 	int32_t action; // key press detect
 }					t_keydata;
 int	get_color(int r, int g, int b);
+void draw_pix(t_image *img, int x, int y, int color);
 
 // ! INITS
 t_mlx				*init_mlx(void);
@@ -228,13 +239,13 @@ void				cast_rays(t_mlx *mlx);
 double				normalize_angle(double angle);
 double				get_v_inter(t_mlx *mlx, double angle);
 double				get_h_inter(t_mlx *mlx, double angle);
-double				adjust_inter(double angle, double inter, double step,
+double				adjust_inter(double angle, double *inter, double *step,
 						int h);
 
 // ! RENDERING
 void				rendering(t_mlx *mlx, int ray);
 // void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel, double wall_h);
-void render_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h);
+void render_wall(t_mlx *mlx, double t_pix, double b_pix, double wall_h);
 t_image				*get_texture(t_mlx *mlx, int wall_flag);
 void				render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel,
 						double b_pixel);

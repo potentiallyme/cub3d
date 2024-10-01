@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/26 16:15:28 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/27 20:24:14 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,11 @@ int draw_map_pixel(void *ml)
     }
 
     mlx_put_image_to_window(mlx->mlx_p, mlx->win, image.img, 0, 0);
-	mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->tex->no_img->img, 0, 0); //to see the wall texture
+	// mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->tex->no_img->img, 0, 0); //to see the wall texture // ? nooooooo
     mlx_destroy_image(mlx->mlx_p, image.img);
     image.img = NULL;
-
     handle_ply_movement(mlx, 0, 0);
     cast_rays(mlx);
-
     return (1);
 }
 

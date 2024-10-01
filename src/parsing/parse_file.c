@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/26 16:32:39 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:39:42 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ char	**fill_spaces(char **map) //! could be combined/used for creating square_ma
 		{
 			if (s[i][j] == ' ')
 				s[i][j] = 'E';
-			printf("%c", s[i][j]);
 			j++;
 		}
-		printf("\n");
-		printf("%c", s[i][j]);
 		i++;
 	}
 	return (s);
@@ -50,6 +47,6 @@ int	check_file(t_data *data)
 	i += check_rgb(data, tmp, 'C');
 	i += check_map(fill_spaces(data->map2d));
 	// i = check_texture_paths(data); // ?  TO FILE part
-	print_textures(data, i);
+	// print_textures(data, i);
 	return (i);
 }

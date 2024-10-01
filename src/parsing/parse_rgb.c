@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 16:10:26 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/09/27 19:33:05 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	recheck_format(int *i)
 	j = 0;
 	while (i[j])
 	{
-		ft_printf("i[%i] = %i\n", j, i[j]);
 		if (i[j] < 0 || i[j] > 255)
 			return (0);
 		j++;
