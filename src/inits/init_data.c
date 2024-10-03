@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/01 17:44:08 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:56:54 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	get_player_pos(t_data *mlx) //! square_map? map2d? use square->crash
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 	int n;
 
 	i = 0;
@@ -87,9 +87,9 @@ t_ray	*init_ray(void)
 	return (ray);
 }
 
-void get_angle(t_mlx *game, t_player *ply)
+void	get_angle(t_mlx *game, t_player *ply)
 {
-	char c;
+	char	c;
 
 	c = game->data->map2d[game->data->p_y][game->data->p_x];
 	if (c == 'N')
@@ -100,7 +100,7 @@ void get_angle(t_mlx *game, t_player *ply)
 		ply->angle = 0;
 	else if (c == 'W')
 		ply->angle = M_PI;
-	printf("get_angle>c: %c ply->angle: %f\n",c, ply->angle);
+	printf("get_angle>c: %c ply->angle: %f\n", c, ply->angle);
 	ply->ply_x = (game->data->p_x * TILE_SIZE) + TILE_SIZE / 2;
 	ply->ply_y = (game->data->p_y * TILE_SIZE) + TILE_SIZE / 2;
 	ply->fov_radian = (FOV * M_PI / 180);
@@ -112,7 +112,7 @@ t_player	*init_player(t_mlx *game)
 
 	ply = malloc(sizeof(t_player));
 	if (!ply)
-        return NULL;
+		return (NULL);
 	ply->fov_radian = 0;
 	ply->l_r = 0;
 	if (get_player_pos(game->data) == FAIL)
@@ -127,19 +127,23 @@ t_player	*init_player(t_mlx *game)
 	return (ply);
 }
 
-void	set_mlx_pixels(t_texture *tx) //!not used
+void	set_mlx_pixels(t_texture *tx) //! not used
 {
-	tx->no_img->pixels = (int *)mlx_get_data_addr(tx->no_img->img, \
-	&tx->no_img->pixel_bits, &tx->no_img->size_line, &tx->no_img->endian);
+	tx->no_img->pixels = (int *)mlx_get_data_addr(tx->no_img->img,
+			&tx->no_img->pixel_bits, &tx->no_img->size_line,
+			&tx->no_img->endian);
 
-	tx->so_img->pixels = (int *)mlx_get_data_addr(tx->so_img->img, \
-	&tx->so_img->pixel_bits, &tx->so_img->size_line, &tx->so_img->endian);
+	tx->so_img->pixels = (int *)mlx_get_data_addr(tx->so_img->img,
+			&tx->so_img->pixel_bits, &tx->so_img->size_line,
+			&tx->so_img->endian);
 
-	tx->ea_img->pixels = (int *)mlx_get_data_addr(tx->ea_img->img, \
-	&tx->ea_img->pixel_bits, &tx->ea_img->size_line, &tx->ea_img->endian);
+	tx->ea_img->pixels = (int *)mlx_get_data_addr(tx->ea_img->img,
+			&tx->ea_img->pixel_bits, &tx->ea_img->size_line,
+			&tx->ea_img->endian);
 
-	tx->we_img->pixels = (int *)mlx_get_data_addr(tx->we_img->img, \
-	&tx->we_img->pixel_bits, &tx->we_img->size_line, &tx->we_img->endian);
+	tx->we_img->pixels = (int *)mlx_get_data_addr(tx->we_img->img,
+			&tx->we_img->pixel_bits, &tx->we_img->size_line,
+			&tx->we_img->endian);
 }
 
 void	set_mlx_images(t_mlx *game)
@@ -147,20 +151,34 @@ void	set_mlx_images(t_mlx *game)
 	t_texture	*tx;
 
 	tx = game->tex;
-	tx->no_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->north, \
-	&(tx->no_img->width),&(tx->no_img->height));
-	if (!tx->no_img->img)
+	tx->no_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->north,
+			&(tx->no_img->width), &(tx->no_img->height));
+	if (!tx->no_img->img){
+		printf("here\n");
 		ft_exit(game);
-	tx->so_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->south, \
-	&(tx->so_img->width), &(tx->so_img->height));
+	}
+	tx->no_img->pixels = (int *)mlx_get_data_addr(tx->no_img->img,
+			&(tx->no_img->pixel_bits), &(tx->no_img->size_line),
+			&(tx->no_img->endian));
+	tx->so_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->south,
+			&(tx->so_img->width), &(tx->so_img->height));
 	if (!tx->so_img->img)
 		ft_exit(game);
-	tx->ea_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->east, \
-	&(tx->ea_img->width), &(tx->ea_img->height));
+	tx->so_img->pixels = (int *)mlx_get_data_addr(tx->so_img->img,
+			&(tx->so_img->pixel_bits), &(tx->so_img->size_line),
+			&(tx->so_img->endian));
+	tx->ea_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->east,
+			&(tx->ea_img->width), &(tx->ea_img->height));
 	if (!tx->ea_img->img)
 		ft_exit(game);
-	tx->we_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->west, \
-	&(tx->we_img->width), &(tx->we_img->height));
+	tx->ea_img->pixels = (int *)mlx_get_data_addr(tx->ea_img->img,
+			&(tx->ea_img->pixel_bits), &(tx->ea_img->size_line),
+			&(tx->ea_img->endian));
+	tx->we_img->img = mlx_xpm_file_to_image(game->mlx_p, game->data->west,
+			&(tx->we_img->width), &(tx->we_img->height));
 	if (!tx->we_img->img)
 		ft_exit(game);
+	tx->we_img->pixels = (int *)mlx_get_data_addr(tx->we_img->img,
+			&(tx->we_img->pixel_bits), &(tx->we_img->size_line),
+			&(tx->we_img->endian));
 }

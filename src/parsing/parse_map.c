@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/01 17:37:22 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:56:04 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	check_around(char **map, int y, int x)
 {
 	if (y - 1 < 0 || x - 1 < 0)
 		return (FAIL);
+	// if ((y + 1) > ft_strlen(map[y]) || (x + 1) > ft_linelen(map))
+	// 	return (FAIL);
 	if ((!map[y - 1][x - 1] || map[y - 1][x - 1] == 'E') || (!map[y - 1][x]
 			|| map[y - 1][x] == 'E') || (!map[y - 1][x + 1] || map[y - 1][x
 			+ 1] == 'E') || (!map[y][x - 1] || map[y][x - 1] == 'E')

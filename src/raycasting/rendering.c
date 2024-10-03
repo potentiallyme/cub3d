@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/01 19:44:51 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/03 15:25:09 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,24 @@ double	get_x_o(t_image	*texture, t_mlx *mlx)//!
 		printf("texture->width: %d, x_o:%f\n", texture->width, x_o);
 	}
 	return (x_o);
+
 }
+
+// void init_img(t_img *img)
+// {
+// 	img->img = NULL;
+// 	img->pixels = NULL
+// }
+
+// void render_wall_2(t_mlx *mlx, double t_pix, double b_pix, double w_h)
+// {
+// 	t_image img;
+// 	int x;
+// 	int y;
+	
+// 	img.img = NULL;
+// 	init_img(img);
+// }
 
 void render_wall(t_mlx *mlx, double t_pix, double b_pix, double wall_h)//!
 {
@@ -137,12 +154,13 @@ void render_wall(t_mlx *mlx, double t_pix, double b_pix, double wall_h)//!
     factor = (double)texture->height / wall_h;
     x_o = get_x_o(texture, mlx);
     y_o = (t_pix - (S_H / 2) + (wall_h / 2)) * factor;
-	printf("factor = texture->height %d / wall_h%f: x_o: %f, y_o: %f\n", texture->height, wall_h, x_o, y_o);
+	printf("factor = texture->height %d / wall_h%f: x_o: %f, y_o: %f\n\n", texture->height, wall_h, x_o, y_o);
     if (y_o < 0)
 		y_o = 0;
     while (t_pix < b_pix)
     {
-		new_mlx_pixel_put(mlx, mlx->ray->index, t_pix, 0xFFFFFF); //!
+		new_mlx_pixel_put(mlx, mlx->ray->index, t_pix, reverse_bytes \
+		(arr[(int)y_o * texture->width + (int)x_o])); //!
         // draw_pix(texture, mlx->ray->index, t_pix, 0xFF00FF);
 		y_o += factor;
         t_pix++;
