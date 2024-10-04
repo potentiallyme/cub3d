@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/01 18:34:57 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/03 19:58:15 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,32 +109,21 @@ double	normalize_angle(double angle)
 		angle -= (2 * M_PI);
 	return (angle);
 }
+void set_ray(t_player *ply, t_ray *ray, int x)
+{
+	ray->camera_x = 2 * x / (double)S_W - 1;
+	ray->dir_x = ply->ply_x + 
+}
 
 void	cast_rays(t_mlx *mlx)
 {
-	double	h_inter; //horizontal intersection
-	double	v_inter; //vertical intersection
-	int		ray;
+	t_ray ray;
+	int x;
 
-	ray = 0;
-	mlx->ray->ray_angle = mlx->ply->angle
-		- (mlx->ply->fov_radian / 2); //start angle
-	printf("cast_rays>ply->angle: %f, ray_angle: %f, fov_radian: %f\n", mlx->ply->angle, mlx->ray->ray_angle, mlx->ply->fov_radian);
-	while (ray < S_W)
+	x = 0;
+	ray = mlx->ray;
+	while (x < S_W)
 	{
-		mlx->ray->wall_flag = 0; //for rendering wall
-		h_inter = get_h_inter(mlx, normalize_angle(mlx->ray->ray_angle));
-		v_inter = get_v_inter(mlx, normalize_angle(mlx->ray->ray_angle));
-		printf("cast_rays>h_inter: %f, v_inter: %f\n", h_inter, v_inter);
-		if (v_inter <= h_inter)
-			mlx->ray->distance = v_inter;
-		else
-		{
-			mlx->ray->distance = h_inter;
-			mlx->ray->wall_flag = 1; //for rendering wall
-		}
-		rendering(mlx, ray);
-		ray++;
-		mlx->ray->ray_angle += (mlx->ply->fov_radian / S_W);
+		set_ray(mlx->ply, &ray, x);
 	}
 }

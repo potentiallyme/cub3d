@@ -3,42 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cube.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/01 19:48:17 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/03 22:01:56 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void img_set(t_mlx *mlx, t_image *img, int height, int width)
-{
-	img->img = 0;
-	img->width = 0;
-	img->height = 0;
-	img->pixel_bits = 0;
-	img->size_line = 0;
-	img->endian = 0;
-	img->pixels = 0;
-	img->instances = 0;
-
-	img->img = mlx_new_image(mlx->mlx_p, width, height);
-	img->pixels = (int *)mlx_get_data_addr(img->img, &img->pixel_bits, \
-	&img->size_line, &img->endian);
-}
 
 void draw_pix(t_image *img, int x, int y, int color)
 {
-    int color_bytes;
-    int px;
+	int pix;
 
-    color_bytes = img->pixel_bits / 8;
-    if (color_bytes != 0)
-    {
-        px = (y * img->size_line) / color_bytes + x;
-        *(img->pixels + px) = color;
-    }
+	pix = y * (img->size_line / 4) + x;
+	img->pixels[pix] = color;	
 }
 
 // int	draw_map_pixel(void *ml) //new add
@@ -72,91 +52,42 @@ void draw_pix(t_image *img, int x, int y, int color)
 // 	return (1);
 // }
 
-int draw_map_pixel(void *ml)
+int draw_map_pixel(t_mlx *ml)
 {
-    t_mlx *mlx;
-    t_image image;
-    int x;
-    int y = -1;
-
-    mlx = ml;
-    img_set(mlx, &image, S_H, S_W);
-    if (!image.img)
-        return (0);
-
-    while (++y < S_H / 2)
-    {
-        x = -1;
-        while (++x < S_W)
-        {
-            draw_pix(&image, x, y, get_color(ft_atoi(mlx->data->c_ceiling[0]),
-                ft_atoi(mlx->data->c_ceiling[1]), ft_atoi(mlx->data->c_ceiling[2])));
-            draw_pix(&image, x, y + (S_H / 2), get_color(ft_atoi(mlx->data->c_floor[0]),
-                ft_atoi(mlx->data->c_floor[1]), ft_atoi(mlx->data->c_floor[2])));
-        }
-    }
-
-    mlx_put_image_to_window(mlx->mlx_p, mlx->win, image.img, 0, 0);
-    mlx_destroy_image(mlx->mlx_p, image.img);
-    image.img = NULL;
-    handle_ply_movement(mlx, 0, 0);
-    cast_rays(mlx);
+    cast_rays(ml);
+    handle_ply_movement(ml, 0, 0);
     return (1);
 }
 
 
-t_texture *init_tex()
+void init_tex(t_tex *tex)
 {
-	t_texture *tex;
+	tex->no = 0;
+	tex->so = 0;
+	tex->ea = 0;
+	tex->we = 0;
+}
 
-	tex = malloc(sizeof(t_texture));
-	tex->no_img = 0;
-	tex->so_img = 0;
-	tex->ea_img = 0;
-	tex->we_img = 0;
-	tex->no_img = malloc(sizeof(t_image));
-	tex->so_img = malloc(sizeof(t_image));
-	tex->ea_img = malloc(sizeof(t_image));
-	tex->we_img = malloc(sizeof(t_image));
-	tex->no_img->height = 512;
-	tex->so_img->height = 512;
-	tex->ea_img->height = 512;
-	tex->we_img->height = 512;
-	tex->no_img->width = 512;
-	tex->so_img->width = 512;
-	tex->ea_img->width = 512;
-	tex->we_img->width = 512;
-	tex->no_img->instances = malloc(sizeof(t_instance));
-	tex->so_img->instances = malloc(sizeof(t_instance));
-	tex->ea_img->instances = malloc(sizeof(t_instance));
-	tex->we_img->instances = malloc(sizeof(t_instance));
-	if (!tex->no_img || !tex->so_img || !tex->we_img || !tex->ea_img)
-    {
-        free(tex);
-        return NULL;
-    } // new add
-	return (tex);
+void init_game(t_mlx *game, char **av)
+{
+	init_mlx(&game);
+	init_data(game, &game->data, av);	
+	init_tex(&game->tex);
+	init_ray(&game->ray);
+	init_player(&game->ply);
+	init_images(&game);
 }
 
 void	cub_three_d(char **av)
 {
-	t_mlx	*game;
+	t_mlx	game;
 
-	game = init_mlx();
-	game->tex = init_tex();
-	game->data = init_data(av);
-	if (!game->data)
-		free_mlx(game, 1);
-	set_mlx_images(game);
-	game->ray = init_ray();
-	game->ply = init_player(game);
-	if (!game || !game->data || !game->ply)
-		return (ft_exit(game)); // ! need to check for what to free
-	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
-	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, game);
-	mlx_loop_hook(game->mlx_p, draw_map_pixel, game);
-	mlx_loop(game->mlx_p);
-	ft_exit(game);
+	init_game(&game, av);
+	mlx_hook(game.win, KeyPress, KeyPressMask, key_press, &game);
+	mlx_hook(game.win, KeyRelease, KeyReleaseMask, key_release, &game);
+	mlx_loop_hook(game.mlx_p, draw_map_pixel, &game);
+	mlx_loop(game.mlx_p);
+	ft_exit(&game);
 }
 
 int	main(int ac, char **av)

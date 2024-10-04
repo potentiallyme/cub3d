@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/27 19:33:05 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/03 21:16:31 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,24 @@ void	set_rgb(t_data *data, char **split, char c)
 	if (c == 'F')
 	{
 		data->c_floor = ft_strdup_double(split);
-		data->floor[0] = ft_atoi(split[0]);
-		data->floor[1] = ft_atoi(split[1]);
-		data->floor[2] = ft_atoi(split[2]);
+		data->floor = get_color(ft_atoi(split[0]), ft_atoi(split[1]),
+				ft_atoi(split[2]));
 	}
 	else if (c == 'C')
 	{
 		data->c_ceiling = ft_strdup_double(split);
-		data->ceiling[0] = ft_atoi(split[0]);
-		data->ceiling[1] = ft_atoi(split[1]);
-		data->ceiling[2] = ft_atoi(split[2]);
+		data->ceiling = get_color(ft_atoi(split[0]), ft_atoi(split[1]),
+				ft_atoi(split[2]));
 	}
 	ft_free(split);
 }
 
-int rgb_error(t_data *data, char c)
+int	rgb_error(t_data *data, char c)
 {
 	if (c == 'F')
-		data->floor[0] = -1;
-	else if (c == 'C')	
-		data->ceiling[0] = -1;
+		data->floor = -1;
+	else if (c == 'C')
+		data->ceiling = -1;
 	return (0);
 }
 
@@ -76,7 +74,7 @@ int	check_rgb(t_data *data, t_file *tmp, char c)
 {
 	char	**split;
 	int		n;
-	int 	i;
+	int		i;
 
 	n = 0;
 	i = 0;

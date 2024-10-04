@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/03 15:25:09 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/03 21:15:19 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel, double b_pixel)
 
 }
 
-t_image	*get_texture(t_mlx *mlx, int wall_flag) //!
+int	*get_texture(t_mlx *mlx, int wall_flag) //!
 {
 	printf("get_texture>ray_angle:%f\n", mlx->ray->ray_angle);
 	mlx->ray->ray_angle = normalize_angle(mlx->ray->ray_angle);
@@ -79,7 +79,7 @@ t_image	*get_texture(t_mlx *mlx, int wall_flag) //!
 // 	double	factor;
 
 // 	texture = get_texture(mlx, mlx->ray->wall_flag);
-// 	factor = (double)texture->height / wall_h;
+// 	factor = (double)mlx->img_size / wall_h;
 // 	y_o = (t_pixel - (S_H / 2) + (wall_h / 2)) * factor;
 // 	while (t_pixel < b_pixel)
 // 	{
@@ -89,38 +89,25 @@ t_image	*get_texture(t_mlx *mlx, int wall_flag) //!
 // 	}
 // 	(void)wall_h;
 // 	(void)texture;
-// }
+// 
 
-int	reverse_bytes(int c)//!
-{
-	unsigned int	b;
-
-	b = 0;
-	b |= (c & 0xFF) << 24;
-	b |= (c & 0xFF00) << 8;
-	b |= (c & 0xFF0000) >> 8;
-	b |= (c & 0xFF000000) >> 24;
-	return (b);
-}
-
-double	get_x_o(t_image	*texture, t_mlx *mlx)//!
+double	get_x_o(t_mlx *mlx)//!
 {
 	double	x_o;
 
 	if (mlx->ray->wall_flag == 1)
 	{
 		x_o = (int)fmodf((mlx->ray->horiz_x * \
-		(texture->width / TILE_SIZE)), texture->width);
-		printf("horiz_x: %f, texture->width: %d, x_o:%f\n", mlx->ray->horiz_x, texture->width, x_o);
+		(mlx->img_size / TILE_SIZE)), mlx->img_size);
+		printf("horiz_x: %f, mlx->img_size: %d, x_o:%f\n", mlx->ray->horiz_x, mlx->img_size, x_o);
 	}
 	else
 	{
 		x_o = (int)fmodf((mlx->ray->vert_y * \
-		(texture->width / TILE_SIZE)), texture->width);
-		printf("texture->width: %d, x_o:%f\n", texture->width, x_o);
+		(mlx->img_size / TILE_SIZE)), mlx->img_size);
+		printf("mlx->img_size: %d, x_o:%f\n", mlx->img_size, x_o);
 	}
 	return (x_o);
-
 }
 
 // void init_img(t_img *img)
@@ -138,33 +125,56 @@ double	get_x_o(t_image	*texture, t_mlx *mlx)//!
 // 	img.img = NULL;
 // 	init_img(img);
 // }
+void img_set(t_mlx *mlx, t_image *img, int height, int width)
+{
+	img->img = 0;
+	img->pixel_bits = 0;
+	img->size_line = 0;
+	img->endian = 0;
+	img->pixels = 0;
+	img->instances = 0;
+
+	img->img = mlx_new_image(mlx->mlx_p, width, height);
+	if (!img->img)
+		ft_exit(mlx); //! CHECK
+	img->pixels = (int *)mlx_get_data_addr(img->img, &img->pixel_bits, \
+	&img->size_line, &img->endian);
+}
 
 void render_wall(t_mlx *mlx, double t_pix, double b_pix, double wall_h)//!
 {
-    double x_o;
-    double y_o;
-    t_image *texture;
-    uint32_t *arr;
-    double factor;
-	
-    texture = get_texture(mlx, mlx->ray->wall_flag);
-    if (!texture)
-        return ;
-    arr = (uint32_t *)texture->pixels;
-    factor = (double)texture->height / wall_h;
-    x_o = get_x_o(texture, mlx);
-    y_o = (t_pix - (S_H / 2) + (wall_h / 2)) * factor;
-	printf("factor = texture->height %d / wall_h%f: x_o: %f, y_o: %f\n\n", texture->height, wall_h, x_o, y_o);
-    if (y_o < 0)
-		y_o = 0;
-    while (t_pix < b_pix)
+	t_image img;
+	int x;
+	int y;
+
+	img.img = NULL;
+	img_set(mlx, &img, mlx->img_size, mlx->img_size);
+	y = 0;
+	while (++y < S_H / 2)
     {
-		new_mlx_pixel_put(mlx, mlx->ray->index, t_pix, reverse_bytes \
-		(arr[(int)y_o * texture->width + (int)x_o])); //!
-        // draw_pix(texture, mlx->ray->index, t_pix, 0xFF00FF);
-		y_o += factor;
-        t_pix++;
+        x = -1;
+        while (++x < S_W)
+        {
+            draw_pix(&img, x, y, get_color(ft_atoi(mlx->data->c_ceiling[0]),
+                ft_atoi(mlx->data->c_ceiling[1]), ft_atoi(mlx->data->c_ceiling[2])));
+            draw_pix(&img, x, y + (S_H / 2), get_color(ft_atoi(mlx->data->c_floor[0]),
+                ft_atoi(mlx->data->c_floor[1]), ft_atoi(mlx->data->c_floor[2])));
+        }
     }
+	y = 0;
+	while (y < S_H)
+	{
+		x = 0;
+		while (x < S_W)
+		{
+			draw_pix(&img, x, y, mlx->tex->no_img[y * (img.size_line / 4) + x]);
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(mlx->mlx_p, mlx->win, img.img, 0, 0);
+	mlx_destroy_image(mlx->mlx_p, img.img);
+	(void)b_pix;(void)t_pix;(void)wall_h;
 }
 
 

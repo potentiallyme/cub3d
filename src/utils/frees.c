@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/01 17:53:17 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/03 22:02:44 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,40 +38,32 @@ void	free_textures(t_data *data)
 		free(data->west);
 }
 
-void	*free_during_init(t_data *data)
+void	free_during_init(t_mlx *mlx, t_data *data)
 {
 	ft_printf("%sINIT_DATA FAIL%s\n", red, rst);
 	ft_free(data->map2d);
-	ft_free(data->square_map); //new add
+	ft_free(data->square_map);
 	free_file_list(data->linked_file);
 	free(data->file);
-	free_textures(data);
-	free(data);
-	return (NULL);
+	free_mlx(mlx, 1);
 }
 
 void	free_mlx(t_mlx *game, int exit_code)
 {
-	// ft_printf("%sFREE_MLX%s\n" purple, reset);
-	if (!game)
-		exit(exit_code);
 	if (game->mlx_p)
 	{
 		mlx_destroy_display(game->mlx_p);
 		mlx_loop_end(game->mlx_p);
 		free(game->mlx_p);
 	}
-	free(game);
 	exit(exit_code);
 }
 
-void	ft_exit(t_mlx *mlx) //new add
+void	ft_exit(t_mlx *mlx)
 {
-	// temporary
 	// mlx_destroy_image(mlx->mlx_p, mlx->img);
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
-	free_file_list(mlx->file);
-	free_textures(mlx->data);
+	free_during_init(mlx, &mlx->data);
 	free_mlx(mlx, 0);
 	// ft_putstr_fd("Game Closed\n", 1);
 	exit(0);

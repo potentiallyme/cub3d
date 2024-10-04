@@ -1,11 +1,11 @@
-        SO ./textures/ClaimedE.xpm
-                                                WE ./textures/ClaimedE.xpm
+        SO ./textures/wet_sponge.xpm
+                                                WE ./textures/wet_sponge.xpm
 
                         F 246,161,146
-                NO ./textures/ClaimedE.xpm
+                NO ./textures/wet_sponge.xpm
 
 C 246,217,146
-EA ./textures/ClaimedE.xpm
+EA ./textures/wet_sponge.xpm
 
         11111111111 1111111111111
         1000000000111000000000001
