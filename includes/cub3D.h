@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/03 22:00:59 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/04 15:05:27 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_mlx
 
 typedef struct s_data
 {
+	int				player_dir;
 	int				exit;
 	char			*north;
 	char			*south;
@@ -118,7 +119,7 @@ typedef struct s_data
 
 typedef struct s_player
 {
-	int				dir;
+	int				nswe;
 	double			ply_x;
 	double			ply_y;
 	double			dir_x;
@@ -168,12 +169,12 @@ typedef struct s_instance // player y position in pixels
 int					get_color(int r, int g, int b);
 void				draw_pix(t_image *img, int x, int y, int color);
 void				img_set(t_mlx *mlx, t_image *img, int height, int width);
-
+int		get_player_pos(t_data *mlx);
 // ! INITS
 void				init_mlx(t_mlx *game);
 void				init_data(t_mlx *mlx, t_data *data, char **av);
 void				init_ray(t_ray *ray);
-void				init_player(t_player *ply);
+void				init_player(t_mlx *mlx, t_player *ply);
 void				init_images(t_mlx *game);
 
 // ! MOVEMENT

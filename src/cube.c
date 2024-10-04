@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/03 22:01:56 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/04 15:53:38 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void draw_pix(t_image *img, int x, int y, int color)
 // 	return (1);
 // }
 
-int draw_map_pixel(t_mlx *ml)
+int loop_render(t_mlx *mlx)
 {
-    cast_rays(ml);
-    handle_ply_movement(ml, 0, 0);
+	// ? check for player move, if not return
+	cast_rays(mlx);
     return (1);
 }
 
@@ -74,7 +74,7 @@ void init_game(t_mlx *game, char **av)
 	init_data(game, &game->data, av);	
 	init_tex(&game->tex);
 	init_ray(&game->ray);
-	init_player(&game->ply);
+	init_player(game, &game->ply);
 	init_images(&game);
 }
 
@@ -83,9 +83,10 @@ void	cub_three_d(char **av)
 	t_mlx	game;
 
 	init_game(&game, av);
+	cast_rays(&game);
 	mlx_hook(game.win, KeyPress, KeyPressMask, key_press, &game);
 	mlx_hook(game.win, KeyRelease, KeyReleaseMask, key_release, &game);
-	mlx_loop_hook(game.mlx_p, draw_map_pixel, &game);
+	mlx_loop_hook(game.mlx_p, loop_render, &game);
 	mlx_loop(game.mlx_p);
 	ft_exit(&game);
 }

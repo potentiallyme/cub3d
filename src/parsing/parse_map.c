@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/03 15:56:04 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/04 13:11:55 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**make_square_map(t_data *m) //new add
 			m->square_map[i] = fill_map(m->map2d[i], maxlen);
 		if (!m->square_map[i])
 		{
-			free_during_init(m);
+			// need exit 
 			return (NULL);
 		}
 		i++;
@@ -92,6 +92,6 @@ char	**make_square_map(t_data *m) //new add
 	m->map_h = get_h_map(m->square_map);
 	m->map_w = maxlen;
 	if (!check_w_map(m->square_map) || !check_h_map(m->square_map)) //or just check_map? or check_around?
-		return (free_during_init(m), NULL);
+		return (NULL);
 	return (m->square_map);
 }

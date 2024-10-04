@@ -6,13 +6,25 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/03 22:02:55 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/04 15:37:14 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	get_player_pos(t_data *mlx) //! square_map? map2d? use square->crash
+void set_player(t_data *data, char c)
+{
+	if (c == 'N')
+		data->player_dir = NO;
+	else if (c == 'S')
+		data->player_dir = SO;
+	else if (c == 'W')
+		data->player_dir = WE;
+	else if (c == 'E')
+		data->player_dir = EA;
+}
+
+int	get_player_pos(t_data *data)
 {
 	int i;
 	int j;
@@ -20,23 +32,24 @@ int	get_player_pos(t_data *mlx) //! square_map? map2d? use square->crash
 
 	i = 0;
 	n = 0;
-	while (mlx->square_map[i])
+	while (data->square_map[i])
 	{
 		j = 0;
-		while (mlx->square_map[i][j])
+		while (data->square_map[i][j])
 		{
-			if (is_player(mlx->square_map[i][j]))
+			if (is_player(data->square_map[i][j]))
 			{
-				mlx->p_x = j;
-				mlx->p_y = i;
+				data->p_x = j;
+				data->p_y = i;
+				set_player(data, data->square_map[i][j]);
 				n++;
 			}
-			if (n > 1)
-				return (FAIL);
 			j++;
 		}
 		i++;
 	}
+	if (n != 1)
+		return (FAIL);
 	return (SUCCESS);
 }
 
@@ -51,22 +64,41 @@ void init_mlx(t_mlx *game)
 	game->img_size = 64;
 }
 
-void init_data(t_mlx *mlx, t_data *data, char **av)
+void parser(t_mlx *mlx, t_data *data, char **av)
 {
 	int		fd;
-
+	
 	fd = open(av[1], O_RDWR);
-	data->exit = 0;
 	data->file = return_gnl(fd); // malloc
-	data->linked_file = 0;
 	string_to_list(data); // malloc
 	data->map2d = return_map(data); // malloc
 	data->square_map = make_square_map(data); // malloc
-	data->floor = 0;
-	data->ceiling = 0;
 	if (check_file(data) != 6)
 		return (free_during_init(mlx, data));
 	ft_printf("%sINIT_DATA SUCCESS%s\n", green, rst);
+}
+
+void init_data(t_mlx *mlx, t_data *data, char **av)
+{
+	data->player_dir = 0;
+	data->exit = 0;
+	data->north = 0;
+	data->south = 0;
+	data->west = 0;
+	data->east = 0;
+	data->p_x = 0;
+	data->p_y = 0;
+	data->map_w = 0;
+	data->map_h = 0;
+	data->file = 0;
+	data->map2d = 0;
+	data->square_map = 0;
+	data->floor = 0;
+	data->ceiling = 0;
+	data->c_floor = 0;
+	data->c_ceiling = 0;
+	data->linked_file = 0;
+	parser(mlx, data, av);
 }
 
 void init_ray(t_ray *ray)
@@ -90,34 +122,36 @@ void init_ray(t_ray *ray)
 	ray->draw_end = 0;
 }
 
-// void	get_angle(t_mlx *game, t_player *ply)
-// {
-// 	char	c;
-
-// 	c = game->data->map2d[game->data->p_y][game->data->p_x];
-// 	if (c == 'N')
-// 		ply->angle = 3 * M_PI / 2;
-// 	else if (c == 'S')
-// 		ply->angle = M_PI / 2;
-// 	else if (c == 'E')
-// 		ply->angle = 0;
-// 	else if (c == 'W')
-// 		ply->angle = M_PI;
-// 	printf("get_angle>c: %c ply->angle: %f\n", c, ply->angle);
-// 	ply->ply_x = (game->data->p_x * TILE_SIZE) + TILE_SIZE / 2;
-// 	ply->ply_y = (game->data->p_y * TILE_SIZE) + TILE_SIZE / 2;
-// 	ply->fov_radian = (FOV * M_PI / 180);
-// }
-
-void	init_player(t_player *ply)
+void set_player_cam(t_player *ply)
 {
-	ply->dir = 0;
+	if (ply->nswe == SO)
+	{
+		ply->dir_y = -1;
+		ply->plane_x = 0.66;
+	}
+	else if (ply->nswe == EA)
+	{
+		ply->dir_x = 1;
+		ply->plane_y = 0.66;
+	}
+	else if (ply->nswe == WE)
+	{
+		ply->dir_x = -1;
+		ply->plane_y = -0.66;
+	}
+}
+
+void	init_player(t_mlx *mlx, t_player *ply)
+{
+	ply->nswe = mlx->data.player_dir;
 	ply->ply_x = 0;
 	ply->ply_y = 0;
+	get_player_pos(mlx);
 	ply->dir_x = 0;
-	ply->dir_y = 0;
-	ply->plane_x = 0;
+	ply->dir_y = 1;
+	ply->plane_x = -0.66;
 	ply->plane_y = 0;
+	set_player_cam(ply);
 	ply->has_moved = 0;
 	ply->move_x = 0;
 	ply->move_y = 0;
