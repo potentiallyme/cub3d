@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/04 16:04:58 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/05 17:44:42 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,16 +170,14 @@ void do_dda(t_mlx *mlx, t_ray *ray)
 
 void	cast_rays(t_mlx *mlx)
 {
-	t_ray ray;
 	int x;
 
 	x = 0;
-	ray = mlx->ray;
 	while (x < S_W)
 	{
-		init_ray(&ray);
-		set_ray(&mlx->ply, &ray, x);
-		set_dda(mlx, &ray);
-		do_dda(mlx, &ray);
+		init_ray(&mlx->ray);
+		set_ray(&mlx->ply, &mlx->ray, x);
+		set_dda(mlx, &mlx->ray);
+		do_dda(mlx, &mlx->ray);
 	}
 }
