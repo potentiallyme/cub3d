@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/04 15:37:14 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 21:32:12 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ int	get_player_pos(t_data *data)
 
 	i = 0;
 	n = 0;
-	while (data->square_map[i])
+	while (data->map2d[i])
 	{
 		j = 0;
-		while (data->square_map[i][j])
+		while (data->map2d[i][j])
 		{
-			if (is_player(data->square_map[i][j]))
+			if (is_player(data->map2d[i][j]))
 			{
 				data->p_x = j;
 				data->p_y = i;
-				set_player(data, data->square_map[i][j]);
+				set_player(data, data->map2d[i][j]);
+				data->map2d[i][j] = '0';
 				n++;
 			}
 			j++;
@@ -62,6 +63,8 @@ void init_mlx(t_mlx *game)
 	if (!game->win)
 		free_mlx(game, 1);
 	game->img_size = 64;
+	game->ply_speed = 0.0125;
+	game->rot_speed = 0.03;
 }
 
 void parser(t_mlx *mlx, t_data *data, char **av)
@@ -71,9 +74,10 @@ void parser(t_mlx *mlx, t_data *data, char **av)
 	fd = open(av[1], O_RDWR);
 	data->file = return_gnl(fd); // malloc
 	string_to_list(data); // malloc
+	pr_str(data->linked_file);
 	data->map2d = return_map(data); // malloc
-	data->square_map = make_square_map(data); // malloc
-	if (check_file(data) != 6)
+	// data->square_map = make_square_map(data); // malloc
+	if (check_file(data) != 4)
 		return (free_during_init(mlx, data));
 	ft_printf("%sINIT_DATA SUCCESS%s\n", green, rst);
 }
@@ -122,40 +126,47 @@ void init_ray(t_ray *ray)
 	ray->draw_end = 0;
 }
 
-void set_player_cam(t_player *ply)
+void set_player_cam(t_player **ply)
 {
-	if (ply->nswe == SO)
+	// printf("%i\n", ply->nswe);
+	if ((*ply)->nswe == SO)
 	{
-		ply->dir_y = -1;
-		ply->plane_x = 0.66;
+		(*ply)->dir_y = -1;
+		(*ply)->plane_x = 0.66;
 	}
-	else if (ply->nswe == EA)
+	else if ((*ply)->nswe == EA)
 	{
-		ply->dir_x = 1;
-		ply->plane_y = 0.66;
+		(*ply)->dir_x = 1;
+		(*ply)->plane_y = 0.66;
 	}
-	else if (ply->nswe == WE)
+	else if ((*ply)->nswe == WE)
 	{
-		ply->dir_x = -1;
-		ply->plane_y = -0.66;
+		(*ply)->dir_x = -1;
+		(*ply)->plane_y = -0.66;
 	}
 }
 
 void	init_player(t_mlx *mlx, t_player *ply)
 {
+	if (get_player_pos(&mlx->data) == FAIL)
+	{	ft_printf("fail\n");
+		ft_exit(mlx) ;}
+	ply->ply_x = mlx->data.p_x;
+	ply->ply_y = mlx->data.p_y;
 	ply->nswe = mlx->data.player_dir;
-	ply->ply_x = 0;
-	ply->ply_y = 0;
-	get_player_pos(mlx);
 	ply->dir_x = 0;
 	ply->dir_y = 1;
 	ply->plane_x = -0.66;
 	ply->plane_y = 0;
-	set_player_cam(ply);
+	set_player_cam(&ply);
 	ply->has_moved = 0;
 	ply->move_x = 0;
 	ply->move_y = 0;
-	ply->rot = 0;
+	ply->rot_r = 0;
+	ply->rot_l = 0;
+	ply->sprint = 0;
+	ply->gauge = 100;
+	ply->use = 0;
 }
 
 void img_thing(t_mlx *mlx, t_image *img, char *path)

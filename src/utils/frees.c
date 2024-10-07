@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/03 22:02:44 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 21:32:16 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_during_init(t_mlx *mlx, t_data *data)
 {
 	ft_printf("%sINIT_DATA FAIL%s\n", red, rst);
 	ft_free(data->map2d);
-	ft_free(data->square_map);
+	// ft_free(data->square_map);
 	free_file_list(data->linked_file);
 	free(data->file);
 	free_mlx(mlx, 1);
@@ -64,7 +64,8 @@ void	ft_exit(t_mlx *mlx)
 	// mlx_destroy_image(mlx->mlx_p, mlx->img);
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
 	free_during_init(mlx, &mlx->data);
-	free_mlx(mlx, 0);
+	// free_mlx(mlx, 0);
+	//? free tex_pix
 	// ft_putstr_fd("Game Closed\n", 1);
 	exit(0);
 }

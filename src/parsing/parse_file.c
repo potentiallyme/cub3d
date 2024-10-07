@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/03 15:50:19 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 21:35:06 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	**fill_spaces(char **map) //! could be combined/used for creating square_ma
 
 	i = 0;
 	s = ft_strdup_double(map);
-	ft_putstr_double(s);
 	while (s[i])
 	{
 		j = 0;
@@ -46,8 +45,8 @@ int	check_file(t_data *data)
 	i += check_rgb(data, tmp, 'F');
 	tmp = data->linked_file;
 	i += check_rgb(data, tmp, 'C');
-	i += check_map(fill_spaces(data->map2d));
+	// i += check_map(fill_spaces(data->map2d));
 	// i = check_texture_paths(data); // ?  TO FILE part
-	print_textures(data, i);
-	return (i);
+	// print_textures(data, i);
+	return (i + 1);
 }

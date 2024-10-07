@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:46:33 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 15:34:43 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 21:34:48 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int	check_if_map(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != '1')
-		i++;
-	if (s[i] == '1' && s[i + 1] == '1' && s[i + 2] == '1')
-		return (1);
-	return (0);
+	while (s[i])
+	{
+		if (s[i] == ' ' || s[i] == '1')
+			i++;
+		else
+			return (FALSE);
+	}	
+	return (TRUE);
 }
 
 t_file	*return_map_start(t_file *file)
@@ -73,6 +76,6 @@ char	**return_map(t_data *data)
 		tmp = tmp->next;
 		i++;
 	}
-	map[i] = 0;
+	map[i] = NULL;
 	return (map);
 }

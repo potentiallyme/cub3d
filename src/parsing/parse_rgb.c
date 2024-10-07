@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/03 21:16:31 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 14:51:29 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ int	recheck_format(int *i)
 		j++;
 	}
 	return (1);
+}
+
+long get_color(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b << 0);
 }
 
 void	set_rgb(t_data *data, char **split, char c)
@@ -94,7 +99,5 @@ int	check_rgb(t_data *data, t_file *tmp, char c)
 		tmp = tmp->next;
 		i = 0;
 	}
-	if (c == 'F')
-		return (n + recheck_format(data->floor));
-	return (n + recheck_format(data->ceiling));
+	return (n);
 }

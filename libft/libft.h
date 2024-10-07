@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
-/*   Updated: 2024/09/17 15:47:44 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 13:07:19 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int					ft_lstsize(t_list *lst);
 void				ft_bzero(void *s, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);
 void				ft_free(char **s);
+void				ft_free_any(void **s);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);

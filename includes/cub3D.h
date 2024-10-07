@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/04 15:05:27 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 20:45:12 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-# define S_W 1900
-# define S_H 1000
+# define S_W 640
+# define S_H 480
 # define TRUE 1
 # define FALSE 0
 # define SUCCESS 1
@@ -51,49 +51,23 @@
 # define white "\033[0;37m"
 
 // movement
-# define S_W 1900
-# define S_H 1000
 # define NO 1
 # define SO 2
 # define EA 3
 # define WE 4
+# define RUN 5
+# define WALK 6
 
 # define TILE_SIZE 512
 # define FOV (60 * M_PI / 180)
 # define NUM_RAYS 320
-# define ROTATION_SPEED 0.045
-# define PLAYER_SPEED 4
+# define ROTATION_SPEED 0.025
 
-typedef struct s_image
+typedef struct s_file
 {
-	void			*img;
-	int				pixel_bits;
-	int				size_line;
-	int				endian;
-	int				*pixels;
-}					t_image;
-
-typedef struct s_tex
-{
-	int				*no;
-	int				*so;
-	int				*ea;
-	int				*we;
-}					t_tex;
-
-typedef struct s_mlx
-{
-	int				img_size;
-	int				**tex_pix;
-	void			*mlx_p;
-	void			*win;
-	t_ray			ray;
-	t_data			data;
-	t_player		ply;
-	t_image			img;
-	t_file			file;
-	t_tex			tex;
-}					t_mlx;
+	char			*s;
+	struct s_file	*next;
+}					t_file;
 
 typedef struct s_data
 {
@@ -129,14 +103,12 @@ typedef struct s_player
 	int				has_moved;
 	int				move_x;
 	int				move_y;
-	int				rot;
+	int				rot_r;
+	int				rot_l;
+	int				sprint;
+	int				use;
+	double			gauge;
 }					t_player;
-
-typedef struct s_file
-{
-	char			*s;
-	struct s_file	*next;
-}					t_file;
 
 typedef struct s_ray
 {
@@ -159,33 +131,65 @@ typedef struct s_ray
 	int				draw_end;
 }					t_ray;
 
-typedef struct s_instance // player y position in pixels
+typedef struct s_image
 {
-	int32_t x;
-	int32_t y;
-	int32_t z;
-}					t_instance;
+	void			*img;
+	int				pixel_bits;
+	int				size_line;
+	int				endian;
+	int				*pixels;
+}					t_image;
 
-int					get_color(int r, int g, int b);
+typedef struct s_tex
+{
+	int				*no;
+	int				*so;
+	int				*ea;
+	int				*we;
+	int				dir;
+	int				x;
+	int				y;
+	double			step;
+	double			pos;
+}					t_tex;
+
+typedef struct s_mlx
+{
+	double			ply_speed;
+	double			rot_speed;
+	int				img_size;
+	int				**tex_pix;
+	void			*mlx_p;
+	void			*win;
+	t_ray			ray;
+	t_data			data;
+	t_player		ply;
+	t_image			img;
+	t_file			file;
+	t_tex			tex;
+}					t_mlx;
+
+void				set_walk_speed(t_mlx *mlx, int flag);
 void				draw_pix(t_image *img, int x, int y, int color);
-void				img_set(t_mlx *mlx, t_image *img, int height, int width);
-int		get_player_pos(t_data *mlx);
+int					get_player_pos(t_data *mlx);
 // ! INITS
 void				init_mlx(t_mlx *game);
 void				init_data(t_mlx *mlx, t_data *data, char **av);
 void				init_ray(t_ray *ray);
 void				init_player(t_mlx *mlx, t_player *ply);
 void				init_images(t_mlx *game);
+void				init_tex_pix(t_mlx *mlx);
 
 // ! MOVEMENT
-void				rotate_view(t_mlx *mlx, int i);
+int					rotate_view(t_mlx *mlx, double rot_dir);
 int					key_release(int keycode, t_mlx *ml);
 int					key_press(int keydata, t_mlx *ml);
-void				move_player(t_mlx *mlx, double move_x, double move_y);
+int					move_player(t_mlx *mlx);
 void				handle_ply_movement(t_mlx *mlx, double move_x,
 						double move_y);
 int					wall_hit(t_mlx *mlx, double x, double y);
 int					check_direction(double angle, char c);
+int					validate_move(t_mlx *mlx, double new_x, double new_y);
 
 // ! PARSING
 int					check_file(t_data *data);
@@ -203,17 +207,10 @@ double				get_h_inter(t_mlx *mlx, double angle);
 double				adjust_inter(double angle, double *inter, double *step,
 						int h);
 
-// ! RENDERING
-void				rendering(t_mlx *mlx, int ray);
-// void    render_walls(t_mlx *mlx, double t_pixel, double b_pixel,
-//	double wall_h);
-void				render_wall(t_mlx *mlx, double t_pix, double b_pix,
-						double wall_h);
-int					*get_texture(t_mlx *mlx, int wall_flag);
-void				render_floor_ceiling(t_mlx *mlx, int ray, double t_pixel,
-						double b_pixel);
-void				new_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-
+void				render_image(t_mlx *mlx);
+int					is_valid_pos(char **map, double x, double y);
+int is_not_wall(char **map, double x, double y);
+int					loop_render(t_mlx *mlx);
 // ! UTILS
 // * extension_utils
 int					is_xpm(char *s);

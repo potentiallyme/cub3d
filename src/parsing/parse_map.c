@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/04 13:11:55 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 21:30:22 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_invalid(char c)
 {
-	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == 'D')
 		return (FALSE);
 	return (TRUE);
 }
@@ -65,33 +65,74 @@ int	check_map(char **map)
 	return (SUCCESS);
 }
 
-char	**make_square_map(t_data *m) //new add
+int	get_w(t_data *d)
+{
+	t_file *tmp;
+	int line;
+
+	tmp = return_map_start(d->linked_file);
+	line = 0;
+	while (tmp)
+	{
+		if (ft_strlen(tmp->s) > line)
+			line = ft_strlen(tmp->s);
+		tmp = tmp->next;
+	}
+	return (line);
+}
+
+int get_h(t_data *d)
+{
+	t_file *tmp;
+	int line;
+
+	tmp = return_map_start(d->linked_file);
+	line = 0;
+	while (tmp)
+	{
+		if (!ft_strchr(tmp->s, '1'))
+			break ;
+		line++;
+		tmp = tmp->next;
+	}
+	return (line);
+}
+
+char	**make_square_map(t_data *m)
 {
 	int	i;
-	int maxlen;
+	int j;
+	int w;
+	int h;
+	char **tmp;
+	char **sq_map;
 
-	maxlen = get_maxlen(m->map2d);
 	i = 0;
-	m->square_map = ft_calloc(sizeof(char *), get_h_map(m->map2d + 1));
-	if (!m->square_map)
-		return (NULL);
-	while (m->map2d[i])
+	w = get_w(m);
+	h = get_h(m);
+	sq_map = malloc(sizeof(char *) * h);
+	tmp = m->map2d;
+	sq_map[h] = NULL;
+	while (i < h)
 	{
-		if (ft_strlen(m->map2d[i]) == maxlen)
-			m->square_map[i] = ft_strdup(m->map2d[i]);
-		else
-			m->square_map[i] = fill_map(m->map2d[i], maxlen);
-		if (!m->square_map[i])
+		j = 0;
+		sq_map[i] = malloc(sizeof(char) * w + 1);
+		sq_map[i][w] = '\0';
+		while (tmp[i][j])
 		{
-			// need exit 
-			return (NULL);
+			if (tmp[i][j] == ' ')
+				sq_map[i][j] = '1';
+			else
+				sq_map[i][j] = tmp[i][j];
+			j++;
+		}
+		while (j < w)
+		{
+			sq_map[i][j] = '1';
+			j++;
 		}
 		i++;
 	}
-	m->square_map[i] = NULL;
-	m->map_h = get_h_map(m->square_map);
-	m->map_w = maxlen;
-	if (!check_w_map(m->square_map) || !check_h_map(m->square_map)) //or just check_map? or check_around?
-		return (NULL);
-	return (m->square_map);
+	ft_putstr_double(sq_map);
+	return (sq_map);
 }

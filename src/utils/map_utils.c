@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/01 17:37:58 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/07 20:57:53 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
-int	get_maxlen(char **map)
-{
-	int	i;
-	int	max;
-
-	i = 0;
-	max = 0;
-	while (map[i])
-	{
-		int len = ft_strlen(map[i]);
-		if (len > max)
-			max = len;
-		i++;
-	}
-	return (max);
-}
 
 
 int	get_h_map(char **map)

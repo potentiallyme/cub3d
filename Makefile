@@ -39,7 +39,7 @@ INT			:= $(SRC_INT:%=$(INT_DIR)/%)
 
 # MOVEMENT
 MVT_DIR		:= movement
-SRC_MVT		:= collisions.c keypresses.c
+SRC_MVT		:= movement2.c movement.c keypresses.c
 MVT			:= $(SRC_MVT:%=$(MVT_DIR)/%)		
 
 # PARSING

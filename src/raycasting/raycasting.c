@@ -6,110 +6,13 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/05 17:44:42 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/07 20:51:38 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-double	adjust_inter(double angle, double *inter, double *step, int h)
-{
-	if (h)
-	{
-		if (angle > 0 && angle < M_PI)
-		{
-			inter += TILE_SIZE;
-			return (FAIL);
-		}
-		*step *= -1;
-	}
-	else
-	{
-		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2))
-		{
-				inter += TILE_SIZE;
-				return (FAIL);
-		}
-		*step *= -1;
-	}
-	return (SUCCESS);
-}
-
-double	get_h_inter(t_mlx *mlx, double angle)//!
-{
-	double	x;
-	double	y;
-	double	x_step;
-	double	y_step;
-	int		wall_res;
-
-	printf("get_h_inter>angle: %f\n", angle);
-	y_step = TILE_SIZE;
-	x_step = TILE_SIZE / tan(angle);
-	y = floor(mlx->ply->ply_y / TILE_SIZE) * TILE_SIZE;
-	wall_res = adjust_inter(angle, &y, &y_step, 1); //make sure point is on the horizontal line
-	x = mlx->ply->ply_x + ((y - mlx->ply->ply_y) / tan(angle));
-	
-	printf("mlx->ply->ply_x:%d, mlx->ply->ply_y x: %d\n", mlx->ply->ply_x, mlx->ply->ply_y);
-	
-	if ((check_direction(angle, 'y') == TRUE && x_step > 0)
-		|| ((check_direction(angle, 'y') == FALSE && x_step < 0)))
-		x_step *= -1;
-
-	printf("BEFORE x: %f, y: %f\n", x, y);
-	
-	while (wall_hit(mlx, x, y - wall_res))
-	{
-		x += x_step;
-		y += y_step;
-	}
-	printf("AFTER x: %f, y: %f\n", x, y);
-	mlx->ray->horiz_x = x; //!new add>>missing
-	mlx->ray->horiz_y = y; //!new add>>missing
-	printf("horiz_x: %f, horiz_y: %f\n", mlx->ray->horiz_x,mlx->ray->horiz_y);
-	return (sqrt(pow(x - mlx->ply->ply_x, 2) + pow(y - mlx->ply->ply_y, 2)));
-}
-
-double	get_v_inter(t_mlx *mlx, double angle)//!
-{
-	double	x;
-	double	y;
-	double	x_step;
-	double	y_step;
-	int		wall_res;
-
-	printf("get_v_inter>angle: %f\n", angle);
-	y_step = TILE_SIZE;
-	x_step = TILE_SIZE / tan(angle);
-	x = floor((mlx->ply->ply_x / TILE_SIZE) * TILE_SIZE);
-	wall_res = adjust_inter(angle, &x, &x_step, 0); //make sure point is on the horizontal line
-	y = mlx->ply->ply_y + (x - mlx->ply->ply_x) * tan(angle);
-	if ((check_direction(angle, 'x') == TRUE && y_step < 0)
-		|| (check_direction(angle, 'x') == FALSE && y_step > 0))
-		y_step *= -1;
-	printf("get_v_inter BEFORE x: %f, y: %f\n", x, y);
-	while (wall_hit(mlx, x - wall_res, y))
-	{
-		x += x_step;
-		y += y_step;
-	}
-	printf("AFTER x: %f, y: %f\n", x, y);
-	mlx->ray->vert_x = x;//!new add
-	mlx->ray->vert_y = y;//!new add
-	printf("vert_x: %f, vert_y: %f\n", mlx->ray->vert_x,mlx->ray->vert_y);
-	return (sqrt(pow(x - mlx->ply->ply_x, 2) + pow(y - mlx->ply->ply_y, 2)));
-
-}
-
-double	normalize_angle(double angle)
-{
-	if (angle < 0)
-		angle += (2 * M_PI);
-	if (angle > (2 * M_PI))
-		angle -= (2 * M_PI);
-	return (angle);
-}
-void set_ray(t_player *ply, t_ray *ray, int x)
+void	set_ray(t_player *ply, t_ray *ray, int x)
 {
 	ray->camera_x = 2 * x / (double)S_W - 1;
 	ray->dir_x = ply->dir_x + ply->plane_x * ray->camera_x;
@@ -120,33 +23,56 @@ void set_ray(t_player *ply, t_ray *ray, int x)
 	ray->deltadist_y = fabs(1 / ray->dir_y);
 }
 
-void set_dda(t_mlx *mlx, t_ray *ray)
+void	set_dda(t_mlx *mlx, t_ray *ray)
 {
 	if (ray->dir_x < 0)
-    {
-      ray->step_x = -1;
-      ray->sidedist_x = (mlx->ply.ply_x - ray->map_x) * ray->deltadist_x;
-    }
-    else
-    {
-      ray->step_x = 1;
-      ray->sidedist_x = (ray->map_x + 1.0 - mlx->ply.ply_x) * ray->deltadist_x;
-    }
-    if (ray->dir_y < 0)
-    {
-      ray->step_y = -1;
-      ray->sidedist_y = (mlx->ply.ply_y - ray->map_y) * ray->deltadist_y;
-    }
-    else
-    {
-      ray->step_y = 1;
-      ray->sidedist_y = (ray->map_y + 1.0 - mlx->ply.ply_y) * ray->deltadist_y;
-    }
+	{
+		ray->step_x = -1;
+		ray->sidedist_x = (mlx->ply.ply_x - ray->map_x) * ray->deltadist_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->sidedist_x = (ray->map_x + 1.0 - mlx->ply.ply_x)
+			* ray->deltadist_x;
+	}
+	if (ray->dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->sidedist_y = (mlx->ply.ply_y - ray->map_y) * ray->deltadist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->sidedist_y = (ray->map_y + 1.0 - mlx->ply.ply_y)
+			* ray->deltadist_y;
+	}
+	// printf("px: %f, mx: %i, py: %f, my: %i\n", mlx->ply.ply_x, ray->map_x, mlx->ply.ply_y, ray->map_y);
+	// printf("sdx: %f, ddx: %f, sdy: %f, ddy: %f\n", ray->sidedist_x, ray->deltadist_x, ray->sidedist_y, ray->deltadist_y);
+}
+int is_valid_pos(char **map, double x, double y)
+{
+	int t_x;
+	int t_y;
+	int ret;
+
+	t_x = (int)x;
+	t_y = (int)y;
+	ret = TRUE;
+	if (x <= 0.1 || x >= S_W - 1.1)
+		return (FALSE);
+	if (y <= 0.1 || y >= S_H - 0.1)
+		return (FALSE);
+	if (map[t_y][t_x] > '0')
+		return (FALSE);
+	if (is_player(map[t_y][t_x]) == TRUE)
+		return (TRUE);
+	return (TRUE);
 }
 
-void do_dda(t_mlx *mlx, t_ray *ray)
+void	do_dda(t_mlx *mlx, t_ray *ray)
 {
-	int hit;
+	int	hit;
 
 	hit = 0;
 	while (hit == 0)
@@ -163,14 +89,86 @@ void do_dda(t_mlx *mlx, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (mlx->data.map2d[ray->map_y][ray->map_x] > '0')
+		if (is_valid_pos(mlx->data.map2d, ray->map_x, ray->map_y) == FALSE)
 			hit = 1;
+	}
+}
+
+void	calc_line_height(t_ray *ray, t_player *ply)
+{
+	if (ray->side == 0)
+		ray->wall_dist = (ray->sidedist_x - ray->deltadist_x);
+	else
+		ray->wall_dist = (ray->sidedist_y - ray->deltadist_y);
+	ray->line_height = (int)(S_H / ray->wall_dist);
+	ray->draw_start = -(ray->line_height) / 2 + S_H / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + S_H / 2;
+	if (ray->draw_end >= S_H)
+		ray->draw_end = S_H - 1;
+	if (ray->side == 0)
+		ray->wall_x = ply->ply_y + ray->wall_dist * ray->dir_y;
+	else
+		ray->wall_x = ply->ply_x + ray->wall_dist * ray->dir_x;
+	ray->wall_x -= floor(ray->wall_x);
+
+}
+
+void	set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x)
+{
+	int	y;
+	int	color;
+	int	*dir;
+	// int f =0;
+
+	color = 0;
+	dir = tex->no;
+	if (ray->side == 0)
+	{
+		if (ray->dir_x < 0)
+			dir = tex->we;
+		else
+		{
+			dir = tex->ea;
+			// f = 1;
+		}
+	}
+	else
+	{
+		if (ray->dir_y < 0)
+		{
+			dir = tex->no;
+			// f = 1;
+		}
+		else
+			dir = tex->so;
+	}
+	tex->x = (int)(ray->wall_x * (*mlx)->img_size);
+	if ((ray->side == 0 && ray->dir_x < 0) || (ray->side == 1
+			&& ray->dir_y > 0))
+		tex->x = (*mlx)->img_size - tex->x - 1;
+	tex->step = 1.0 * (*mlx)->img_size / ray->line_height;
+	tex->pos = (ray->draw_start - S_H / 2 + ray->line_height / 2) * tex->step;
+	y = ray->draw_start;
+	// printf("y: %i, start: %i, end: %i\n", y, ray->draw_start, ray->draw_end);
+	while (y < ray->draw_end)
+	{
+		tex->y = (int)tex->pos & ((*mlx)->img_size - 1);
+		tex->pos += tex->step;
+		color = dir[(*mlx)->img_size * tex->y + tex->x];
+		// if (f == 1)
+		// 	color = (color >> 1) & 8355711;
+		if (color > 0)
+			(*mlx)->tex_pix[y][x] = color;
+		// printf("dir %x, texpix %x\n", dir[(*mlx)->img_size * tex->y + tex->x], (*mlx)->tex_pix[y][x]);
+		y++;
 	}
 }
 
 void	cast_rays(t_mlx *mlx)
 {
-	int x;
+	int	x;
 
 	x = 0;
 	while (x < S_W)
@@ -179,5 +177,8 @@ void	cast_rays(t_mlx *mlx)
 		set_ray(&mlx->ply, &mlx->ray, x);
 		set_dda(mlx, &mlx->ray);
 		do_dda(mlx, &mlx->ray);
+		calc_line_height(&mlx->ray, &mlx->ply);
+		set_textures(&mlx, &mlx->tex, &mlx->ray, x);
+		x++;
 	}
 }
