@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 20:45:12 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:49:56 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@
 # define FOV (60 * M_PI / 180)
 # define NUM_RAYS 320
 # define ROTATION_SPEED 0.025
+
+# ifndef BONUS
+#  define BONUS 1
+# endif
 
 typedef struct s_file
 {
@@ -169,6 +173,17 @@ typedef struct s_mlx
 	t_tex			tex;
 }					t_mlx;
 
+typedef struct s_minimap
+{
+	char			**map;
+	t_image			*img;
+	int				size;
+	int				offset_x;
+	int				offset_y;
+	int				view_dist;
+	int				tile_size;
+}					t_minimap;
+
 void				set_walk_speed(t_mlx *mlx, int flag);
 void				draw_pix(t_image *img, int x, int y, int color);
 int					get_player_pos(t_data *mlx);
@@ -208,7 +223,7 @@ double				adjust_inter(double angle, double *inter, double *step,
 						int h);
 
 void				render_image(t_mlx *mlx);
-int					is_valid_pos(char **map, double x, double y);
+int					is_valid_pos(t_data *data, double x, double y);
 int is_not_wall(char **map, double x, double y);
 int					loop_render(t_mlx *mlx);
 // ! UTILS

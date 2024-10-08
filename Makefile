@@ -13,6 +13,7 @@ RM			= @rm -rf
 FILE		= $(shell ls -lR src/ | grep -F .c | wc -l)
 CMP			= 1
 CLEAR 		= @clear
+BONUS 		= 0
 
 # **************************************************************************** #
 # 								LIBFT & MLX									   #
@@ -57,14 +58,20 @@ UTL_DIR		:= utils
 SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
+# BONUS
+BUS_DIR     := ../bonus
+SRC_BUS     := minimap.c
+BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
+
 # ALL SOURCES
 SRCS_DIR	:= src
-ALL_SRCS	:= $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL)
+ALL_SRCS	:= $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL) $(BUS)
 SRCS		:= $(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS
 OBJS_DIR	:=	.objs
 OBJS		:=	$(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+
 
 # **************************************************************************** #
 # 								   COLORS									   #
@@ -112,14 +119,14 @@ all: $(LIBFT) $(NAME)
 $(OBJS_DIR)/%.o: %.c $(HEAD)
 	$(MK) $(@D)
 	@printf "\r$(FAINT)$(SPINK)Compiling $(RESET)$(GREEN)$<$(BLUE) [$(SPINK)$(CMP)$(BLUE)/$(SPINK)$(FILE)$(BLUE)]$(RESET)                       \r"
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@
 	@$(eval CMP=$(shell echo $$(($(CMP)+1))))
 
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) $(LIBFT) $(LFLAGS) $(NAME) $(MLX)
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(LIBFT) $(LFLAGS) $(NAME) $(MLX)
 	@printf "\r"
 	$(CMPLT)
 
@@ -131,6 +138,9 @@ $(MLX): minilibx-linux
 	
 minilibx-linux:
 	@git clone https://github.com/42Paris/minilibx-linux.git $@
+
+bonus:
+	make all BONUS=1
 
 clean:
 	@rm -f $(LIBFT)

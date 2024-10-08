@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/07 20:51:38 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:51:34 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,28 @@ void	set_dda(t_mlx *mlx, t_ray *ray)
 	// printf("px: %f, mx: %i, py: %f, my: %i\n", mlx->ply.ply_x, ray->map_x, mlx->ply.ply_y, ray->map_y);
 	// printf("sdx: %f, ddx: %f, sdy: %f, ddy: %f\n", ray->sidedist_x, ray->deltadist_x, ray->sidedist_y, ray->deltadist_y);
 }
-int is_valid_pos(char **map, double x, double y)
+
+int is_valid_pos_collision(char **map, int x, int y)
 {
-	int t_x;
-	int t_y;
+	if (map[y][x] > '0')
+		return (FALSE);
+	if (is_player(map[y][x]) == TRUE)
+		return (TRUE);
+	return (TRUE);
+}
+
+int is_valid_pos(t_data *data, double x, double y)
+{
 	int ret;
 
-	t_x = (int)x;
-	t_y = (int)y;
 	ret = TRUE;
-	if (x <= 0.1 || x >= S_W - 1.1)
+	printf("x %f, y %f\n", x, y);
+	if (x <= 0.2 || x >= data->map_w - 1.2)
 		return (FALSE);
-	if (y <= 0.1 || y >= S_H - 0.1)
+	if (y <= 0.2 || y >= data->map_h - 1)
 		return (FALSE);
-	if (map[t_y][t_x] > '0')
-		return (FALSE);
-	if (is_player(map[t_y][t_x]) == TRUE)
-		return (TRUE);
+	if (BONUS)
+		is_valid_pos_collision(data->square_map, (int)x, (int)y);
 	return (TRUE);
 }
 
@@ -89,7 +94,14 @@ void	do_dda(t_mlx *mlx, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (is_valid_pos(mlx->data.map2d, ray->map_x, ray->map_y) == FALSE)
+		if (ray->map_y < 0.1
+			|| ray->map_x < 0.1
+			|| ray->map_y > S_H - 0.1
+			|| ray->map_x > S_W - 1.1)
+			break ;
+		else if (mlx->data.square_map[ray->map_y][ray->map_x] > '0')
+			hit = 1;
+		if (is_valid_pos(&mlx->data, ray->map_x, ray->map_y) == FALSE)
 			hit = 1;
 	}
 }

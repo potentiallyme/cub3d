@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 21:32:12 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:57:04 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int	get_player_pos(t_data *data)
 
 	i = 0;
 	n = 0;
-	while (data->map2d[i])
+	while (data->square_map[i])
 	{
 		j = 0;
-		while (data->map2d[i][j])
+		while (data->square_map[i][j])
 		{
-			if (is_player(data->map2d[i][j]))
+			if (is_player(data->square_map[i][j]))
 			{
 				data->p_x = j;
 				data->p_y = i;
-				set_player(data, data->map2d[i][j]);
-				data->map2d[i][j] = '0';
+				set_player(data, data->square_map[i][j]);
+				data->square_map[i][j] = '0';
 				n++;
 			}
 			j++;
@@ -62,6 +62,7 @@ void init_mlx(t_mlx *game)
 	game->win = mlx_new_window(game->mlx_p, S_W, S_H, "cub3D");
 	if (!game->win)
 		free_mlx(game, 1);
+	game->tex_pix = 0;
 	game->img_size = 64;
 	game->ply_speed = 0.0125;
 	game->rot_speed = 0.03;
@@ -73,10 +74,11 @@ void parser(t_mlx *mlx, t_data *data, char **av)
 	
 	fd = open(av[1], O_RDWR);
 	data->file = return_gnl(fd); // malloc
+	data->linked_file = 0;
 	string_to_list(data); // malloc
-	pr_str(data->linked_file);
+	// pr_str(data->linked_file);
 	data->map2d = return_map(data); // malloc
-	// data->square_map = make_square_map(data); // malloc
+	data->square_map = make_square_map(data); // malloc
 	if (check_file(data) != 4)
 		return (free_during_init(mlx, data));
 	ft_printf("%sINIT_DATA SUCCESS%s\n", green, rst);
@@ -131,17 +133,23 @@ void set_player_cam(t_player **ply)
 	// printf("%i\n", ply->nswe);
 	if ((*ply)->nswe == SO)
 	{
-		(*ply)->dir_y = -1;
-		(*ply)->plane_x = 0.66;
+		(*ply)->dir_x = 0;
+		(*ply)->dir_y = 1;
+		(*ply)->plane_x = -0.66;
+		(*ply)->plane_y = 0;
 	}
 	else if ((*ply)->nswe == EA)
 	{
 		(*ply)->dir_x = 1;
+		(*ply)->dir_y = 0;
+		(*ply)->plane_x = 0;
 		(*ply)->plane_y = 0.66;
 	}
 	else if ((*ply)->nswe == WE)
 	{
 		(*ply)->dir_x = -1;
+		(*ply)->dir_y = 0;
+		(*ply)->plane_x = 0;
 		(*ply)->plane_y = -0.66;
 	}
 }
@@ -155,8 +163,8 @@ void	init_player(t_mlx *mlx, t_player *ply)
 	ply->ply_y = mlx->data.p_y;
 	ply->nswe = mlx->data.player_dir;
 	ply->dir_x = 0;
-	ply->dir_y = 1;
-	ply->plane_x = -0.66;
+	ply->dir_y = -1;
+	ply->plane_x = 0.66;
 	ply->plane_y = 0;
 	set_player_cam(&ply);
 	ply->has_moved = 0;

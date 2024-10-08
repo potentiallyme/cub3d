@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 21:30:22 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:38:55 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,37 +102,27 @@ char	**make_square_map(t_data *m)
 {
 	int	i;
 	int j;
-	int w;
-	int h;
-	char **tmp;
 	char **sq_map;
 
-	i = 0;
-	w = get_w(m);
-	h = get_h(m);
-	sq_map = malloc(sizeof(char *) * h);
-	tmp = m->map2d;
-	sq_map[h] = NULL;
-	while (i < h)
+	i = -1;
+	m->map_w = get_w(m);
+	m->map_h = get_h(m);
+	sq_map = malloc(sizeof(char *) * (m->map_h + 1));
+	sq_map[m->map_h] = NULL;
+	while (++i < m->map_h)
 	{
-		j = 0;
-		sq_map[i] = malloc(sizeof(char) * w + 1);
-		sq_map[i][w] = '\0';
-		while (tmp[i][j])
+		j = -1;
+		sq_map[i] = malloc(sizeof(char) * (m->map_w + 1));
+		sq_map[i][m->map_w] = '\0';
+		while (m->map2d[i][++j])
 		{
-			if (tmp[i][j] == ' ')
+			if (ft_isspace(m->map2d[i][j]))
 				sq_map[i][j] = '1';
 			else
-				sq_map[i][j] = tmp[i][j];
-			j++;
+				sq_map[i][j] = m->map2d[i][j];
 		}
-		while (j < w)
-		{
+		while (j++ < m->map_w)
 			sq_map[i][j] = '1';
-			j++;
-		}
-		i++;
 	}
-	ft_putstr_double(sq_map);
 	return (sq_map);
 }

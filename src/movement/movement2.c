@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:46:46 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 20:51:14 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:39:52 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,16 @@ int	validate_move(t_mlx *mlx, double new_x, double new_y)
 	int	moved;
 
 	moved = 0;
-	if (is_valid_pos(mlx->data.map2d, new_x, mlx->ply.ply_y) == TRUE)
+	if (is_valid_pos(&mlx->data, new_x, mlx->ply.ply_y) == TRUE)
 	{
 		mlx->ply.ply_x = new_x;
 		moved = 1;
 	}
-	if (is_valid_pos(mlx->data.map2d, mlx->ply.ply_x, new_y) == TRUE)
+	if (is_valid_pos(&mlx->data, mlx->ply.ply_x, new_y) == TRUE)
 	{
 		mlx->ply.ply_y = new_y;
 		moved = 1;
 	}
+	printf("moved %i\n", moved);
 	return (moved);
 }

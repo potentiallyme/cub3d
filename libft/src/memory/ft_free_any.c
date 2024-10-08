@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_any.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:52:29 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 17:40:51 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/08 14:21:00 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,20 @@ void	ft_free_any(void **s)
 		s = NULL;
 	}
 }
+
+// void	ft_free_any(void **s)
+// {
+// 	int	i;
+
+// 	if (!s)
+// 		return ;
+// 	i = 0;
+// 	while (s[i])
+// 	{
+// 		free(s[i]);
+// 		s[i] = NULL;
+// 		i++;
+// 	}
+// 	free(s);
+// 	s = NULL;
+// }

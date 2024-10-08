@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 20:52:54 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:26:15 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,16 @@ int loop_render(t_mlx *mlx)
 	// ? check for player move, if not return
 	mlx->ply.has_moved += move_player(mlx); //continue
 	if (mlx->ply.has_moved == 0)
+	{
+		printf("dont\n");
 		return (0);
+	}
 	check_actions(mlx);
 	init_tex_pix(mlx);
 	cast_rays(mlx);
 	render_image(mlx);
+	// if (BONUS)
+	// 	render_minimap(mlx);
     return (1);
 }
 

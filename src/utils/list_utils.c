@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:26 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 17:04:27 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/08 14:39:59 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	check_and_add(t_data *data, t_file *new, char *tmp)
 	int i;
 
 	i = 0;
+	second = 0;
  	while (tmp[i] == ' ')
 		i++;
 	if ((tmp[i] == 'N' && tmp[i + 1] == 'O' && tmp[i + 2] == ' ') ||
@@ -44,6 +45,7 @@ void	check_and_add(t_data *data, t_file *new, char *tmp)
 		(tmp[i] == 'E' && tmp[i + 1] == 'A' && tmp[i + 2] == ' ') ||
 		(tmp[i] == 'W' && tmp[i + 1] == 'E' && tmp[i + 2] == ' '))
 	{
+		second = 0;
 		second = malloc(sizeof(t_file));
 		new->s = ft_strndup(tmp + i, 2);
 		second->s = ft_strdup(tmp + i + 3);
@@ -69,9 +71,11 @@ void	string_to_list(t_data *data)
 	tmp = ft_split(data->file, '\n');
 	while (tmp[i])
 	{
+		new = 0;
 		new = malloc(sizeof(t_file));
 		check_and_add(data, new, tmp[i]);
 		i++;
 	}
+	new = 0;
 	ft_free(tmp);
 }
