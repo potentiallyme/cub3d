@@ -60,7 +60,7 @@ UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS
 BUS_DIR     := ../bonus
-SRC_BUS     := minimap.c
+SRC_BUS     := minimap.c minimap2.c
 BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 
 # ALL SOURCES

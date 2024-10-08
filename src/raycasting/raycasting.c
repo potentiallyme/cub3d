@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/08 16:51:34 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:25:08 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int is_valid_pos(t_data *data, double x, double y)
 		return (FALSE);
 	if (y <= 0.2 || y >= data->map_h - 1)
 		return (FALSE);
-	if (BONUS)
-		is_valid_pos_collision(data->square_map, (int)x, (int)y);
+	// if (BONUS)
+	is_valid_pos_collision(data->square_map, (int)x, (int)y);
 	return (TRUE);
 }
 

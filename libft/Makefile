@@ -63,7 +63,7 @@ LIST		:=	$(SRC_LIST:%=$(LIST_DIR)/%)
 # MEMORY
 MEM_DIR		:=	memory
 SRC_MEM		:=	ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c \
-				ft_memset.c ft_free.c ft_free_any.c
+				ft_memset.c ft_free.c ft_free_tab.c
 MEM			:=	$(SRC_MEM:%=$(MEM_DIR)/%)
 
 # MISCELLANEOUS

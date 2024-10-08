@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 16:49:56 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:52:15 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@
 # ifndef BONUS
 #  define BONUS 1
 # endif
+
+//minimap
+# define PIXEL_SIZE 128
+# define VIEW_DIST 4
 
 typedef struct s_file
 {
@@ -157,6 +161,21 @@ typedef struct s_tex
 	double			pos;
 }					t_tex;
 
+typedef struct s_minimap
+{
+	char			**map;
+	t_image			*img;
+	int				size;
+	int				offset_x;
+	int				offset_y;
+	int				view_dist;
+	int				tile_size;
+	int				color_ply;
+	int				color_floor;
+	int				color_wall;
+	int				color_space;
+}					t_minimap;
+
 typedef struct s_mlx
 {
 	double			ply_speed;
@@ -171,18 +190,9 @@ typedef struct s_mlx
 	t_image			img;
 	t_file			file;
 	t_tex			tex;
+	t_image		minimap;
 }					t_mlx;
 
-typedef struct s_minimap
-{
-	char			**map;
-	t_image			*img;
-	int				size;
-	int				offset_x;
-	int				offset_y;
-	int				view_dist;
-	int				tile_size;
-}					t_minimap;
 
 void				set_walk_speed(t_mlx *mlx, int flag);
 void				draw_pix(t_image *img, int x, int y, int color);
@@ -224,8 +234,9 @@ double				adjust_inter(double angle, double *inter, double *step,
 
 void				render_image(t_mlx *mlx);
 int					is_valid_pos(t_data *data, double x, double y);
-int is_not_wall(char **map, double x, double y);
+int 				is_not_wall(char **map, double x, double y);
 int					loop_render(t_mlx *mlx);
+void 				img_do(t_mlx *mlx, t_image *img, int h, int w);
 // ! UTILS
 // * extension_utils
 int					is_xpm(char *s);
@@ -259,5 +270,11 @@ int					get_h_map(char **map);
 char				*fill_map(char *map_line, int maxlen);
 int					check_w_map(char **map);
 int					check_h_map(char **map);
+
+// ! BONUS
+// *minimap
+void    			render_minimap(t_mlx* mlx);
+void				render_mmap_img(t_mlx *mlx, t_minimap *mm);
+
 
 #endif

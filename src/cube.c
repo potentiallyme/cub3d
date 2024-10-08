@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 16:26:15 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/08 19:09:45 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int loop_render(t_mlx *mlx)
 	mlx->ply.has_moved += move_player(mlx); //continue
 	if (mlx->ply.has_moved == 0)
 	{
-		printf("dont\n");
+		// printf("dont\n");
 		return (0);
 	}
 	check_actions(mlx);
@@ -88,7 +88,7 @@ int loop_render(t_mlx *mlx)
 	cast_rays(mlx);
 	render_image(mlx);
 	// if (BONUS)
-	// 	render_minimap(mlx);
+	render_minimap(mlx);
     return (1);
 }
 
@@ -112,7 +112,7 @@ void init_tex_pix(t_mlx *mlx)
 	
 	i = 0;
 	if (mlx->tex_pix)
-		ft_free_any((void **)mlx->tex_pix);
+		ft_free_tab((void **)mlx->tex_pix);
 	mlx->tex_pix = ft_calloc(S_H + 1, sizeof * mlx->tex_pix);
 	if (!mlx->tex_pix)
 		ft_exit(mlx);
@@ -143,6 +143,7 @@ void	cub_three_d(char **av)
 	init_game(&game, av);
 	cast_rays(&game);
 	render_image(&game);
+	render_minimap(&game);
 	mlx_hook(game.win, KeyPress, KeyPressMask, key_press, &game);
 	mlx_hook(game.win, KeyRelease, KeyReleaseMask, key_release, &game);
 	mlx_loop_hook(game.mlx_p, loop_render, &game);
