@@ -6,13 +6,13 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/08 19:27:02 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/09 14:50:04 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void img_do(t_mlx *mlx, t_image *img, int h, int w)
+void	img_do(t_mlx *mlx, t_image *img, int h, int w)
 {
 	img->img = NULL;
 	img->pixels = NULL;
@@ -27,7 +27,7 @@ void img_do(t_mlx *mlx, t_image *img, int h, int w)
 	return ;
 }
 
-void	set_frame_img_pixel(t_mlx *mlx,  t_image *img, int x, int y)
+void	set_frame_img_pixel(t_mlx *mlx, t_image *img, int x, int y)
 {
 	if (mlx->tex_pix[y][x] > 0)
 		draw_pix(img, x, y, mlx->tex_pix[y][x]);
@@ -35,15 +35,13 @@ void	set_frame_img_pixel(t_mlx *mlx,  t_image *img, int x, int y)
 		draw_pix(img, x, y, mlx->data.ceiling);
 	else if (y < S_H - 1)
 		draw_pix(img, x, y, mlx->data.floor);
-			
 }
 
 void	render_image(t_mlx *mlx)
 {
-	t_image img;
-	int x;
-	int y;
-
+	t_image	img;
+	int		x;
+	int		y;
 
 	img.img = NULL;
 	img_do(mlx, &img, S_H, S_W);

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 18:00:41 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/09 14:39:21 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,3 @@ int	check_textures(t_data *data, t_file *file)
 		return (0);
 	return (1);
 }
-
-// int	check_texture_paths(t_data *data)
-// {
-// 	// ! CHECK STRUCTURES
-// 	return (FAIL);
-// }

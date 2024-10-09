@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:59:41 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/08 19:14:16 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/09 15:04:36 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	draw_mmap_tile(t_minimap *mm, int x, int y)
 	else if (mm->map[y][x] == '1')
 		set_mmap_tile(mm, x * mm->tile_size, y * mm->tile_size, mm->color_wall);
 	else if (mm->map[y][x] == '0')
-		set_mmap_tile(mm, x * mm->tile_size, y * mm->tile_size, mm->color_floor);
+		set_mmap_tile(mm, x * mm->tile_size,
+			y * mm->tile_size, mm->color_floor);
 	else if (mm->map[y][x] == ' ')
-		set_mmap_tile(mm, x * mm->tile_size, y * mm->tile_size, mm->color_space);
+		set_mmap_tile(mm, x * mm->tile_size,
+			y * mm->tile_size, mm->color_space);
 }
 
 void	draw_border(t_minimap *mm, int color)
@@ -47,7 +49,7 @@ void	draw_border(t_minimap *mm, int color)
 	int	size;
 	int	x;
 	int	y;
-	
+
 	size = PIXEL_SIZE + mm->tile_size;
 	y = 0;
 	while (y < size)
@@ -62,27 +64,6 @@ void	draw_border(t_minimap *mm, int color)
 		y++;
 	}
 }
-
-// void	draw_mmap(t_minimap *mm)
-// {
-// 	int	x;
-// 	int	y;
-	
-// 	y = 0;
-// 	while (y < mm->size)
-// 	{
-// 		x = 0;
-// 		while (x < mm->size)
-// 		{
-// 			if (!mm->map[y] || !mm->map[y][x] || mm->map[y][x] == '\0')
-// 				break ;
-// 			draw_mmap_tile(mm, x, y);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	draw_border(mm, mm->color_space);
-// }
 
 void	render_mmap_img(t_mlx *mlx, t_minimap *mm)
 {
@@ -106,8 +87,7 @@ void	render_mmap_img(t_mlx *mlx, t_minimap *mm)
 		y++;
 	}
 	draw_border(mm, mm->color_space);
-	// draw_mmap(mm);
-	mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->minimap.img, 
+	mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->minimap.img,
 		mm->tile_size, S_H - (PIXEL_SIZE + mm->tile_size * 2));
 	mlx_destroy_image(mlx->mlx_p, mlx->minimap.img);
 }

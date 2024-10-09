@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 18:52:15 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/09 16:35:57 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,8 @@ typedef struct s_minimap
 	char			**map;
 	t_image			*img;
 	int				size;
-	int				offset_x;
-	int				offset_y;
+	int				off_x;
+	int				off_y;
 	int				view_dist;
 	int				tile_size;
 	int				color_ply;
@@ -204,6 +204,8 @@ void				init_ray(t_ray *ray);
 void				init_player(t_mlx *mlx, t_player *ply);
 void				init_images(t_mlx *game);
 void				init_tex_pix(t_mlx *mlx);
+void				init_player(t_mlx *mlx, t_player *ply);
+
 
 // ! MOVEMENT
 int					rotate_view(t_mlx *mlx, double rot_dir);
@@ -219,10 +221,14 @@ int					validate_move(t_mlx *mlx, double new_x, double new_y);
 // ! PARSING
 int					check_file(t_data *data);
 int					check_map(char **map);
+long				get_color(int r, int g, int b);
 char				**make_square_map(t_data *m);
 int					check_rgb(t_data *data, t_file *tmp, char c);
 int					check_textures(t_data *data, t_file *file);
 int					is_player(char c);
+int					is_invalid(char c);
+int					get_w(t_data *d);
+int					get_h(t_data *d);
 
 // ! RAYCASTING
 void				cast_rays(t_mlx *mlx);
@@ -237,6 +243,7 @@ int					is_valid_pos(t_data *data, double x, double y);
 int 				is_not_wall(char **map, double x, double y);
 int					loop_render(t_mlx *mlx);
 void 				img_do(t_mlx *mlx, t_image *img, int h, int w);
+void				set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x);
 // ! UTILS
 // * extension_utils
 int					is_xpm(char *s);
@@ -275,6 +282,5 @@ int					check_h_map(char **map);
 // *minimap
 void    			render_minimap(t_mlx* mlx);
 void				render_mmap_img(t_mlx *mlx, t_minimap *mm);
-
 
 #endif

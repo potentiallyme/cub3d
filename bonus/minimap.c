@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:01:54 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/08 19:21:01 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/09 15:02:59 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ char	*add_mmap_line(t_mlx *mlx, t_minimap *mm, int y)
 	x = 0;
 	while (x < S_W && x < mm->size)
 	{
-		if (y + mm->offset_y > mlx->data.map_h || x + mm->offset_x > mlx->data.map_w)
+		if (y + mm->off_y > mlx->data.map_h || x + mm->off_x > mlx->data.map_w)
 			line[x] = '\0';
-		else if ((int)mlx->ply.ply_x == x + mm->offset_x
-			&& (int)mlx->ply.ply_y == y + mm->offset_y)
+		else if ((int)mlx->ply.ply_x == x + mm->off_x
+			&& (int)mlx->ply.ply_y == y + mm->off_y)
 			line[x] = 'P';
-		else if (mlx->data.square_map[y + mm->offset_y][x + mm->offset_x] == '1') //or square_map???
+		else if (mlx->data.square_map[y + mm->off_y][x + mm->off_x] == '1')
 			line[x] = '1';
-		else if (mlx->data.square_map[y + mm->offset_y][x + mm->offset_x] == '0') //or square_map???
+		else if (mlx->data.square_map[y + mm->off_y][x + mm->off_x] == '0')
 			line[x] = '0';
 		else
 			line[x] = '\0';
@@ -69,7 +69,7 @@ char	**create_map(t_mlx *mlx, t_minimap *minimap)
 {
 	char	**mm;
 	int		y;
-	
+
 	mm = ft_calloc(minimap->size + 1, sizeof(mm));
 	if (!mm)
 		return (NULL);
@@ -87,7 +87,7 @@ char	**create_map(t_mlx *mlx, t_minimap *minimap)
 	return (mm);
 }
 
-void    render_minimap(t_mlx* mlx)
+void	render_minimap(t_mlx *mlx)
 {
 	t_minimap	mm;
 
@@ -96,8 +96,8 @@ void    render_minimap(t_mlx* mlx)
 	mm.view_dist = VIEW_DIST;
 	mm.tile_size = PIXEL_SIZE / (2 * mm.view_dist);
 	mm.size = (2 * mm.view_dist) + 1;
-	mm.offset_x = get_mmap_off(&mm, S_W, (int)mlx->ply.ply_x);
-	mm.offset_y = get_mmap_off(&mm, S_H, (int)mlx->ply.ply_y);
+	mm.off_x = get_mmap_off(&mm, S_W, (int)mlx->ply.ply_x);
+	mm.off_y = get_mmap_off(&mm, S_H, (int)mlx->ply.ply_y);
 	mm.map = create_map(mlx, &mm);
 	mm.color_floor = 0xE6E6E6;
 	mm.color_ply = 0xFF0000;

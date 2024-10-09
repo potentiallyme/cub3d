@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/07 20:57:53 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/09 14:38:53 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
 
 int	get_h_map(char **map)
 {
@@ -74,7 +73,7 @@ int	check_w_map(char **map)
 
 int	check_h_map(char **map)
 {
-		int	i;
+	int	i;
 	int	j;
 
 	i = 0;
@@ -96,4 +95,9 @@ int	check_h_map(char **map)
 		i++;
 	}
 	return (1);
+}
+
+long	get_color(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b << 0);
 }

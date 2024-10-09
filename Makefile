@@ -35,7 +35,7 @@ CUBE		:= cube.c
 
 # INITS
 INT_DIR		:= inits
-SRC_INT		:= init_data.c
+SRC_INT		:= init_data.c init_ply.c init_img.c
 INT			:= $(SRC_INT:%=$(INT_DIR)/%)
 
 # MOVEMENT
@@ -50,12 +50,12 @@ PRS			:= $(SRC_PRS:%=$(PRS_DIR)/%)
 
 # RAYCASTING
 RC_DIR		:= raycasting
-SRC_RC		:= raycasting.c rendering.c
+SRC_RC		:= raycasting.c rendering.c raycasting2.c
 RC			:= $(SRC_RC:%=$(RC_DIR)/%)	
 
 # UTILS
 UTL_DIR		:= utils
-SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c
+SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c 
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   keypresses.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/07 20:51:28 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/09 14:29:24 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void set_walk_speed(t_mlx *mlx, int flag)
+void	set_walk_speed(t_mlx *mlx, int flag)
 {
 	if (flag == WALK)
 	{

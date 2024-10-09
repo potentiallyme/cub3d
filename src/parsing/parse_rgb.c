@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 14:51:29 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/09 14:38:42 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ int	recheck_format(int *i)
 		j++;
 	}
 	return (1);
-}
-
-long get_color(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b << 0);
 }
 
 void	set_rgb(t_data *data, char **split, char c)

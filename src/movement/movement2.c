@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:46:46 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 16:39:52 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/09 15:12:00 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	rotate_view(t_mlx *mlx, double rot_dir)
 {
 	t_player	*p;
 	double		tmp_x;
-	int		moved;
-	double	rot_speed;
+	int			moved;
+	double		rot_speed;
 
 	moved = 0;
 	rot_speed = mlx->rot_speed * rot_dir;
@@ -46,6 +46,6 @@ int	validate_move(t_mlx *mlx, double new_x, double new_y)
 		mlx->ply.ply_y = new_y;
 		moved = 1;
 	}
-	printf("moved %i\n", moved);
+	// printf("moved %i\n", moved);
 	return (moved);
 }

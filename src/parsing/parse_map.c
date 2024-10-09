@@ -6,25 +6,12 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 16:38:55 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/09 14:37:51 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	is_invalid(char c)
-{
-	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == 'D')
-		return (FALSE);
-	return (TRUE);
-}
-
-int	is_player(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (TRUE);
-	return (FALSE);
-}
 int	check_around(char **map, int y, int x)
 {
 	if (y - 1 < 0 || x - 1 < 0)
@@ -65,64 +52,74 @@ int	check_map(char **map)
 	return (SUCCESS);
 }
 
-int	get_w(t_data *d)
+// char	**make_square_map(t_data *m)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	**sq_map;
+
+// 	i = -1;
+// 	m->map_w = get_w(m);
+// 	m->map_h = get_h(m);
+// 	sq_map = malloc(sizeof(char *) * (m->map_h + 1));
+// 	if (!sq_map)
+// 		return (NULL);
+// 	sq_map[m->map_h] = NULL;
+// 	while (++i < m->map_h)
+// 	{
+// 		j = -1;
+// 		sq_map[i] = malloc(sizeof(char) * (m->map_w + 1));
+// 		if (!sq_map)
+// 			return (NULL);
+// 		sq_map[i][m->map_w] = '\0';
+// 		while (m->map2d[i][++j])
+// 		{
+// 			if (ft_isspace(m->map2d[i][j]))
+// 				sq_map[i][j] = '1';
+// 			else
+// 				sq_map[i][j] = m->map2d[i][j];
+// 		}
+// 		while (j++ < m->map_w)
+// 			sq_map[i][j] = '1';
+// 	}
+// 	return (sq_map);
+// }
+
+void	fill_square_map_line(char *sq_map_line, char *map_line, int width)
 {
-	t_file *tmp;
-	int line;
+	int	j;
 
-	tmp = return_map_start(d->linked_file);
-	line = 0;
-	while (tmp)
+	j = -1;
+	while (map_line[++j])
 	{
-		if (ft_strlen(tmp->s) > line)
-			line = ft_strlen(tmp->s);
-		tmp = tmp->next;
+		if (ft_isspace(map_line[j]))
+			sq_map_line[j] = '1';
+		else
+			sq_map_line[j] = map_line[j];
 	}
-	return (line);
-}
-
-int get_h(t_data *d)
-{
-	t_file *tmp;
-	int line;
-
-	tmp = return_map_start(d->linked_file);
-	line = 0;
-	while (tmp)
-	{
-		if (!ft_strchr(tmp->s, '1'))
-			break ;
-		line++;
-		tmp = tmp->next;
-	}
-	return (line);
+	while (j < width)
+		sq_map_line[j++] = '1';
+	sq_map_line[width] = '\0';
 }
 
 char	**make_square_map(t_data *m)
 {
-	int	i;
-	int j;
-	char **sq_map;
+	int		i;
+	char	**sq_map;
 
-	i = -1;
 	m->map_w = get_w(m);
 	m->map_h = get_h(m);
 	sq_map = malloc(sizeof(char *) * (m->map_h + 1));
+	if (!sq_map)
+		return (NULL);
 	sq_map[m->map_h] = NULL;
+	i = -1;
 	while (++i < m->map_h)
 	{
-		j = -1;
 		sq_map[i] = malloc(sizeof(char) * (m->map_w + 1));
-		sq_map[i][m->map_w] = '\0';
-		while (m->map2d[i][++j])
-		{
-			if (ft_isspace(m->map2d[i][j]))
-				sq_map[i][j] = '1';
-			else
-				sq_map[i][j] = m->map2d[i][j];
-		}
-		while (j++ < m->map_w)
-			sq_map[i][j] = '1';
+		if (!sq_map[i])
+			return (NULL);
+		fill_square_map_line(sq_map[i], m->map2d[i], m->map_w);
 	}
 	return (sq_map);
 }
