@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 16:34:51 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 13:12:42 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	free_textures(t_data *data)
 
 void	free_during_init(t_mlx *mlx, t_data *data)
 {
-	ft_printf("%sINIT_DATA FAIL%s\n", red, rst);
+	ft_printf("%sERROR\nINIT PROCESS FAILED!%s\n", RED_PR, RST);
 	ft_free(data->map2d);
 	ft_free(data->square_map);
 	free_file_list(data->linked_file);

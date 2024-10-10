@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/09 16:33:18 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 11:49:01 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,8 @@ void	do_dda(t_mlx *mlx, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->map_y < 0.1
-			|| ray->map_x < 0.1
-			|| ray->map_y > S_H - 0.1
-			|| ray->map_x > S_W - 1.1)
+		if (ray->map_y < 0.1 || ray->map_x < 0.1
+			|| ray->map_y > S_H - 0.1 || ray->map_x > S_W - 1.1)
 			break ;
 		else if (mlx->data.square_map[ray->map_y][ray->map_x] > '0')
 			hit = 1;

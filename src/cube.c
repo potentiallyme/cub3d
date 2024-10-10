@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/09 14:11:33 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 20:18:22 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ void	draw_pix(t_image *img, int x, int y, int color)
 	img->pixels[pix] = color;
 }
 
+
+void	static_sync(t_mlx *game, int interval)
+{
+	mlx_do_sync(game->mlx_p);
+	usleep(interval);
+}
+
 void	check_actions(t_mlx *mlx)
 {
 	if (mlx->ply.sprint == 0 && mlx->ply.gauge <= 100)
@@ -28,30 +35,29 @@ void	check_actions(t_mlx *mlx)
 		mlx->ply.gauge -= 0.125;
 	if (mlx->ply.gauge <= 0)
 		set_walk_speed(mlx, WALK);
+	// TODO if (mlx->door < 100)
+		// TODO mlx->door += 1;
 	// printf("%f, %f\n", mlx->ply.dir_x, mlx->ply.dir_y);
 	// if (mlx->ply.use && check_for_tile(mlx->data.map2d, mlx->ply.ply_x, mlx->ply.ply_y, 'E') == TRUE)
 }
 
 int	loop_render(t_mlx *mlx)
 {
-	// ? check for player move, if not return
-	mlx->ply.has_moved += move_player(mlx); //continue
+	mlx->ply.has_moved += move_player(mlx);
 	if (mlx->ply.has_moved == 0)
-	{
-		// printf("dont\n");
 		return (0);
-	}
 	check_actions(mlx);
 	init_tex_pix(mlx);
 	cast_rays(mlx);
 	render_image(mlx);
 	// if (BONUS)
-	render_minimap(mlx);
-    return (1);
+	// render_minimap(mlx);
+	return (1);
 }
 
 void	init_tex(t_tex *tex)
 {
+	tex->ply = 0;
 	tex->no = 0;
 	tex->so = 0;
 	tex->ea = 0;
@@ -80,38 +86,4 @@ void	init_tex_pix(t_mlx *mlx)
 			ft_exit(mlx);
 		i++;
 	}
-}
-
-void	init_game(t_mlx *game, char **av)
-{
-	init_mlx(game);
-	init_data(game, &game->data, av);
-	init_tex(&game->tex);
-	init_ray(&game->ray);
-	init_player(game, &game->ply);
-	init_images(game);
-	init_tex_pix(game);
-}
-
-void	cub_three_d(char **av)
-{
-	t_mlx	game;
-
-	init_game(&game, av);
-	cast_rays(&game);
-	render_image(&game);
-	render_minimap(&game);
-	mlx_hook(game.win, KeyPress, KeyPressMask, key_press, &game);
-	mlx_hook(game.win, KeyRelease, KeyReleaseMask, key_release, &game);
-	mlx_loop_hook(game.mlx_p, loop_render, &game);
-	mlx_loop(game.mlx_p);
-	ft_exit(&game);
-}
-
-int	main(int ac, char **av)
-{
-	if ((ac != 2 || !is_cub(av[1])))
-		return (ft_printf("Argument error: format: ./cub3d map.cub\n"), 0);
-	cub_three_d(av);
-	return (0);
 }

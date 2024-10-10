@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/09 14:37:51 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 12:14:30 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int	check_map(char **map)
 				return (ft_free(map), FAIL);
 			if (map[y][x] == '0' || is_player(map[y][x] == TRUE))
 				if (check_around(map, y, x) == FAIL)
+				{
+					// ft_printf("%sMAP ISN'T SURROUNDED BY WALL!%s\n", RED_PR, RST);
 					return (ft_free(map), FAIL);
+				}
 			x++;
 		}
 		y++;

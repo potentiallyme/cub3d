@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:01:54 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/09 15:02:59 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 19:11:57 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,26 +85,4 @@ char	**create_map(t_mlx *mlx, t_minimap *minimap)
 		y++;
 	}
 	return (mm);
-}
-
-void	render_minimap(t_mlx *mlx)
-{
-	t_minimap	mm;
-
-	mm.map = NULL;
-	mm.img = &mlx->minimap;
-	mm.view_dist = VIEW_DIST;
-	mm.tile_size = PIXEL_SIZE / (2 * mm.view_dist);
-	mm.size = (2 * mm.view_dist) + 1;
-	mm.off_x = get_mmap_off(&mm, S_W, (int)mlx->ply.ply_x);
-	mm.off_y = get_mmap_off(&mm, S_H, (int)mlx->ply.ply_y);
-	mm.map = create_map(mlx, &mm);
-	mm.color_floor = 0xE6E6E6;
-	mm.color_ply = 0xFF0000;
-	mm.color_space = 0x404040;
-	mm.color_wall = 0x808080;
-	if (!mm.map)
-		return ;
-	render_mmap_img(mlx, &mm);
-	ft_free_tab((void **)mm.map);
 }

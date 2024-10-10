@@ -31,7 +31,7 @@ MLX_PATH = minilibx-linux
 # **************************************************************************** #
 
 # CUB3D
-CUBE		:= cube.c
+CUBE		:= main.c cube.c 
 
 # INITS
 INT_DIR		:= inits
@@ -60,7 +60,7 @@ UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS
 BUS_DIR     := ../bonus
-SRC_BUS     := minimap.c minimap2.c
+SRC_BUS     := minimap.c minimap2.c player.c
 BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 
 # ALL SOURCES

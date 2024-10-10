@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:40:30 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/09 16:28:18 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 20:13:04 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_valid_pos(t_data *data, double x, double y)
 int	*get_textures(t_ray *ray, t_tex *tex)
 {
 	int	*dir;
-	
+
 	dir = tex->no;
 	if (ray->side == 0)
 	{
@@ -77,6 +77,9 @@ void	set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x)
 	color = 0;
 	dir = tex->no;
 	dir = get_textures(ray, tex);
+	// door func if ply->open == 1
+	// check dir player is facing and from that dir check x/y +/- 2
+	// if door exists (open or closed) act on it and change ply->open to 0
 	tex->x = (int)(ray->wall_x * (*mlx)->img_size);
 	if ((ray->side == 0 && ray->dir_x < 0) || (ray->side == 1
 			&& ray->dir_y > 0))

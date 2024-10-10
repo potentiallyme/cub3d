@@ -34,15 +34,15 @@ void	set_player(t_data *data, char c)
 		data->player_dir = EA;
 }
 
-int	check_ply_num(int ply_num)
-{
-	if (ply_num > 1)
-	{
-		ft_printf("Game has more than one player!");
-		return (FALSE);
-	}
-	return (TRUE);
-}
+// int	check_ply_num(int ply_num)
+// {
+// 	if (ply_num > 1)
+// 	{
+// 		ft_printf("%sGame has more than one player!%s\n", RED_PR, RST);
+// 		return (FALSE);
+// 	}
+// 	return (TRUE);
+// }
 
 int	get_player_pos(t_data *data)
 {
@@ -50,12 +50,12 @@ int	get_player_pos(t_data *data)
 	int	j;
 	int	n;
 
-	i = 0;
+	i = -1;
 	n = 0;
-	while (data->square_map[i])
+	while (data->square_map[++i])
 	{
-		j = 0;
-		while (data->square_map[i][j])
+		j = -1;
+		while (data->square_map[i][++j])
 		{
 			if (is_player(data->square_map[i][j]))
 			{
@@ -65,11 +65,9 @@ int	get_player_pos(t_data *data)
 				data->square_map[i][j] = '0';
 				n++;
 			}
-			j++;
 		}
-		i++;
 	}
-	return (check_ply_num(n), SUCCESS);
+	return (n);
 }
 
 void	set_player_cam(t_player **ply)
@@ -100,8 +98,8 @@ void	set_player_cam(t_player **ply)
 
 void	init_player(t_mlx *mlx, t_player *ply)
 {
-	if (get_player_pos(&mlx->data) == FAIL)
-	{	ft_printf("fail\n");
+	if (get_player_pos(&mlx->data) != 1)
+	{	ft_printf("%sOnly one player is accepted!%s\n", RED_PR, RST);
 		ft_exit(mlx) ;
 	}
 	ply->ply_x = mlx->data.p_x;
@@ -119,5 +117,6 @@ void	init_player(t_mlx *mlx, t_player *ply)
 	ply->rot_l = 0;
 	ply->sprint = 0;
 	ply->gauge = 100;
-	ply->use = 0;
+	ply->open = 0;
+	ply->fire = 0;
 }

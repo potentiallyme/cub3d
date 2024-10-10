@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/09 16:35:57 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 20:11:41 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@
 # define WHITE 0xFFFFFFFF
 
 // colors for printf
-# define rst "\033[0m"
-# define black "\033[0;30m"
-# define red "\033[0;31m"
-# define green "\033[0;32m"
-# define yellow "\033[0;33m"
-# define blue "\033[0;34m"
-# define purple "\033[0;35m"
-# define white "\033[0;37m"
+# define RST "\033[0m"
+# define BLACK_PR "\033[0;30m"
+# define RED_PR "\033[0;31m"
+# define GREEN_PR "\033[0;32m"
+# define YELLOW_PR "\033[0;33m"
+# define BLUE_PR "\033[0;34m"
+# define PURPLE_PR "\033[0;35m"
+# define WHITE_PR "\033[0;37m"
 
 // movement
 # define NO 1
@@ -59,7 +59,6 @@
 # define WALK 6
 
 # define TILE_SIZE 512
-# define FOV (60 * M_PI / 180)
 # define NUM_RAYS 320
 # define ROTATION_SPEED 0.025
 
@@ -81,10 +80,12 @@ typedef struct s_data
 {
 	int				player_dir;
 	int				exit;
-	char			*north;
+	char			*north; //wall path
 	char			*south;
 	char			*west;
 	char			*east;
+	char			*ply;
+	char 			*fire;
 	int				p_x;
 	int				p_y;
 	int				map_w;
@@ -114,7 +115,8 @@ typedef struct s_player
 	int				rot_r;
 	int				rot_l;
 	int				sprint;
-	int				use;
+	int				open;
+	int				fire;
 	double			gauge;
 }					t_player;
 
@@ -150,6 +152,8 @@ typedef struct s_image
 
 typedef struct s_tex
 {
+	int				*ply;
+	int				*fire;
 	int				*no;
 	int				*so;
 	int				*ea;
@@ -163,6 +167,7 @@ typedef struct s_tex
 
 typedef struct s_minimap
 {
+	int      		**nswe;
 	char			**map;
 	t_image			*img;
 	int				size;
@@ -182,6 +187,8 @@ typedef struct s_mlx
 	double			rot_speed;
 	int				img_size;
 	int				**tex_pix;
+	int				**ply_pix;
+	int				*gun;
 	void			*mlx_p;
 	void			*win;
 	t_ray			ray;
@@ -190,21 +197,25 @@ typedef struct s_mlx
 	t_image			img;
 	t_file			file;
 	t_tex			tex;
-	t_image		minimap;
+	t_image			minimap;
+	t_minimap 		mm;
 }					t_mlx;
 
 
 void				set_walk_speed(t_mlx *mlx, int flag);
 void				draw_pix(t_image *img, int x, int y, int color);
-int					get_player_pos(t_data *mlx);
+int					get_player_pos(t_data *data);
 // ! INITS
 void				init_mlx(t_mlx *game);
 void				init_data(t_mlx *mlx, t_data *data, char **av);
 void				init_ray(t_ray *ray);
 void				init_player(t_mlx *mlx, t_player *ply);
 void				init_images(t_mlx *game);
+void				init_tex(t_tex *tex);
 void				init_tex_pix(t_mlx *mlx);
+void				init_ply_pix(t_mlx *mlx);
 void				init_player(t_mlx *mlx, t_player *ply);
+int	*my_xpm_to_file(t_mlx *game, char *path, int size);
 
 
 // ! MOVEMENT
@@ -238,11 +249,12 @@ double				get_h_inter(t_mlx *mlx, double angle);
 double				adjust_inter(double angle, double *inter, double *step,
 						int h);
 
+void	render_player(t_mlx *mlx, t_image *img);
 void				render_image(t_mlx *mlx);
 int					is_valid_pos(t_data *data, double x, double y);
-int 				is_not_wall(char **map, double x, double y);
+int					is_not_wall(char **map, double x, double y);
 int					loop_render(t_mlx *mlx);
-void 				img_do(t_mlx *mlx, t_image *img, int h, int w);
+void				img_do(t_mlx *mlx, t_image *img, int h, int w);
 void				set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x);
 // ! UTILS
 // * extension_utils
@@ -280,7 +292,10 @@ int					check_h_map(char **map);
 
 // ! BONUS
 // *minimap
-void    			render_minimap(t_mlx* mlx);
-void				render_mmap_img(t_mlx *mlx, t_minimap *mm);
+void				render_mmap_img(t_mlx *mlx, t_image *img);
+char	**create_map(t_mlx *mlx, t_minimap *minimap);
+char	*add_mmap_line(t_mlx *mlx, t_minimap *mm, int y);
+void	ft_free_tab(void **tab);
+int	get_mmap_off(t_minimap *mm, int map_size, int pos);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/09 14:39:21 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 18:03:47 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ void	set_texture(t_data *data, t_file *file)
 		data->east = ft_strdup(file->next->s);
 	else if (!ft_strcmp(file->s, "WE") && file->next)
 		data->west = ft_strdup(file->next->s);
+	data->ply = ft_strdup("./textures/gun_final.xpm");
+	data->fire = ft_strdup("./textures/gun_fire.xpm");
+	if (!data->ply)
+	{
+		ft_printf("%sERROR\nPlayer .xpm wrong!%s\n", RED_PR, RST);
+		return ;
+	}
 }
 
 int	recursive_check(t_data *data, t_file *file, char *s, int i)

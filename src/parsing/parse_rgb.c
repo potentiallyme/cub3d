@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/09 14:38:42 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 14:08:42 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	check_format(char **s)
 	{
 		n = ft_atoi(s[i]);
 		if (n < 0 || n > 255 || i > 2)
+		{
+			ft_printf("%sERROR\nRGB WRONG!%s\n", RED_PR, RST);
 			return (FAIL);
+		}
 		i++;
 	}
 	return (SUCCESS);

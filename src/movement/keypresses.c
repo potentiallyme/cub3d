@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/09 14:29:24 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 20:12:16 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	key_release(int keycode, t_mlx *mlx)
 		mlx->ply.move_x = 0;
 	else if (keycode == XK_d && mlx->ply.move_x == 1)
 		mlx->ply.move_x = 0;
-	// else if (keycode == XK_e)
-		// mlx->ply.use = 0;
+	else if (keycode == XK_f && mlx->ply.fire == 1)
+		mlx->ply.fire = 0;
 	return (0);
 }
 
@@ -72,7 +72,9 @@ int	key_press(int keycode, t_mlx *mlx)
 		if (mlx->ply.gauge > 0)
 			set_walk_speed(mlx, RUN);
 	}
-	// else if (keycode == XK_e)
-		// mlx->ply.use = 1;
+	else if (keycode == XK_f)
+		mlx->ply.fire = 1;
+	else if (keycode == XK_e)
+		mlx->ply.open = 1;
 	return (1);
 }

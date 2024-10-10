@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/09 14:50:04 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/10 19:10:48 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	set_frame_img_pixel(t_mlx *mlx, t_image *img, int x, int y)
 		draw_pix(img, x, y, mlx->data.ceiling);
 	else if (y < S_H - 1)
 		draw_pix(img, x, y, mlx->data.floor);
+
 }
 
 void	render_image(t_mlx *mlx)
@@ -56,6 +57,8 @@ void	render_image(t_mlx *mlx)
 		}
 		y++;
 	}
+	render_player(mlx, &img);
+	render_mmap_img(mlx, &img);
 	mlx_put_image_to_window(mlx->mlx_p, mlx->win, img.img, 0, 0);
 	mlx_destroy_image(mlx->mlx_p, img.img);
 }
