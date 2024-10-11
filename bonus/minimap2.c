@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:59:41 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/10 19:55:15 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 18:00:35 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	set_mmap_tile(t_minimap *mm, int x, int y, int color)
 	}
 }
 
-void set_nswe_tile(t_minimap *mm, int dir, int x, int y)
+void	set_nswe_tile(t_minimap *mm, int dir, int x, int y)
 {
-	int j;
-	int i;
-	
+	int	j;
+	int	i;
+
 	i = 0;
 	while (i < 16)
 	{
@@ -42,7 +42,7 @@ void set_nswe_tile(t_minimap *mm, int dir, int x, int y)
 		while (j < 16)
 		{
 			if (mm->nswe[dir][i * 16 + j] > 0){
-				printf("%i\n", mm->nswe[dir][i * 16 + j]);
+				// printf("%i\n", mm->nswe[dir][i * 16 + j]);
 				draw_pix(mm->img, x + j, y + i, mm->nswe[dir][i * 16 + j]);
 			}
 			j++;
@@ -51,7 +51,7 @@ void set_nswe_tile(t_minimap *mm, int dir, int x, int y)
 	}
 }
 
-void draw_nswe(t_minimap *mm, int x, int y)
+void	draw_nswe(t_minimap *mm, int x, int y)
 {
 	if (y == 0 && x == 4)
 		set_nswe_tile(mm, 0, 64, 0);
@@ -66,6 +66,8 @@ void	draw_mmap_tile(t_minimap *mm, int x, int y)
 	else if (mm->map[y][x] == '0')
 		set_mmap_tile(mm, x * mm->tile_size,
 			y * mm->tile_size, mm->color_floor);
+	else if (mm->map[y][x] == 'D')
+		set_mmap_tile(mm, x * mm->tile_size, y * mm->tile_size, mm->color_door);
 	else if (mm->map[y][x] == ' ')
 		set_mmap_tile(mm, x * mm->tile_size,
 			y * mm->tile_size, mm->color_space);
@@ -112,16 +114,20 @@ void	render_mmap_img(t_mlx *mlx, t_image *img)
 	mm.off_x = get_mmap_off(&mm, S_W, (int)mlx->ply.ply_x);
 	mm.off_y = get_mmap_off(&mm, S_H, (int)mlx->ply.ply_y);
 	mm.map = create_map(mlx, &mm);
+	if (!mm.map) {
+        printf("Failed to create minimap\n");
+        return;
+    }
 	mm.color_floor = 0xE6E6E6;
 	mm.color_ply = 0xFF0000;
 	mm.color_space = 0x404040;
 	mm.color_wall = 0x808080;
+	mm.color_door = 0xFF9300FF;
 	mm.nswe = malloc(sizeof(int *) * 5);
 	mm.nswe[0] = my_xpm_to_file(mlx, "./textures/north_mm.xpm", 16);
 	mm.nswe[1] = my_xpm_to_file(mlx, "./textures/north_mm.xpm", 16);
 	mm.nswe[2] = my_xpm_to_file(mlx, "./textures/north_mm.xpm", 16);
 	mm.nswe[3] = my_xpm_to_file(mlx, "./textures/north_mm.xpm", 16);
-	printf(" HERE %i\n\n", mm.nswe[0][0]);
 	y = 0;
 	while (y < mm.size)
 	{

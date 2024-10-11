@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:40:30 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/10 20:13:04 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 17:29:21 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 int	is_valid_pos(t_data *data, double x, double y)
 {
-	int	ret;
+	// int	ret;
 
-	ret = TRUE;
+	// ret = TRUE;
 	// printf("x %f, y %f\n", x, y);
 	if (x <= 0.2 || x >= data->map_w - 1.2)
 		return (FALSE);
@@ -76,10 +76,20 @@ void	set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x)
 	// int f =0;
 	color = 0;
 	dir = tex->no;
-	dir = get_textures(ray, tex);
-	// door func if ply->open == 1
+	// door func if ply->door == 1
 	// check dir player is facing and from that dir check x/y +/- 2
-	// if door exists (open or closed) act on it and change ply->open to 0
+	// if door exists (open or closed) act on it and change ply->door to 0
+	// if ((*mlx)->data.square_map[ray->map_y][ray->map_x] == 'D')
+	if (ray->door == 1)
+	{
+		dir = tex->door;
+		// for(int i=0;i<10000;i++)
+		// 	ft_printf("%d", dir[i]);
+		if ((*mlx)->ply.door == 1)
+		handle_door(*mlx);
+	}
+	else
+		dir = get_textures(ray, tex);
 	tex->x = (int)(ray->wall_x * (*mlx)->img_size);
 	if ((ray->side == 0 && ray->dir_x < 0) || (ray->side == 1
 			&& ray->dir_y > 0))

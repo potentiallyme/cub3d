@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/10 18:47:34 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 16:33:12 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_mlx(t_mlx *game)
 	game->ply_speed = 0.0125;
 	game->rot_speed = 0.03;
 	game->gun = 0;
+	game->door = 0;
 }
 
 void	parser(t_mlx *mlx, t_data *data, char **av)
@@ -69,6 +70,9 @@ void	init_data(t_mlx *mlx, t_data *data, char **av)
 	data->c_floor = 0;
 	data->c_ceiling = 0;
 	data->linked_file = 0;
+	data->ply = 0;
+	data->fire = 0;
+	data->door = 0;
 	parser(mlx, data, av);
 }
 
@@ -91,4 +95,5 @@ void	init_ray(t_ray *ray)
 	ray->line_height = 0;
 	ray->draw_start = 0;
 	ray->draw_end = 0;
+	ray->door = 0;
 }

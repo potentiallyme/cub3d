@@ -117,6 +117,6 @@ void	init_player(t_mlx *mlx, t_player *ply)
 	ply->rot_l = 0;
 	ply->sprint = 0;
 	ply->gauge = 100;
-	ply->open = 0;
+	ply->door = 0;
 	ply->fire = 0;
 }

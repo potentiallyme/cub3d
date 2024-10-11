@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:19:29 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/10 18:02:39 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 16:55:52 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	init_images(t_mlx *game)
 {
 	game->tex.ply = my_xpm_to_file(game, game->data.ply, 240);
 	game->tex.fire = my_xpm_to_file(game, game->data.fire, 240);
+	game->tex.door = my_xpm_to_file(game, game->data.north, game->img_size);
 	game->tex.no = my_xpm_to_file(game, game->data.north, game->img_size);
 	game->tex.so = my_xpm_to_file(game, game->data.south, game->img_size);
 	game->tex.ea = my_xpm_to_file(game, game->data.east, game->img_size);

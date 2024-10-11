@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/10 20:12:16 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 14:28:32 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int	key_press(int keycode, t_mlx *mlx)
 	else if (keycode == XK_f)
 		mlx->ply.fire = 1;
 	else if (keycode == XK_e)
-		mlx->ply.open = 1;
+		mlx->ply.door = 1;
 	return (1);
 }

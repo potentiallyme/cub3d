@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/10 20:18:22 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 16:04:38 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	check_actions(t_mlx *mlx)
 		mlx->ply.gauge -= 0.125;
 	if (mlx->ply.gauge <= 0)
 		set_walk_speed(mlx, WALK);
-	// TODO if (mlx->door < 100)
-		// TODO mlx->door += 1;
+	// if (mlx->door == 1 && mlx->ply.door < 30)
+	// 	mlx->data.door += 1;
 	// printf("%f, %f\n", mlx->ply.dir_x, mlx->ply.dir_y);
 	// if (mlx->ply.use && check_for_tile(mlx->data.map2d, mlx->ply.ply_x, mlx->ply.ply_y, 'E') == TRUE)
 }
@@ -58,6 +58,8 @@ int	loop_render(t_mlx *mlx)
 void	init_tex(t_tex *tex)
 {
 	tex->ply = 0;
+	tex->fire = 0;
+	tex->door = 0;
 	tex->no = 0;
 	tex->so = 0;
 	tex->ea = 0;

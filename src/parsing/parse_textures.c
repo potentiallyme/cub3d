@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/10 18:03:47 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 17:07:19 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	set_texture(t_data *data, t_file *file)
 		data->west = ft_strdup(file->next->s);
 	data->ply = ft_strdup("./textures/gun_final.xpm");
 	data->fire = ft_strdup("./textures/gun_fire.xpm");
+	data->door = ft_strdup("./textures/door.xpm");
 	if (!data->ply)
 	{
 		ft_printf("%sERROR\nPlayer .xpm wrong!%s\n", RED_PR, RST);
