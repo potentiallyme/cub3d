@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:26 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 14:39:59 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 17:26:34 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	check_and_add(t_data *data, t_file *new, char *tmp)
 		(tmp[i] == 'W' && tmp[i + 1] == 'E' && tmp[i + 2] == ' '))
 	{
 		second = 0;
-		second = malloc(sizeof(t_file));
-		new->s = ft_strndup(tmp + i, 2);
-		second->s = ft_strdup(tmp + i + 3);
+		second = my_malloc(&data->garbage, sizeof * second, 1, SINGLE);
+		new->s = strndup_garbo(&data->garbage, tmp + i, 2);
+		second->s = strdup_garbo(&data->garbage, tmp + i + 3);
 		add_to_list(&data->linked_file, new);
 		add_to_list(&data->linked_file, second);
 	}
 	else
 	{
-		new->s = ft_strdup(tmp);
+		new->s = strdup_garbo(&data->garbage, tmp);
 		add_to_list(&data->linked_file, new);
 	}
 }
@@ -72,10 +72,12 @@ void	string_to_list(t_data *data)
 	while (tmp[i])
 	{
 		new = 0;
-		new = malloc(sizeof(t_file));
+		new = my_malloc(&data->garbage, sizeof * new, 1, SINGLE);
 		check_and_add(data, new, tmp[i]);
 		i++;
 	}
 	new = 0;
 	ft_free(tmp);
+	free(data->file);
+	data->file = 0;
 }

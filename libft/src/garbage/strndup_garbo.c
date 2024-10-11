@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_assets.c                                      :+:      :+:    :+:   */
+/*   strndup_garbo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 20:55:12 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/17 20:56:59 by lmoran           ###   ########.fr       */
+/*   Created: 2024/03/29 16:06:19 by nino              #+#    #+#             */
+/*   Updated: 2024/10/11 17:24:08 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3D.h"
+#include "../../libft.h"
 
-void	mm_sec(t_mlx *game, t_data *data, int at, char *name)
+char	*strndup_garbo(t_garbage **garbo, const char *s, int n)
 {
-	int	s;
+	char	*dup;
+	int i;
+	int	len;
 
-	s = 20;
-	data->asset[at] = mlx_xpm_file_to_image(data->mlx_p, name, &s, &s);
-	if (!data->asset[at])
-		data_error(game, data);
+	if (!s)
+		return (NULL);
+	len = 0;
+	i = 0;
+	if (len < n)
+		len = n;
+	dup = my_malloc(garbo, sizeof * dup, (len + 1), SINGLE);
+	while (n && s[i])
+	{
+		dup[i] = s[i];
+		i++;
+		n--;
+	}
+	dup[i] = 0;
+	return (dup);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/09/19 18:00:41 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 17:29:47 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ char	*return_texture_paths(t_file *file, char *dir)
 void	set_texture(t_data *data, t_file *file)
 {
 	if (!ft_strcmp(file->s, "NO") && file->next)
-		data->north = ft_strdup(file->next->s);
+		data->north = strdup_garbo(&data->garbage, file->next->s);
 	else if (!ft_strcmp(file->s, "SO") && file->next)
-		data->south = ft_strdup(file->next->s);
+		data->south = strdup_garbo(&data->garbage, file->next->s);
 	else if (!ft_strcmp(file->s, "EA") && file->next)
-		data->east = ft_strdup(file->next->s);
+		data->east = strdup_garbo(&data->garbage, file->next->s);
 	else if (!ft_strcmp(file->s, "WE") && file->next)
-		data->west = ft_strdup(file->next->s);
+		data->west = strdup_garbo(&data->garbage, file->next->s);
 }
 
 int	recursive_check(t_data *data, t_file *file, char *s, int i)

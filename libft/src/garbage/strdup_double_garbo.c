@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   strdup_double_garbo.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 16:06:19 by nino              #+#    #+#             */
-/*   Updated: 2024/10/11 17:24:34 by lmoran           ###   ########.fr       */
+/*   Created: 2024/01/25 18:53:12 by lmoran            #+#    #+#             */
+/*   Updated: 2024/10/11 17:25:30 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-char	*ft_strndup(const char *s, int n)
+char	**strdup_double_garbo(t_garbage **garbo, char **s)
 {
-	char	*dup;
-	int i;
-	int	len;
+	int		i;
+	char	**dup;
 
-	if (!s)
-		return (NULL);
-	len = 0;
 	i = 0;
-	if (len < n)
-		len = n;
-	dup = malloc(sizeof * dup * (len + 1));
-	if (!dup)
-		return (NULL);
-	while (n && s[i])
-	{
-		dup[i] = s[i];
+	while (s[i])
 		i++;
-		n--;
+	dup = my_malloc(garbo, sizeof(char *), (i + 1), DOUBLE);
+	if (!(dup))
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		dup[i] = ft_strdup(s[i]);
+		i++;
 	}
 	dup[i] = 0;
 	return (dup);

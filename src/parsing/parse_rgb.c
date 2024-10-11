@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 14:51:29 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/11 17:28:55 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	set_rgb(t_data *data, char **split, char c)
 {
 	if (c == 'F')
 	{
-		data->c_floor = ft_strdup_double(split);
+		data->c_floor = strdup_double_garbo(&data->garbage, split);
 		data->floor = get_color(ft_atoi(split[0]), ft_atoi(split[1]),
 				ft_atoi(split[2]));
 	}
 	else if (c == 'C')
 	{
-		data->c_ceiling = ft_strdup_double(split);
+		data->c_ceiling = strdup_double_garbo(&data->garbage, split);
 		data->ceiling = get_color(ft_atoi(split[0]), ft_atoi(split[1]),
 				ft_atoi(split[2]));
 	}

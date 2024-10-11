@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 16:38:55 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/11 17:29:33 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,14 @@ char	**make_square_map(t_data *m)
 	i = -1;
 	m->map_w = get_w(m);
 	m->map_h = get_h(m);
-	sq_map = malloc(sizeof(char *) * (m->map_h + 1));
+	sq_map = my_malloc(&m->garbage, (m->map_h) + 1, sizeof * sq_map, DOUBLE);
 	sq_map[m->map_h] = NULL;
 	while (++i < m->map_h)
 	{
 		j = -1;
-		sq_map[i] = malloc(sizeof(char) * (m->map_w + 1));
+		sq_map[i] = malloc(sizeof * sq_map[i] * (m->map_w + 1));
+		if (!sq_map[i])
+			return (NULL);
 		sq_map[i][m->map_w] = '\0';
 		while (m->map2d[i][++j])
 		{

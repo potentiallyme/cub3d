@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   strjoin_garbo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 16:06:19 by nino              #+#    #+#             */
-/*   Updated: 2024/10/11 17:24:34 by lmoran           ###   ########.fr       */
+/*   Created: 2024/10/11 17:13:18 by lmoran            #+#    #+#             */
+/*   Updated: 2024/10/11 17:28:25 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-char	*ft_strndup(const char *s, int n)
+char	*strjoin_garbo(t_garbage **garbo, char *s1, char *s2, int f)
 {
-	char	*dup;
-	int i;
-	int	len;
+	char	*s3;
+	size_t	i;
+	size_t	j;
 
-	if (!s)
+	if (!s1)
+		return (strdup_garbo(garbo, s2));
+	s3 = my_malloc(garbo, sizeof *s3, (ft_strlen(s1) + ft_strlen(s2) + 1), SINGLE);
+	if (!s3)
 		return (NULL);
-	len = 0;
 	i = 0;
-	if (len < n)
-		len = n;
-	dup = malloc(sizeof * dup * (len + 1));
-	if (!dup)
-		return (NULL);
-	while (n && s[i])
+	while (s1[i])
 	{
-		dup[i] = s[i];
+		s3[i] = s1[i];
 		i++;
-		n--;
 	}
-	dup[i] = 0;
-	return (dup);
+	j = 0;
+	while (s2[j])
+	{
+		s3[i++] = s2[j++];
+	}
+	s3[i] = '\0';
+	if (f)
+		free(s1);
+	return (s3);
 }

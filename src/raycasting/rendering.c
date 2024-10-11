@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/07 20:51:34 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/11 15:22:35 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void img_do(t_mlx *mlx, t_image *img, int h, int w)
 	img->endian = 0;
 	img->img = mlx_new_image(mlx->mlx_p, w, h);
 	if (!img->img)
-		ft_exit(mlx);
+		full_exit(mlx, "mlx_new_image error");
 	img->pixels = (int *)mlx_get_data_addr(img->img, &img->pixel_bits,
 			&img->size_line, &img->endian);
 	return ;

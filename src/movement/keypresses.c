@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/07 20:51:28 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/11 15:51:08 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	key_release(int keycode, t_mlx *mlx)
 int	key_press(int keycode, t_mlx *mlx)
 {
 	if (keycode == XK_Escape)
-		ft_exit(mlx);
+		full_exit(mlx, "Game quit with ESC");
 	else if (keycode == XK_Left)
 		mlx->ply.rot_l += -1;
 	else if (keycode == XK_Right)

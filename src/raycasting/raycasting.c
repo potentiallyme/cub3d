@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/08 16:51:34 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/08 18:16:37 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,9 @@ int is_valid_pos(t_data *data, double x, double y)
 	int ret;
 
 	ret = TRUE;
-	printf("x %f, y %f\n", x, y);
-	if (x <= 0.2 || x >= data->map_w - 1.2)
+	if (x <= 1.2 || x >= data->map_w - 2.2)
 		return (FALSE);
-	if (y <= 0.2 || y >= data->map_h - 1)
+	if (y <= 1.2 || y >= data->map_h - 1.2)
 		return (FALSE);
 	if (BONUS)
 		is_valid_pos_collision(data->square_map, (int)x, (int)y);

@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:46:33 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 21:34:48 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/11 17:35:23 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ char	**return_map(t_data *data)
 	tmp = return_map_start(data->linked_file);
 	if (!tmp)
 		return (NULL);
-	map = (char **)malloc((count_lines(tmp) + 1) * sizeof(char *));
+	map = my_malloc(&data->garbage, sizeof * map, count_lines(tmp) + 1, DOUBLE);
 	i = 0;
 	while (tmp)
 	{
-		map[i] = ft_strdup(tmp->s);
+		if (!tmp->s)
+			map[i] = ft_strdup(" ");
+		else
+			map[i] = ft_strdup(tmp->s);
 		tmp = tmp->next;
 		i++;
 	}
