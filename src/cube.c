@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/11 16:04:38 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/12 14:11:23 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	draw_pix(t_image *img, int x, int y, int color)
 {
 	int	pix;
 
+	if (x < 0 || x >= S_W || y < 0 || y >= S_H)
+		return ;
 	pix = y * (img->size_line / 4) + x;
 	img->pixels[pix] = color;
 }

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/11 17:34:50 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/12 14:38:59 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ typedef struct s_mlx
 	int				img_size;
 	int				**tex_pix;
 	int				**ply_pix;
-	int				**door_pix;
+	// int				**door_pix;
 	int				*gun;
 	void			*mlx_p;
 	void			*win;

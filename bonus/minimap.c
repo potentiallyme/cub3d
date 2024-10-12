@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:01:54 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/11 18:03:09 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/12 13:45:31 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*add_mmap_line(t_mlx *mlx, t_minimap *mm, int y)
 	x = 0;
 	while (x < S_W && x < mm->size)
 	{
-		if (y + mm->off_y > mlx->data.map_h || x + mm->off_x > mlx->data.map_w)
+		if (y + mm->off_y >= mlx->data.map_h || x + mm->off_x >= mlx->data.map_w)
 			line[x] = '\0';
 		else if ((int)mlx->ply.ply_x == x + mm->off_x
 			&& (int)mlx->ply.ply_y == y + mm->off_y)
@@ -76,7 +76,8 @@ char	**create_map(t_mlx *mlx, t_minimap *minimap)
 	if (!mm)
 		return (NULL);
 	y = 0;
-	while (y <= S_H && y < minimap->size)
+	// while (y <= S_H && y < minimap->size)
+	while (y < minimap->size)
 	{
 		mm[y] = add_mmap_line(mlx, minimap, y);
 		if (!mm[y])

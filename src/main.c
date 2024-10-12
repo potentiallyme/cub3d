@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:14:33 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/11 16:41:15 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/12 14:35:05 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_game(t_mlx *game, char **av)
 	init_player(game, &game->ply);
 	init_images(game);
 	init_tex_pix(game);
-	init_door_pix(game);
+	// init_door_pix(game);
 }
 
 void	cub_three_d(char **av)
