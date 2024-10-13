@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 15:47:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/13 19:16:13 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 # define _USE_MATH_DEFINES
 # define M_PI 3.14159265358979323846
+# define WIN32
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
 # include <X11/X.h>
@@ -57,7 +58,7 @@
 # define PARSER 2
 # define XPM 3
 # define TEX_PIX 4
-# define BONUS 5
+# define BNS 5
 # define ALL 6
 
 // movement

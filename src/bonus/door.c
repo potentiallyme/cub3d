@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:09:10 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/13 15:46:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/13 19:29:32 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	render_door(t_mlx *mlx, t_image *img)
 {
@@ -54,12 +54,12 @@ void	init_door_pix(t_mlx *mlx)
 		ft_free_tab((void **)mlx->tex_pix);
 	mlx->tex_pix = ft_calloc(S_H + 1, sizeof * mlx->tex_pix);
 	if (!mlx->tex_pix)
-		ft_exit(mlx, "");
+		ft_exit(mlx, "Init_door_pix malloc error", TEX_PIX, 1);
 	while (i < S_H)
 	{
 		mlx->tex_pix[i] = ft_calloc(S_W + 1, sizeof * mlx->tex_pix[i]);
 		if (!mlx->tex_pix[i])
-			ft_exit(mlx);
+			ft_exit(mlx, "Init_door_pix malloc error", TEX_PIX, 1);
 		i++;
 	}
 }

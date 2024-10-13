@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
-/*   Updated: 2024/10/13 13:42:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/13 19:13:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
-# include <wait.h>
+# include <sys/wait.h>
 
 # define rst "\033[0m"
 # define black "\033[0;30m"

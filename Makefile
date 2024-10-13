@@ -59,7 +59,7 @@ SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c ma
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS
-BUS_DIR     := ../bonus
+BUS_DIR     := bonus
 SRC_BUS     := minimap.c minimap2.c player.c door.c
 BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 

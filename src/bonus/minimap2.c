@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:59:41 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/11 18:00:35 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/13 19:25:21 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../../includes/cub3D.h"
 
 void	set_mmap_tile(t_minimap *mm, int x, int y, int color)
 {

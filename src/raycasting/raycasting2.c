@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:40:30 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/12 14:56:24 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/13 19:31:38 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,24 @@
 // 	return (TRUE);
 // }
 
-int	is_valid_pos(t_data *data, double x, double y)
-{
-	// int	ret;
+// int	is_valid_pos(t_data *data, double x, double y)
+// {
+// 	// int	ret;
 
-	// ret = TRUE;
-	// printf("x %f, y %f\n", x, y);
-	if (x <= 0.2 || x >= data->map_w - 1.2)
-		return (FALSE);
-	if (y <= 0.2 || y >= data->map_h - 1)
-		return (FALSE);
-	// if (BONUS)
-	// is_valid_pos_collision(data->square_map, (int)x, (int)y);
-	if (data->square_map[(int)y][(int)x] > '0')
-		return (FALSE);
-	if (is_player(data->square_map[(int)y][(int)x]) == TRUE)
-		return (TRUE);
-	return (TRUE);
-}
+// 	// ret = TRUE;
+// 	// printf("x %f, y %f\n", x, y);
+// 	if (x <= 0.2 || x >= data->map_w - 1.2)
+// 		return (FALSE);
+// 	if (y <= 0.2 || y >= data->map_h - 1)
+// 		return (FALSE);
+// 	// if (BONUS)
+// 	// is_valid_pos_collision(data->square_map, (int)x, (int)y);
+// 	if (data->square_map[(int)y][(int)x] > '0')
+// 		return (FALSE);
+// 	if (is_player(data->square_map[(int)y][(int)x]) == TRUE)
+// 		return (TRUE);
+// 	return (TRUE);
+// }
 
 int	*get_textures(t_ray *ray, t_tex *tex)
 {

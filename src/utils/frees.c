@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 15:43:23 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/13 19:28:50 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,17 @@ void free_tex(t_tex *tex)
 		free(tex->we);
 }
 
+void free_bonus(t_mlx *mlx)
+{
+	int i;
+
+	i = 0;
+	while (i < 4)
+		free(mlx->mm.nswe[i]);
+	free(mlx->mm.nswe);
+	ft_free(mlx->mm.map);
+}
+
 void	ft_exit(t_mlx *mlx, char *msg, int flag, int exit_code)
 {
 	ft_printf("%s%s%s\n", red, msg, rst);
@@ -106,6 +117,8 @@ void	ft_exit(t_mlx *mlx, char *msg, int flag, int exit_code)
 		free_tex(&mlx->tex);
 	if (flag >= TEX_PIX)
 		ft_free_tab((void **)mlx->tex_pix);
+	if (flag >= BNS)
+		free_bonus(mlx);
 	exit(exit_code);
 }
 

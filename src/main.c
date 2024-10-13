@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:14:33 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/13 15:36:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/13 19:26:36 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_game(t_mlx *game, char **av)
 	init_player(game, &game->ply);
 	init_images(game);
 	init_tex_pix(game);
+	// render_minimap(game);
 	// init_door_pix(game);
 }
 
