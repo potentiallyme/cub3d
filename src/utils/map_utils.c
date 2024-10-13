@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/07 20:57:53 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 15:46:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
-
 
 int	get_h_map(char **map)
 {
@@ -46,54 +45,60 @@ char	*fill_map(char *map_line, int maxlen)
 	return (new);
 }
 
-int	check_w_map(char **map)
+// int	check_w_map(char **map)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (map[i])
+// 	{
+// 		j = 0;
+// 		while (map[i][j])
+// 		{
+// 			if (map[i][j] != '1' && map[i][j] != ' ')
+// 			{
+// 				if (i > 0 && (map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
+// 				{
+					
+// 					ft_printf("ERROR\nINVALID MAP!\n");
+// 					return (0);
+// 				}
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (1);
+// }
+
+// int	check_h_map(char **map)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (map[i])
+// 	{
+// 		j = 0;
+// 		while (map[i][j])
+// 		{
+// 			if (map[i][j] != '1' && map[i][j] != ' ')
+// 			{
+// 				if (i > 0 && (map[i - 1][j] == ' ' || map[i + 1][j] == ' '))
+// 				{
+// 					ft_printf("ERROR\nINVALID MAP!\n\n");
+// 					return (0);
+// 				}
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (1);
+// }
+
+long	get_color(int r, int g, int b)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '1' && map[i][j] != ' ')
-			{
-				if (i > 0 && (map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
-				{
-					write(1, "Error\ninvalid map!\n", 23);
-					return (0);
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int	check_h_map(char **map)
-{
-		int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '1' && map[i][j] != ' ')
-			{
-				if (i > 0 && (map[i - 1][j] == ' ' || map[i + 1][j] == ' '))
-				{
-					write(1, "Error\ninvalid map!\n", 23);
-					return (0);
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
+	return (r << 16 | g << 8 | b << 0);
 }

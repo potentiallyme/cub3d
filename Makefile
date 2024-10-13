@@ -4,7 +4,7 @@
 # **************************************************************************** #
 
 NAME		= cub3D
-CC			= @clang
+CC			= @gcc
 CFLAGS		= -Wall -Wextra -Werror
 LFLAGS		= -Lminilibx-linux -lmlx -L/lib/x86_64-linux-gnu -lX11 -lXext -lXrandr -lXi -lm -Iminilibx-linux -o
 HEAD		= includes/cub3D.h
@@ -31,11 +31,11 @@ MLX_PATH = minilibx-linux
 # **************************************************************************** #
 
 # CUB3D
-CUBE		:= cube.c
+CUBE		:= main.c cube.c 
 
 # INITS
 INT_DIR		:= inits
-SRC_INT		:= init_data.c
+SRC_INT		:= init_data.c init_ply.c init_img.c
 INT			:= $(SRC_INT:%=$(INT_DIR)/%)
 
 # MOVEMENT
@@ -50,17 +50,17 @@ PRS			:= $(SRC_PRS:%=$(PRS_DIR)/%)
 
 # RAYCASTING
 RC_DIR		:= raycasting
-SRC_RC		:= raycasting.c rendering.c
+SRC_RC		:= raycasting.c rendering.c raycasting2.c
 RC			:= $(SRC_RC:%=$(RC_DIR)/%)	
 
 # UTILS
 UTL_DIR		:= utils
-SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c
+SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c 
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS
 BUS_DIR     := ../bonus
-SRC_BUS     := minimap.c
+SRC_BUS     := minimap.c minimap2.c player.c door.c
 BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 
 # ALL SOURCES
@@ -114,7 +114,7 @@ $(INDI)▓▓░░░░░░░░░░░░░░░░░░▒▒▒▒�
 # 								     RULES									   #
 # **************************************************************************** #
 
-all: $(LIBFT) $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
 
 $(OBJS_DIR)/%.o: %.c $(HEAD)
 	$(MK) $(@D)
@@ -150,7 +150,8 @@ clean:
 fclean: clean
 	@make fclean -C $(LIBFT_PATH)
 	@rm -rf $(NAME)
-	@printf "\b\b$(FADE)$(RED)(MLX REMOVED!)$(PEACH)\n\n"
+	@rm -rf $(MLX_PATH)
+	@printf "\b\b$(FADE)$(RED)(MLX REMOVED!)$(SPINK)\n\n"
 	$(RM) $(NAME)
 
 re: fclean all

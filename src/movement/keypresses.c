@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   keypresses.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/11 15:51:08 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 15:40:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void set_walk_speed(t_mlx *mlx, int flag)
+void	set_walk_speed(t_mlx *mlx, int flag)
 {
 	if (flag == WALK)
 	{
@@ -31,7 +31,7 @@ void set_walk_speed(t_mlx *mlx, int flag)
 int	key_release(int keycode, t_mlx *mlx)
 {
 	if (keycode == XK_Escape)
-		ft_exit(mlx);
+		ft_exit(mlx, "Game quit with ESC key", ALL, 1);
 	if (keycode == XK_w && mlx->ply.move_y == 1)
 		mlx->ply.move_y = 0;
 	else if (keycode == XK_Left && mlx->ply.rot_l <= 1)
@@ -46,15 +46,15 @@ int	key_release(int keycode, t_mlx *mlx)
 		mlx->ply.move_x = 0;
 	else if (keycode == XK_d && mlx->ply.move_x == 1)
 		mlx->ply.move_x = 0;
-	// else if (keycode == XK_e)
-		// mlx->ply.use = 0;
+	else if (keycode == XK_f && mlx->ply.fire == 1)
+		mlx->ply.fire = 0;
 	return (0);
 }
 
 int	key_press(int keycode, t_mlx *mlx)
 {
 	if (keycode == XK_Escape)
-		full_exit(mlx, "Game quit with ESC");
+		ft_exit(mlx, "Game quit with ESC key", ALL, 1);
 	else if (keycode == XK_Left)
 		mlx->ply.rot_l += -1;
 	else if (keycode == XK_Right)
@@ -72,7 +72,9 @@ int	key_press(int keycode, t_mlx *mlx)
 		if (mlx->ply.gauge > 0)
 			set_walk_speed(mlx, RUN);
 	}
-	// else if (keycode == XK_e)
-		// mlx->ply.use = 1;
+	else if (keycode == XK_f)
+		mlx->ply.fire = 1;
+	else if (keycode == XK_e)
+		mlx->ply.door = 1;
 	return (1);
 }

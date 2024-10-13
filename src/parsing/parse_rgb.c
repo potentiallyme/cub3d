@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/11 17:28:55 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 15:41:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	check_format(char **s)
 	{
 		n = ft_atoi(s[i]);
 		if (n < 0 || n > 255 || i > 2)
+		{
+			ft_printf("%sERROR\nRGB WRONG!%s\n", RED_PR, RST);
 			return (FAIL);
+		}
 		i++;
 	}
 	return (SUCCESS);
@@ -44,22 +47,17 @@ int	recheck_format(int *i)
 	return (1);
 }
 
-long get_color(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b << 0);
-}
-
 void	set_rgb(t_data *data, char **split, char c)
 {
 	if (c == 'F')
 	{
-		data->c_floor = strdup_double_garbo(&data->garbage, split);
+		data->c_floor = ft_strdup_double(split);
 		data->floor = get_color(ft_atoi(split[0]), ft_atoi(split[1]),
 				ft_atoi(split[2]));
 	}
 	else if (c == 'C')
 	{
-		data->c_ceiling = strdup_double_garbo(&data->garbage, split);
+		data->c_ceiling = ft_strdup_double(split);
 		data->ceiling = get_color(ft_atoi(split[0]), ft_atoi(split[1]),
 				ft_atoi(split[2]));
 	}

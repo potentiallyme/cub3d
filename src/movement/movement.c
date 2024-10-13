@@ -54,8 +54,8 @@ int	move_player_right(t_mlx *mlx)
 
 int	move_player(t_mlx *mlx)
 {
-	int moved;
-	
+	int	moved;
+
 	moved = 0;
 	if (mlx->ply.rot_r != 0)
 		moved += rotate_view(mlx, mlx->ply.rot_r);

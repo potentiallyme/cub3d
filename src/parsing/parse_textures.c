@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/11 17:29:47 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 15:41:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,21 @@ char	*return_texture_paths(t_file *file, char *dir)
 void	set_texture(t_data *data, t_file *file)
 {
 	if (!ft_strcmp(file->s, "NO") && file->next)
-		data->north = strdup_garbo(&data->garbage, file->next->s);
+		data->north = ft_strdup(file->next->s);
 	else if (!ft_strcmp(file->s, "SO") && file->next)
-		data->south = strdup_garbo(&data->garbage, file->next->s);
+		data->south = ft_strdup(file->next->s);
 	else if (!ft_strcmp(file->s, "EA") && file->next)
-		data->east = strdup_garbo(&data->garbage, file->next->s);
+		data->east = ft_strdup(file->next->s);
 	else if (!ft_strcmp(file->s, "WE") && file->next)
-		data->west = strdup_garbo(&data->garbage, file->next->s);
+		data->west = ft_strdup(file->next->s);
+	data->ply = ft_strdup("./textures/gun_final.xpm");
+	data->fire = ft_strdup("./textures/gun_fire.xpm");
+	data->door = ft_strdup("./textures/door.xpm");
+	if (!data->ply)
+	{
+		ft_printf("%sERROR\nPlayer .xpm wrong!%s\n", RED_PR, RST);
+		return ;
+	}
 }
 
 int	recursive_check(t_data *data, t_file *file, char *s, int i)
@@ -75,9 +83,3 @@ int	check_textures(t_data *data, t_file *file)
 		return (0);
 	return (1);
 }
-
-// int	check_texture_paths(t_data *data)
-// {
-// 	// ! CHECK STRUCTURES
-// 	return (FAIL);
-// }

@@ -8,7 +8,7 @@ NAME	=	libft.a
 # 								  COMMANDS									   #
 # **************************************************************************** #
 
-CC		=	@clang
+CC		=	@gcc
 CFLAGS	=	-Wall -Wextra -Werror
 IFLAGS	=	-Iinc
 MK		=	@mkdir -p
@@ -49,11 +49,6 @@ SRC_CHECK	:=	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 				ft_iterate_double.c ft_iterate.c ft_isspace.c ft_isalnum_string.c ft_isalpha_string.c
 CHECK		:=	$(SRC_CHECK:%=$(CHECK_DIR)/%)
 
-# GARBAGE
-GBG_DIR		:= garbage
-SRC_GBG		:= garbage.c strdup_double_garbo.c strdup_garbo.c strndup_garbo.c strjoin_garbo.c
-GBG			:= $(SRC_GBG:%=$(GBG_DIR)/%)
-
 # GNL	
 GNL_DIR		:= 	gnl
 SRC_GNL		:= 	get_next_line.c get_next_line_utils.c return_gnl.c
@@ -68,7 +63,7 @@ LIST		:=	$(SRC_LIST:%=$(LIST_DIR)/%)
 # MEMORY
 MEM_DIR		:=	memory
 SRC_MEM		:=	ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c \
-				ft_memset.c ft_free.c ft_free_any.c
+				ft_memset.c ft_free.c ft_free_tab.c
 MEM			:=	$(SRC_MEM:%=$(MEM_DIR)/%)
 
 # MISCELLANEOUS
@@ -98,7 +93,7 @@ STR 		:= 	$(SRC_STR:%=$(STR_DIR)/%)
 
 # ALL SOURCES
 SRCS_DIR	:=	src
-ALL_SRCS	:=	$(CHECK) $(GBG) $(GNL) $(LIST) $(MEM) $(PRINT) $(PUT) $(STR) $(MISC)
+ALL_SRCS	:=	$(CHECK) $(GNL) $(LIST) $(MEM) $(PRINT) $(PUT) $(STR) $(MISC)
 SRCS		:=	$(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS

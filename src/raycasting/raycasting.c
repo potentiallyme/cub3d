@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/08 18:16:37 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 15:41:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@ int is_valid_pos_collision(char **map, int x, int y)
 
 int is_valid_pos(t_data *data, double x, double y)
 {
-	int ret;
-
-	ret = TRUE;
 	if (x <= 1.2 || x >= data->map_w - 2.2)
 		return (FALSE);
 	if (y <= 1.2 || y >= data->map_h - 1.2)
@@ -93,11 +90,14 @@ void	do_dda(t_mlx *mlx, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->map_y < 0.1
-			|| ray->map_x < 0.1
-			|| ray->map_y > S_H - 0.1
-			|| ray->map_x > S_W - 1.1)
+		if (ray->map_y < 0.1 || ray->map_x < 0.1
+			|| ray->map_y > S_H - 0.1 || ray->map_x > S_W - 1.1)
 			break ;
+		else if (mlx->data.square_map[ray->map_y][ray->map_x] == 'D')
+		{
+			ray->door = 1;
+			hit = 1;
+		}
 		else if (mlx->data.square_map[ray->map_y][ray->map_x] > '0')
 			hit = 1;
 		if (is_valid_pos(&mlx->data, ray->map_x, ray->map_y) == FALSE)
@@ -123,58 +123,6 @@ void	calc_line_height(t_ray *ray, t_player *ply)
 	else
 		ray->wall_x = ply->ply_x + ray->wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
-
-}
-
-void	set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x)
-{
-	int	y;
-	int	color;
-	int	*dir;
-	// int f =0;
-
-	color = 0;
-	dir = tex->no;
-	if (ray->side == 0)
-	{
-		if (ray->dir_x < 0)
-			dir = tex->we;
-		else
-		{
-			dir = tex->ea;
-			// f = 1;
-		}
-	}
-	else
-	{
-		if (ray->dir_y < 0)
-		{
-			dir = tex->no;
-			// f = 1;
-		}
-		else
-			dir = tex->so;
-	}
-	tex->x = (int)(ray->wall_x * (*mlx)->img_size);
-	if ((ray->side == 0 && ray->dir_x < 0) || (ray->side == 1
-			&& ray->dir_y > 0))
-		tex->x = (*mlx)->img_size - tex->x - 1;
-	tex->step = 1.0 * (*mlx)->img_size / ray->line_height;
-	tex->pos = (ray->draw_start - S_H / 2 + ray->line_height / 2) * tex->step;
-	y = ray->draw_start;
-	// printf("y: %i, start: %i, end: %i\n", y, ray->draw_start, ray->draw_end);
-	while (y < ray->draw_end)
-	{
-		tex->y = (int)tex->pos & ((*mlx)->img_size - 1);
-		tex->pos += tex->step;
-		color = dir[(*mlx)->img_size * tex->y + tex->x];
-		// if (f == 1)
-		// 	color = (color >> 1) & 8355711;
-		if (color > 0)
-			(*mlx)->tex_pix[y][x] = color;
-		// printf("dir %x, texpix %x\n", dir[(*mlx)->img_size * tex->y + tex->x], (*mlx)->tex_pix[y][x]);
-		y++;
-	}
 }
 
 void	cast_rays(t_mlx *mlx)
@@ -189,6 +137,8 @@ void	cast_rays(t_mlx *mlx)
 		set_dda(mlx, &mlx->ray);
 		do_dda(mlx, &mlx->ray);
 		calc_line_height(&mlx->ray, &mlx->ply);
+		if (mlx->ray.door == 1)
+            render_door(mlx, &mlx->img);
 		set_textures(&mlx, &mlx->tex, &mlx->ray, x);
 		x++;
 	}

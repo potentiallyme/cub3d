@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/11 15:23:40 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 13:40:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-// char	**fill_spaces(char **map) //! could be combined/used for creating square_map?
-// {
-// 	int		i;
-// 	int		j;
-// 	char	**s;
+char	**fill_spaces(char **map)
+{
+	int		i;
+	int		j;
+	char	**s;
 
-// 	i = 0;
-// 	s = ft_strdup_double(map);
-// 	while (s[i])
-// 	{
-// 		j = 0;
-// 		while (s[i][j])
-// 		{
-// 			if (s[i][j] == ' ')
-// 				s[i][j] = 'E';
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (s);
-// }
+	i = 0;
+	s = ft_strdup_double(map);
+	while (s[i])
+	{
+		j = 0;
+		while (s[i][j])
+		{
+			if (s[i][j] == ' ')
+				s[i][j] = 'E';
+			j++;
+		}
+		i++;
+	}
+	return (s);
+}
 
 int	check_file(t_data *data)
 {
-	int	i;
+	int		i;
 	t_file	*tmp;
 
 	i = 0;

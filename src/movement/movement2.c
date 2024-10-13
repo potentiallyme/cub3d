@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:46:46 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/08 17:36:21 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 15:40:28 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int	rotate_view(t_mlx *mlx, double rot_dir)
 {
 	t_player	*p;
 	double		tmp_x;
-	int		moved;
-	double	rot_speed;
+	double		rot_speed;
 
-	moved = 0;
 	rot_speed = mlx->rot_speed * rot_dir;
 	p = &mlx->ply;
 	tmp_x = p->dir_x;

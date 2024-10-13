@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
-/*   Updated: 2024/10/11 17:26:07 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 13:42:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,6 @@ int						ft_iterate_double(char **s, int (*f)(char **, int,
 								int));
 int						ft_iterate(char *s, int (*f)(char *, int));
 
-// garbage
-void					free_garbage(t_garbage **garbage, char *msg);
-void					ft_lstadd_garbo(t_garbage **lst, void *new, int dbl);
-void					*my_malloc(t_garbage **garbage, size_t nmemb,
-							size_t size, int dbl);
-char					*strdup_garbo(t_garbage **garbo, const char *s);
-char					*strjoin_garbo(t_garbage **garbo, char *s1, char *s2,
-							int f);
-char					*strndup_garbo(t_garbage **garbo, const char *s, int n);
-char					**strdup_double_garbo(t_garbage **garbo, char **s);
 // gnl
 # define BUFFER_SIZE 42
 
@@ -107,15 +97,15 @@ t_list					*ft_lstnew(void *content);
 int						ft_lstsize(t_list *lst);
 
 // memory
-void					ft_bzero(void *s, size_t n);
-void					*ft_calloc(size_t nmemb, size_t size);
-void					ft_free(char **s);
-void					ft_free_any(void **s);
-void					*ft_memchr(const void *s, int c, size_t n);
-int						ft_memcmp(const void *s1, const void *s2, size_t n);
-void					*ft_memcpy(void *dest, const void *src, size_t n);
-void					*ft_memmove(void *dest, const void *src, size_t n);
-void					*ft_memset(void *s, int c, size_t n);
+void				ft_bzero(void *s, size_t n);
+void				*ft_calloc(size_t nmemb, size_t size);
+void				ft_free(char **s);
+void				ft_free_tab(void **s);
+void				*ft_memchr(const void *s, int c, size_t n);
+int					ft_memcmp(const void *s1, const void *s2, size_t n);
+void				*ft_memcpy(void *dest, const void *src, size_t n);
+void				*ft_memmove(void *dest, const void *src, size_t n);
+void				*ft_memset(void *s, int c, size_t n);
 
 // miscellaneous
 int						ft_tolower(int c);

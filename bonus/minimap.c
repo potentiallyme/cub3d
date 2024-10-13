@@ -1,48 +1,91 @@
-// //bonus minimap 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/08 17:01:54 by yu-chen           #+#    #+#             */
+/*   Updated: 2024/10/13 15:09:16 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include "../includes/cub3D_bonus.h"
+#include "../includes/cub3D.h"
 
+int	get_mmap_off(t_minimap *mm, int map_size, int pos)
+{
+	if (pos > mm->view_dist && map_size - pos > mm->view_dist + 1)
+		return (pos - mm->view_dist);
+	if (pos > mm->view_dist && map_size - pos <= mm->view_dist + 1)
+		return (map_size - mm->size);
+	return (0);
+}
 
-// void    fill_tiles_color(t_mlx *mlx, int x, int y, color)
-// {
-    
-// }
+void	ft_free_tab(void **tab)
+{
+	size_t	i;
 
-// void    render_minimap_tiles(t_mlx* mlx)
-// {
-//     int x;
-//     int y;
-//     int ply_x;
-//     int ply_y;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	if (tab)
+	{
+		free(tab);
+		tab = NULL;
+	}
+}
 
-//     y = 0;
-//     ply_y = 0;
-//     while (y < mlx->data->map_h)
-//     {
-//         x = 0;
-//         ply_x = 0;
-//         while (x < mlx->data->map_w)
-//         {
-//             if (mlx->data->square_map[y][x] == '1')
-//                 fill_tiles_color(mlx, ply_x, ply_y, GREY);
-//             else
-//                 fill_tiles_color(mlx, ply_x, ply_y, WHITE);
-//             x++;
-//             ply_x += TILE_SIZE;
-//         }
-//         y++;
-//         ply_y += TILE_SIZE;
-//     }
+char	*add_mmap_line(t_mlx *mlx, t_minimap *mm, int y)
+{
+	char	*line;
+	int		x;
 
-// }
+	line = ft_calloc(mm->size + 1, sizeof * line);
+	if (!line)
+		return (NULL);
+	x = 0;
+	while (x < S_W && x < mm->size)
+	{
+		if (y + mm->off_y >= mlx->data.map_h || x + mm->off_x >= mlx->data.map_w)
+			line[x] = '\0';
+		else if ((int)mlx->ply.ply_x == x + mm->off_x
+			&& (int)mlx->ply.ply_y == y + mm->off_y)
+			line[x] = 'P';
+		else if (mlx->data.square_map[y + mm->off_y][x + mm->off_x] == '1')
+			line[x] = '1';
+		else if (mlx->data.square_map[y + mm->off_y][x + mm->off_x] == '0')
+			line[x] = '0';
+		else if (mlx->data.square_map[y + mm->off_y][x + mm->off_x] == 'D')
+			line[x] = 'D';
+		else
+			line[x] = '\0';
+		x++;
+	}
+	return (line);
+}
 
-// void render_minimap_player(t_mlx *mlx, int p_x, int p_y)
-// {
+char	**create_map(t_mlx *mlx, t_minimap *minimap)
+{
+	char	**mm;
+	int		y;
 
-// }
-
-// void    render_minimap(t_mlx* mlx)
-// {
-//     render_minimap_tiles(mlx);
-//     render_minimap_player(mlx, mlx->ply->p_x, mlx->ply->p_y);
-// }
+	mm = ft_calloc(minimap->size + 1, sizeof(char *));
+	if (!mm)
+		return (NULL);
+	y = 0;
+	// while (y <= S_H && y < minimap->size)
+	while (y < minimap->size)
+	{
+		mm[y] = add_mmap_line(mlx, minimap, y);
+		if (!mm[y])
+		{
+			ft_free_tab((void **)mm);
+			return (NULL);
+		}
+		y++;
+	}
+	return (mm);
+}

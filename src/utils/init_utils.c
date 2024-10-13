@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:46:33 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/11 17:35:23 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/13 15:43:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ char	**return_map(t_data *data)
 	tmp = return_map_start(data->linked_file);
 	if (!tmp)
 		return (NULL);
-	map = my_malloc(&data->garbage, sizeof * map, count_lines(tmp) + 1, DOUBLE);
+	map = (char **)malloc((count_lines(tmp) + 1) * sizeof(char *));
+	if (!map)
+		return (NULL);
 	i = 0;
 	while (tmp)
 	{
