@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/10 11:54:10 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/14 14:11:02 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_w_map(char **map)
 			{
 				if (i > 0 && (map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
 				{
-					write(1, "ERROR\nINVALID MAP!\n", 23);
+					ft_printf("ERROR\nINVALID MAP!\n");
 					return (0);
 				}
 			}
@@ -86,7 +86,7 @@ int	check_h_map(char **map)
 			{
 				if (i > 0 && (map[i - 1][j] == ' ' || map[i + 1][j] == ' '))
 				{
-					write(1, "ERROR\nINVALID MAP!\n\n", 23);
+					ft_printf("ERROR\nINVALID MAP!\n\n");
 					return (0);
 				}
 			}

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/12 14:28:39 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/14 13:05:43 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ void	render_image(t_mlx *mlx)
 		}
 		y++;
 	}
-	render_player(mlx, &img);
-	render_mmap_img(mlx, &img);
+	if (BONUS)
+	{
+		render_player(mlx, &img);
+		render_mmap_img(mlx, &img);
+	}
 	// render_door(mlx, &img);
 	mlx_put_image_to_window(mlx->mlx_p, mlx->win, img.img, 0, 0);
 	mlx_destroy_image(mlx->mlx_p, img.img);

@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/11 16:33:12 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/14 12:14:06 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void	init_mlx(t_mlx *game)
 	if (!game->win)
 		free_mlx(game, 1);
 	game->tex_pix = 0;
-	game->ply_pix = 0; //added
+	game->ply_pix = 0;
 	game->img_size = 64;
 	game->ply_speed = 0.0125;
 	game->rot_speed = 0.03;
 	game->gun = 0;
 	game->door = 0;
+	// mlx_mouse_move(game->mlx_p, game->win, S_W / 2, S_H / 2);
+	return ;
 }
 
 void	parser(t_mlx *mlx, t_data *data, char **av)

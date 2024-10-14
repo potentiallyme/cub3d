@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/12 14:11:23 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/14 13:20:25 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	check_actions(t_mlx *mlx)
 
 int	loop_render(t_mlx *mlx)
 {
+	if (BONUS)
+		mouse_move(mlx);
 	mlx->ply.has_moved += move_player(mlx);
 	if (mlx->ply.has_moved == 0)
 		return (0);

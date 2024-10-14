@@ -6,7 +6,7 @@
 /*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/12 14:39:16 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/14 13:20:53 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	cast_rays(t_mlx *mlx)
 		set_dda(mlx, &mlx->ray);
 		do_dda(mlx, &mlx->ray);
 		calc_line_height(&mlx->ray, &mlx->ply);
-		if (mlx->ray.door == 1)
+		if (BONUS && mlx->ray.door == 1)
             render_door(mlx, &mlx->img);
 		set_textures(&mlx, &mlx->tex, &mlx->ray, x);
 		x++;

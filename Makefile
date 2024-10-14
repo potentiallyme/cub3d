@@ -60,12 +60,16 @@ UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS
 BUS_DIR     := ../bonus
-SRC_BUS     := minimap.c minimap2.c player.c door.c
+SRC_BUS     := minimap_bonus.c minimap2_bonus.c player_bonus.c door_bonus.c mouse_bonus.c
 BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 
 # ALL SOURCES
 SRCS_DIR	:= src
-ALL_SRCS	:= $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL) $(BUS)
+ifeq ($(BONUS),1)
+    ALL_SRCS := $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL) $(BUS)
+else
+    ALL_SRCS := $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL)
+endif
 SRCS		:= $(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS
@@ -139,18 +143,17 @@ $(MLX): minilibx-linux
 minilibx-linux:
 	@git clone https://github.com/42Paris/minilibx-linux.git $@
 
-bonus:
+bonus: clean
 	make all BONUS=1
 
 clean:
 	@rm -f $(LIBFT)
-	@printf "\r\n\r$(BOLD)$(GREEN)ALL CLEAN!     \n\n$(RESET)"
 	$(RM) $(OBJS)
+	@printf "\r\n\r$(BOLD)$(GREEN)ALL CLEAN!     \n\n$(RESET)"
 
 fclean: clean
 	@make fclean -C $(LIBFT_PATH)
 	@rm -rf $(NAME)
-	@printf "\b\b$(FADE)$(RED)(MLX REMOVED!)$(PEACH)\n\n"
 	$(RM) $(NAME)
 
 re: fclean all
