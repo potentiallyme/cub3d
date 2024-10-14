@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/14 12:55:41 by yu-chen           #+#    #+#             */
+/*   Updated: 2024/10/14 19:13:52 by lmoran           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 # define _USE_MATH_DEFINES
@@ -11,9 +23,10 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
+#include <stdbool.h>
 
-# define S_W 840
-# define S_H 720
+# define S_W 640
+# define S_H 480
 # define TRUE 1
 # define FALSE 0
 # define SUCCESS 1
@@ -29,14 +42,14 @@
 # define WHITE 0xFFFFFFFF
 
 // colors for printf
-# define rst "\033[0m"
-# define black "\033[0;30m"
-# define red "\033[0;31m"
-# define green "\033[0;32m"
-# define yellow "\033[0;33m"
-# define blue "\033[0;34m"
-# define purple "\033[0;35m"
-# define white "\033[0;37m"
+# define RST "\033[0m"
+# define BLACK_PR "\033[0;30m"
+# define RED_PR "\033[0;31m"
+# define GREEN_PR "\033[0;32m"
+# define YELLOW_PR "\033[0;33m"
+# define BLUE_PR "\033[0;34m"
+# define PURPLE_PR "\033[0;35m"
+# define WHITE_PR "\033[0;37m"
 
 // movement
 # define NO 1
@@ -47,7 +60,6 @@
 # define WALK 6
 
 # define TILE_SIZE 512
-# define FOV (60 * M_PI / 180)
 # define NUM_RAYS 320
 # define ROTATION_SPEED 0.025
 
@@ -69,10 +81,13 @@ typedef struct s_data
 {
 	int				player_dir;
 	int				exit;
-	char			*north;
+	char			*north; //wall path
 	char			*south;
 	char			*west;
 	char			*east;
+	char			*ply;
+	char			*fire;
+	char			*door; //path
 	int				p_x;
 	int				p_y;
 	int				map_w;
@@ -102,7 +117,8 @@ typedef struct s_player
 	int				rot_r;
 	int				rot_l;
 	int				sprint;
-	int				use;
+	int				door; //status
+	int				fire;
 	double			gauge;
 }					t_player;
 
@@ -125,6 +141,7 @@ typedef struct s_ray
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
+	int				door;
 }					t_ray;
 
 typedef struct s_image
@@ -138,6 +155,9 @@ typedef struct s_image
 
 typedef struct s_tex
 {
+	int				*ply;
+	int				*fire;
+	int				*door;
 	int				*no;
 	int				*so;
 	int				*ea;
@@ -151,6 +171,7 @@ typedef struct s_tex
 
 typedef struct s_minimap
 {
+	int				**nswe;
 	char			**map;
 	t_image			*img;
 	int				size;
@@ -162,6 +183,7 @@ typedef struct s_minimap
 	int				color_floor;
 	int				color_wall;
 	int				color_space;
+	int				color_door;
 }					t_minimap;
 
 typedef struct s_mlx
@@ -170,6 +192,9 @@ typedef struct s_mlx
 	double			rot_speed;
 	int				img_size;
 	int				**tex_pix;
+	int				**ply_pix;
+	// int			**door_pix;
+	int				*gun;
 	void			*mlx_p;
 	void			*win;
 	t_ray			ray;
@@ -178,21 +203,26 @@ typedef struct s_mlx
 	t_image			img;
 	t_file			file;
 	t_tex			tex;
-	t_image		minimap;
+	t_image			minimap;
+	t_minimap		mm;
+	bool			door; //key_press
 }					t_mlx;
 
 
 void				set_walk_speed(t_mlx *mlx, int flag);
 void				draw_pix(t_image *img, int x, int y, int color);
-int					get_player_pos(t_data *mlx);
+int					get_player_pos(t_data *data);
 // ! INITS
 void				init_mlx(t_mlx *game);
 void				init_data(t_mlx *mlx, t_data *data, char **av);
 void				init_ray(t_ray *ray);
 void				init_player(t_mlx *mlx, t_player *ply);
 void				init_images(t_mlx *game);
+void				init_tex(t_tex *tex);
 void				init_tex_pix(t_mlx *mlx);
+void				init_ply_pix(t_mlx *mlx);
 void				init_player(t_mlx *mlx, t_player *ply);
+int					*my_xpm_to_file(t_mlx *game, char *path, int size);
 
 
 // ! MOVEMENT
@@ -226,11 +256,12 @@ double				get_h_inter(t_mlx *mlx, double angle);
 double				adjust_inter(double angle, double *inter, double *step,
 						int h);
 
+void	render_player(t_mlx *mlx, t_image *img);
 void				render_image(t_mlx *mlx);
 int					is_valid_pos(t_data *data, double x, double y);
-int 				is_not_wall(char **map, double x, double y);
+int					is_not_wall(char **map, double x, double y);
 int					loop_render(t_mlx *mlx);
-void 				img_do(t_mlx *mlx, t_image *img, int h, int w);
+void				img_do(t_mlx *mlx, t_image *img, int h, int w);
 void				set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x);
 // ! UTILS
 // * extension_utils
@@ -250,7 +281,7 @@ t_file				*return_map_start(t_file *file);
 int					check_if_map(char *s);
 
 // * list_utils
-void				add_to_list(t_file **lst, t_file *new);
+void				add_to_list(t_file **lst, t_file *new_node);
 void				string_to_list(t_data *data);
 
 // * parse_utils
@@ -262,12 +293,18 @@ void				print_textures(t_data *data, int i);
 int					get_maxlen(char **map);
 int					get_h_map(char **map);
 char				*fill_map(char *map_line, int maxlen);
-int					check_w_map(char **map);
-int					check_h_map(char **map);
 
 // ! BONUS
 // *minimap
-void    			render_minimap(t_mlx* mlx);
-void				render_mmap_img(t_mlx *mlx, t_minimap *mm);
-
+void				render_mmap_img(t_mlx *mlx, t_image *img);
+char				**create_map(t_mlx *mlx, t_minimap *minimap);
+char				*add_mmap_line(t_mlx *mlx, t_minimap *mm, int y);
+void				ft_free_tab(void **tab);
+int					get_mmap_off(t_minimap *mm, int map_size, int pos);
+void				handle_door(t_mlx *mlx);
+void				handle_door(t_mlx *mlx);
+void				init_door_pix(t_mlx *mlx);
+void				render_door(t_mlx *mlx, t_image *img);
+// int					mouse_move(t_mlx *mlx, int x);
+int					mouse_move(t_mlx *mlx);
 #endif

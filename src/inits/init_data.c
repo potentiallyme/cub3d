@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 15:38:44 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:16:04 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	init_mlx(t_mlx *game)
 	game->rot_speed = 0.03;
 	game->gun = 0;
 	game->door = 0;
+	// mlx_mouse_move(game->mlx_p, game->win, S_W / 2, S_H / 2);
+	return ;
 }
 
 void check_data(t_mlx *mlx, t_data *data)
@@ -49,7 +51,7 @@ void	parser(t_mlx *mlx, t_data *data, char **av)
 	if (fd < 0)
 	{
 		close(fd);
-		
+		ft_exit(mlx, "File cannot be opened", MLX, 1);
 	}
 	data->file = return_gnl(fd);
 	string_to_list(data);
@@ -58,7 +60,6 @@ void	parser(t_mlx *mlx, t_data *data, char **av)
 	check_data(mlx, data);
 	if (check_file(data) != 4)
 		ft_exit(mlx, "Parsing error, make sure the map is valid", PARSER, 1);
-	// ft_printf("%sINIT_DATA SUCCESS!%s\n", GREEN_PR, RST);
 }
 
 void	init_data(t_mlx *mlx, t_data *data, char **av)

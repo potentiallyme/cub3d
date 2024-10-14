@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:14:33 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/13 19:26:36 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:10:58 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	cub_three_d(char **av)
 	// render_minimap(&game);
 	mlx_hook(game.win, KeyPress, KeyPressMask, key_press, &game);
 	mlx_hook(game.win, KeyRelease, KeyReleaseMask, key_release, &game);
+	if (BONUS)
+	// mlx_hook(game.win, MotionNotify, PointerMotionMask, mouse_move, &game); //mcom way
+	// mlx_loop_hook(game.mlx_p, mouse_move, &game);
 	mlx_loop_hook(game.mlx_p, loop_render, &game);
 	mlx_loop(game.mlx_p);
 	ft_exit(&game, "Game ended successfully", ALL, 0);

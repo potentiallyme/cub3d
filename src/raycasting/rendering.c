@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/13 15:35:28 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:12:19 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ void	render_image(t_mlx *mlx)
 		}
 		y++;
 	}
-	render_player(mlx, &img);
-	render_mmap_img(mlx, &img);
+	if (BONUS)
+	{
+		render_player(mlx, &img);
+		render_mmap_img(mlx, &img);
+	}
 	// render_door(mlx, &img);
 	mlx_put_image_to_window(mlx->mlx_p, mlx->win, img.img, 0, 0);
 	mlx_destroy_image(mlx->mlx_p, img.img);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:41:11 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/13 15:41:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:08:22 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	cast_rays(t_mlx *mlx)
 		set_dda(mlx, &mlx->ray);
 		do_dda(mlx, &mlx->ray);
 		calc_line_height(&mlx->ray, &mlx->ply);
-		if (mlx->ray.door == 1)
+		if (BONUS && mlx->ray.door == 1)
             render_door(mlx, &mlx->img);
 		set_textures(&mlx, &mlx->tex, &mlx->ray, x);
 		x++;

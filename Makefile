@@ -65,7 +65,11 @@ BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 
 # ALL SOURCES
 SRCS_DIR	:= src
-ALL_SRCS	:= $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL) $(BUS)
+ifeq ($(BONUS),1)
+    ALL_SRCS := $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL) $(BUS)
+else
+    ALL_SRCS := $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL)
+endif
 SRCS		:= $(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS
@@ -139,13 +143,13 @@ $(MLX): minilibx-linux
 minilibx-linux:
 	@git clone https://github.com/42Paris/minilibx-linux.git $@
 
-bonus:
+bonus: clean
 	make all BONUS=1
 
 clean:
 	@rm -f $(LIBFT)
-	@printf "\r\n\r$(BOLD)$(GREEN)ALL CLEAN!     \n\n$(RESET)"
 	$(RM) $(OBJS)
+	@printf "\r\n\r$(BOLD)$(GREEN)ALL CLEAN!     \n\n$(RESET)"
 
 fclean: clean
 	@make fclean -C $(LIBFT_PATH)

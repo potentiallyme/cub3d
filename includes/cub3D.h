@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 19:16:13 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:13:48 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ typedef struct s_mlx
 	int				img_size;
 	int				**tex_pix;
 	int				**ply_pix;
-	// int				**door_pix;
+	// int			**door_pix;
 	int				*gun;
 	void			*mlx_p;
 	void			*win;
@@ -297,7 +297,7 @@ t_file					*return_map_start(t_file *file);
 int						check_if_map(char *s);
 
 // * list_utils
-void					add_to_list(t_file **lst, t_file *new);
+void					add_to_list(t_file **lst, t_file *new_node);
 void					string_to_list(t_data *data);
 
 // * parse_utils
@@ -310,8 +310,6 @@ void					print_textures(t_data *data, int i);
 int						get_maxlen(char **map);
 int						get_h_map(char **map);
 char					*fill_map(char *map_line, int maxlen);
-int						check_w_map(char **map);
-int						check_h_map(char **map);
 
 // ! BONUS
 // *minimap
@@ -324,4 +322,6 @@ void				handle_door(t_mlx *mlx);
 void				handle_door(t_mlx *mlx);
 void				init_door_pix(t_mlx *mlx);
 void				render_door(t_mlx *mlx, t_image *img);
+// int					mouse_move(t_mlx *mlx, int x);
+int					mouse_move(t_mlx *mlx);
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:26 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 15:44:21 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:13:41 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void	add_to_list(t_file **lst, t_file *new)
+void	add_to_list(t_file **lst, t_file *new_node)
 {
 	t_file	*last;
 
@@ -23,11 +23,11 @@ void	add_to_list(t_file **lst, t_file *new)
 			last = *lst;
 			while (last->next)
 				last = last->next;
-			new->next = NULL;
-			last->next = new;
+			new_node->next = NULL;
+			last->next = new_node;
 		}
 		else
-			*lst = new;
+			*lst = new_node;
 	}
 }
 

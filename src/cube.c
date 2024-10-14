@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 17:52:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 15:23:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/14 19:11:02 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	check_actions(t_mlx *mlx)
 
 int	loop_render(t_mlx *mlx)
 {
+	if (BONUS)
+		mouse_move(mlx);
 	mlx->ply.has_moved += move_player(mlx);
 	if (mlx->ply.has_moved == 0)
 		return (0);
