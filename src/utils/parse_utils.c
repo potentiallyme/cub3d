@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:23:14 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/15 13:50:30 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:41:54 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	get_h(t_data *d)
 	line = 0;
 	while (tmp)
 	{
-		if (!ft_strchr(tmp->s, '1'))
+		if (!tmp->s)
 			break ;
 		line++;
 		tmp = tmp->next;
@@ -47,8 +47,7 @@ int	get_h(t_data *d)
 
 int	is_invalid(char c)
 {
-	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E'
-		|| c == 'W')
+	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (FALSE);
 	return (TRUE);
 }

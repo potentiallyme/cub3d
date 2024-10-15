@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:14:33 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/15 13:47:57 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:49:03 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	init_game(t_mlx *game, char **av)
 	init_mm(game);
 }
 
+int	cross_button(t_mlx *mlx)
+{
+	mlx_loop_end(mlx->mlx_p);
+	return (0);
+}
+
 void	cub_three_d(char **av)
 {
 	t_mlx	game;
@@ -58,6 +64,7 @@ void	cub_three_d(char **av)
 	mlx_hook(game.win, KeyPress, KeyPressMask, key_press, &game);
 	mlx_hook(game.win, KeyRelease, KeyReleaseMask,
 		key_release, &game);
+	mlx_hook(game.win, 17, 0, &cross_button, &game);
 	mlx_loop_hook(game.mlx_p, loop_render, &game);
 	mlx_loop(game.mlx_p);
 	ft_exit(&game, "Game ended successfully", ALL, 0);

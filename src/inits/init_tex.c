@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 11:53:03 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/15 13:42:42 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:15:11 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	init_tex_pix(t_mlx *mlx)
 	mlx->tex_pix = cub_malloc(mlx, TEX_PIX, S_H + 1, sizeof * mlx->tex_pix);
 	while (i < S_H)
 	{
-		mlx->tex_pix[i] = cub_malloc(mlx, TEX_PIX, (S_W + 1), sizeof * mlx->tex_pix[i]);
+		mlx->tex_pix[i] = cub_malloc(mlx, TEX_PIX, (S_W + 1),
+				sizeof * mlx->tex_pix[i]);
 		i++;
 	}
 }

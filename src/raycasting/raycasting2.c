@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:40:30 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/15 12:29:00 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:50:53 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,14 @@ int	is_valid_pos_collision(char **map, int x, int y)
 	return (TRUE);
 }
 
-// int	is_valid_pos(t_data *data, double x, double y)
-// {
-// 	if (x <= 1.2 || x >= data->map_w - 2.2)
-// 		return (FALSE);
-// 	if (y <= 1.2 || y >= data->map_h - 1.2)
-// 		return (FALSE);
-// 	if (BONUS)
-// 		is_valid_pos_collision(data->square_map, (int)x, (int)y);
-// 	return (TRUE);
-// }
+// int heigh_on_y()
 
 int	is_valid_pos(t_data *data, double x, double y)
 {
-	if (x <= 1.2 || x >= data->map_w - 2.2)
+	if (x <= 0.2 || x >= data->map_w - 1.2)
 		return (FALSE);
-	if (y <= 1.2 || y >= data->map_h - 1.2)
+	if (y <= 0.2 || y >= data->map_h - 1.2)
 		return (FALSE);
-	// if (BONUS)
-	// 	is_valid_pos_collision(data->square_map, (int)x, (int)y);
 	if (BONUS && data->square_map[(int)y][(int)x] > '0')
 		return (FALSE);
 	if (is_player(data->square_map[(int)y][(int)x]) == TRUE)

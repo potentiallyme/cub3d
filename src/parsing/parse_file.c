@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/15 14:01:08 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:36:06 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	**fill_spaces(char **map)
 		}
 		i++;
 	}
-	ft_putstr_double(s);
 	return (s);
 }
 
@@ -46,8 +45,6 @@ int	check_file(t_data *data)
 	i += check_rgb(data, tmp, 'F');
 	tmp = data->linked_file;
 	i += check_rgb(data, tmp, 'C');
-	ft_putstr_double(data->map2d);
-	ft_putstr_double(data->square_map);
 	i += check_map(make_square_map(data, 'E'));
 	return (i);
 }

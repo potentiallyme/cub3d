@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 14:49:19 by nino              #+#    #+#             */
-/*   Updated: 2024/10/13 19:13:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/15 14:19:22 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,22 @@
 # include <strings.h>
 # include <sys/stat.h>
 # include <sys/types.h>
-# include <unistd.h>
 # include <sys/wait.h>
+# include <unistd.h>
 
-# define rst "\033[0m"
-# define black "\033[0;30m"
-# define red "\033[0;31m"
-# define green "\033[0;32m"
-# define yellow "\033[0;33m"
-# define blue "\033[0;34m"
-# define purple "\033[0;35m"
-# define white "\033[0;37m"
+# define RST "\033[0m"
+# define BLACK "\033[0;30m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define WHITE "\033[0;37m"
 
 // ? Garbage DBL flags for single or double pointers
 # define SINGLE 0
 # define DOUBLE 1
+
 typedef struct s_garbage
 {
 	int					*garbage_freed;
@@ -97,15 +98,15 @@ t_list					*ft_lstnew(void *content);
 int						ft_lstsize(t_list *lst);
 
 // memory
-void				ft_bzero(void *s, size_t n);
-void				*ft_calloc(size_t nmemb, size_t size);
-void				ft_free(char **s);
-void				ft_free_tab(void **s);
-void				*ft_memchr(const void *s, int c, size_t n);
-int					ft_memcmp(const void *s1, const void *s2, size_t n);
-void				*ft_memcpy(void *dest, const void *src, size_t n);
-void				*ft_memmove(void *dest, const void *src, size_t n);
-void				*ft_memset(void *s, int c, size_t n);
+void					ft_bzero(void *s, size_t n);
+void					*ft_calloc(size_t nmemb, size_t size);
+void					ft_free(char **s);
+void					ft_free_tab(void **s);
+void					*ft_memchr(const void *s, int c, size_t n);
+int						ft_memcmp(const void *s1, const void *s2, size_t n);
+void					*ft_memcpy(void *dest, const void *src, size_t n);
+void					*ft_memmove(void *dest, const void *src, size_t n);
+void					*ft_memset(void *s, int c, size_t n);
 
 // miscellaneous
 int						ft_tolower(int c);
@@ -137,7 +138,6 @@ char					*ft_cut_chars(char *s, char *cut);
 char					*ft_itoa(long n);
 int						ft_linelen(char **s);
 char					**ft_split(char const *s, char c);
-char					**ft_split_2(char const *s, char c1, char c2);
 char					*ft_strchr(const char *s, int c);
 int						ft_strcmp(char *s1, char *s2);
 char					**ft_strdup_double(char **s);
@@ -149,7 +149,7 @@ int						ft_strlen(const char *s);
 char					*ft_strmapi(char const *s, char (*f)(unsigned int,
 								char));
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
-int						ft_strstr(char *s1, char *s2);
+int						ft_stRSTr(char *s1, char *s2);
 char					*ft_strnstr(const char *big, const char *little,
 							size_t len);
 char					*ft_strrchr(const char *s, int c);

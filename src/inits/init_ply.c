@@ -79,8 +79,8 @@ void	init_player(t_mlx *mlx, t_player *ply)
 {
 	if (get_player_pos(&mlx->data) != 1)
 		ft_exit(mlx, "Only one player is accepted", PARSER, 1);
-	ply->ply_x = mlx->data.p_x;
-	ply->ply_y = mlx->data.p_y;
+	ply->ply_x = mlx->data.p_x + 0.5;
+	ply->ply_y = mlx->data.p_y + 0.5;
 	ply->nswe = mlx->data.player_dir;
 	ply->dir_x = 0;
 	ply->dir_y = -1;

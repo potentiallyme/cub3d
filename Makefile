@@ -131,7 +131,7 @@ $(LIBFT):
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(LIBFT) $(LFLAGS) $(NAME) $(MLX)
-	@printf "\r"
+	@printf "                                                                                                      \r"
 	$(CMPLT)
 
 $(MLX): minilibx-linux

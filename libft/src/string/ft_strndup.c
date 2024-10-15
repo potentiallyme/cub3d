@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 16:06:19 by nino              #+#    #+#             */
-/*   Updated: 2024/10/11 17:24:34 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 14:15:49 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 char	*ft_strndup(const char *s, int n)
 {
 	char	*dup;
-	int i;
-	int	len;
+	int		i;
+	int		len;
 
 	if (!s)
 		return (NULL);

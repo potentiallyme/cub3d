@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:19:29 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/15 13:43:28 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:14:50 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void	img_thing(t_mlx *mlx, t_image *img, char *path, int size)
 	img->pixel_bits = 0;
 	img->size_line = 0;
 	img->endian = 0;
-	img->img = mlx_xpm_file_to_image(mlx->mlx_p, path \
-			, &size, &size);
+	img->img = mlx_xpm_file_to_image(mlx->mlx_p, path, &size, &size);
 	if (!img->img)
 	{
 		ft_printf("%s\n", path);
-		ft_exit(mlx, "Mlx_xpm_file_to_image error", XPM, 1);	
+		ft_exit(mlx, "Mlx_xpm_file_to_image error", XPM, 1);
 	}
 	img->pixels = (int *)mlx_get_data_addr(img->img, &img->pixel_bits,
 			&img->size_line, &img->endian);
@@ -43,7 +42,7 @@ int	*my_xpm_to_file(t_mlx *game, char *path, int size)
 	if (!buf)
 	{
 		mlx_destroy_image(game->mlx_p, img.img);
-		ft_exit(game, "My_xpm_file_to_image error", XPM, 1);	
+		ft_exit(game, "My_xpm_file_to_image error", XPM, 1);
 	}
 	y = 0;
 	while (y < size)

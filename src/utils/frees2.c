@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 11:43:04 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/15 13:42:45 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:17:42 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_bonus(t_mlx *mlx)
 
 void	ft_exit(t_mlx *mlx, char *msg, int flag, int exit_code)
 {
-	ft_printf("%s%s%s\n", red, msg, rst);
+	ft_printf("%s%s%s\n", RED, msg, RST);
 	if (flag >= MLX)
 		free_mlx(mlx);
 	if (flag >= PARSER)
@@ -52,6 +52,6 @@ void	ft_exit(t_mlx *mlx, char *msg, int flag, int exit_code)
 
 void	pre_exit(char *msg, int exit_code)
 {
-	ft_printf("%s%s%s\n", red, msg, rst);
+	ft_printf("%s%s%s\n", RED, msg, RST);
 	exit(exit_code);
 }

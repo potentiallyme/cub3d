@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/15 12:55:15 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 14:14:19 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	set_frame_img_pixel(t_mlx *mlx, t_image *img, int x, int y)
 		draw_pix(img, x, y, mlx->data.floor);
 }
 
-void free_mm(t_mlx *mlx)
+void	free_mm(t_mlx *mlx)
 {
 	if (&mlx->mm)
 		ft_free_tab((void **)mlx->mm.map);

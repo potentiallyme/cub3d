@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/15 14:00:30 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:58:15 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 # define S_W 640
 # define S_H 480
@@ -32,15 +32,6 @@
 # define FALSE 0
 # define SUCCESS 1
 # define FAIL 0
-
-// colors for map
-# define BLACK 0x000000FF
-# define GREY 0x808080FF
-# define BLUE 0x87CEEBFF
-# define GREEN 0x008000FF
-# define ORANGE 0xFF9300FF
-# define RED 0xFF0000FF
-# define WHITE 0xFFFFFFFF
 
 // colors for printf
 # define RST "\033[0m"

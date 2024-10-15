@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:14:00 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/15 14:05:46 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:57:40 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	check_map(char **map)
 	return (SUCCESS);
 }
 
-void	fill_square_map_line(char *sq_map_line, char *map_line, int width, char c)
+void	fill_square_map_line(char *sq_map_line, char *map_line, int width,
+		char c)
 {
 	int	j;
 
@@ -58,6 +59,8 @@ void	fill_square_map_line(char *sq_map_line, char *map_line, int width, char c)
 	while (map_line[++j])
 	{
 		if (ft_isspace(map_line[j]))
+			sq_map_line[j] = c;
+		else if (!map_line[j])
 			sq_map_line[j] = c;
 		else
 			sq_map_line[j] = map_line[j];

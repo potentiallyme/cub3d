@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap2_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:59:41 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/15 13:43:25 by yu-chen          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:57:12 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	init_minimap(t_mlx *mlx, t_minimap *mm, t_image *img)
 	mm->map = create_map(mlx, mm);
 	if (!mm->map)
 	{
-		printf("Failed to create minimap\n");
+		ft_printf("Failed to create minimap\n");
 		return ;
 	}
 	mm->color_floor = 0xE6E6E6;
