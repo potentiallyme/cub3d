@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:43 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 19:28:50 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:42:25 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_mlx(t_mlx *game)
 	}
 }
 
-void free_data(t_data *data)
+void	free_data(t_data *data)
 {
 	if (data->linked_file)
 		free_file_list(data->linked_file);
@@ -75,55 +75,20 @@ void free_data(t_data *data)
 		ft_free(data->map2d);
 	if (data->square_map)
 		ft_free(data->square_map);
-}
-
-void free_tex(t_tex *tex)
-{
-	if (tex->ply)
-		free(tex->ply);
-	if (tex->fire)
-		free(tex->fire);
-	if (tex->door)
-		free(tex->door);
-	if (tex->no)
-		free(tex->no);
-	if (tex->so)
-		free(tex->so);
-	if (tex->ea)
-		free(tex->ea);
-	if (tex->we)
-		free(tex->we);
-}
-
-void free_bonus(t_mlx *mlx)
-{
-	int i;
-
-	i = 0;
-	while (i < 4)
-		free(mlx->mm.nswe[i]);
-	free(mlx->mm.nswe);
-	ft_free(mlx->mm.map);
-}
-
-void	ft_exit(t_mlx *mlx, char *msg, int flag, int exit_code)
-{
-	ft_printf("%s%s%s\n", red, msg, rst);
-	if (flag >= MLX)
-		free_mlx(mlx);
-	if (flag >= PARSER)
-		free_data(&mlx->data);
-	if (flag >= XPM)
-		free_tex(&mlx->tex);
-	if (flag >= TEX_PIX)
-		ft_free_tab((void **)mlx->tex_pix);
-	if (flag >= BNS)
-		free_bonus(mlx);
-	exit(exit_code);
-}
-
-void pre_exit(char *msg, int exit_code)
-{
-	ft_printf("%s%s%s\n", red, msg, rst);
-	exit(exit_code);
+	if (data->c_ceiling)
+		ft_free(data->c_ceiling);
+	if (data->c_floor)
+		ft_free(data->c_floor);
+	if (data->north)
+		free(data->north);
+	if (data->south)
+		free(data->south);
+	if (data->east)
+		free(data->east);
+	if (data->west)
+		free(data->west);
+	if (data->ply)
+		free(data->ply);
+	if (data->fire)
+		free(data->fire);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:10:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/14 19:13:48 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 14:00:30 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,16 @@ typedef struct s_file
 	struct s_file		*next;
 }						t_file;
 
-
-
 typedef struct s_data
 {
 	int				player_dir;
 	int				exit;
-	char			*north; //wall path
+	char			*north;
 	char			*south;
 	char			*west;
 	char			*east;
 	char			*ply;
 	char			*fire;
-	char			*door; //path
 	int				p_x;
 	int				p_y;
 	int				map_w;
@@ -129,7 +126,6 @@ typedef struct s_player
 	int				rot_r;
 	int				rot_l;
 	int				sprint;
-	int				door; //status
 	int				fire;
 	double			gauge;
 }					t_player;
@@ -153,7 +149,6 @@ typedef struct s_ray
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
-	int				door;
 }					t_ray;
 
 typedef struct s_image
@@ -169,7 +164,6 @@ typedef struct s_tex
 {
 	int				*ply;
 	int				*fire;
-	int				*door;
 	int				*no;
 	int				*so;
 	int				*ea;
@@ -195,7 +189,6 @@ typedef struct s_minimap
 	int				color_floor;
 	int				color_wall;
 	int				color_space;
-	int				color_door;
 }					t_minimap;
 
 typedef struct s_mlx
@@ -205,7 +198,6 @@ typedef struct s_mlx
 	int				img_size;
 	int				**tex_pix;
 	int				**ply_pix;
-	// int			**door_pix;
 	int				*gun;
 	void			*mlx_p;
 	void			*win;
@@ -217,9 +209,7 @@ typedef struct s_mlx
 	t_tex			tex;
 	t_image			minimap;
 	t_minimap		mm;
-	bool			door; //key_press
 }					t_mlx;
-
 
 void				set_walk_speed(t_mlx *mlx, int flag);
 void				draw_pix(t_image *img, int x, int y, int color);
@@ -236,23 +226,22 @@ void				init_ply_pix(t_mlx *mlx);
 void				init_player(t_mlx *mlx, t_player *ply);
 int					*my_xpm_to_file(t_mlx *game, char *path, int size);
 
-
 // ! MOVEMENT
-int						rotate_view(t_mlx *mlx, double rot_dir);
-int						key_release(int keycode, t_mlx *ml);
-int						key_press(int keydata, t_mlx *ml);
-int						move_player(t_mlx *mlx);
-void					handle_ply_movement(t_mlx *mlx, double move_x,
-							double move_y);
-int						wall_hit(t_mlx *mlx, double x, double y);
-int						check_direction(double angle, char c);
-int						validate_move(t_mlx *mlx, double new_x, double new_y);
+int					rotate_view(t_mlx *mlx, double rot_dir);
+int					key_release(int keycode, t_mlx *ml);
+int					key_press(int keydata, t_mlx *ml);
+int					move_player(t_mlx *mlx);
+void				handle_ply_movement(t_mlx *mlx, double move_x,
+						double move_y);
+int					wall_hit(t_mlx *mlx, double x, double y);
+int					check_direction(double angle, char c);
+int					validate_move(t_mlx *mlx, double new_x, double new_y);
 
 // ! PARSING
 int					check_file(t_data *data);
 int					check_map(char **map);
 long				get_color(int r, int g, int b);
-char				**make_square_map(t_data *m);
+char				**make_square_map(t_data *m, char c);
 int					check_rgb(t_data *data, t_file *tmp, char c);
 int					check_textures(t_data *data, t_file *file);
 int					is_player(char c);
@@ -261,14 +250,15 @@ int					get_w(t_data *d);
 int					get_h(t_data *d);
 
 // ! RAYCASTING
-void					cast_rays(t_mlx *mlx);
-double					normalize_angle(double angle);
-double					get_v_inter(t_mlx *mlx, double angle);
-double					get_h_inter(t_mlx *mlx, double angle);
-double					adjust_inter(double angle, double *inter, double *step,
-							int h);
-
-void	render_player(t_mlx *mlx, t_image *img);
+void				cast_rays(t_mlx *mlx);
+double				normalize_angle(double angle);
+double				get_v_inter(t_mlx *mlx, double angle);
+double				get_h_inter(t_mlx *mlx, double angle);
+double				adjust_inter(double angle, double *inter, double *step,
+						int h);
+void				calc_line_height(t_ray *ray, t_player *ply);
+int					is_valid_pos_collision(char **map, int x, int y);
+void				render_player(t_mlx *mlx, t_image *img);
 void				render_image(t_mlx *mlx);
 int					is_valid_pos(t_data *data, double x, double y);
 int					is_not_wall(char **map, double x, double y);
@@ -277,39 +267,39 @@ void				img_do(t_mlx *mlx, t_image *img, int h, int w);
 void				set_textures(t_mlx **mlx, t_tex *tex, t_ray *ray, int x);
 // ! UTILS
 // * extension_utils
-int						is_xpm(char *s);
-int						is_cub(char *s);
-int						is_png(char *s);
+int					is_xpm(char *s);
+int					is_cub(char *s);
+int					is_png(char *s);
 
 // * frees
-void					free_file_list(t_file *file);
-void free_data(t_data *data);
-void					free_mlx(t_mlx *game);
-void free_tex(t_tex *tex);
-void	ft_exit(t_mlx *mlx, char *msg, int flag, int exit_code);
-void	*cub_malloc(t_mlx *mlx, int flag, size_t nmemb, size_t size);
-void pre_exit(char *msg, int exit_code);
+void				free_file_list(t_file *file);
+void				free_data(t_data *data);
+void				free_mlx(t_mlx *game);
+void				free_tex(t_tex *tex);
+void				ft_exit(t_mlx *mlx, char *msg, int flag, int exit_code);
+void				*cub_malloc(t_mlx *mlx, int flag,
+						size_t nmemb, size_t size);
+void				pre_exit(char *msg, int exit_code);
 
 // * init_utils
-char					**return_map(t_data *data);
-int						count_lines(t_file *file);
-t_file					*return_map_start(t_file *file);
-int						check_if_map(char *s);
+char				**return_map(t_data *data);
+int					count_lines(t_file *file);
+t_file				*return_map_start(t_file *file);
+int					check_if_map(char *s);
 
 // * list_utils
-void					add_to_list(t_file **lst, t_file *new_node);
-void					string_to_list(t_data *data);
+void				add_to_list(t_file **lst, t_file *new_node);
+void				string_to_list(t_data *data);
 
 // * parse_utils
-void					pr_str(t_file *f);
-void					print_data(t_data *data);
-void					print_textures(t_data *data, int i);
-
+void				pr_str(t_file *f);
+void				print_data(t_data *data);
+void				print_textures(t_data *data, int i);
 
 // * map_utils
-int						get_maxlen(char **map);
-int						get_h_map(char **map);
-char					*fill_map(char *map_line, int maxlen);
+int					get_maxlen(char **map);
+int					get_h_map(char **map);
+char				*fill_map(char *map_line, int maxlen);
 
 // ! BONUS
 // *minimap
@@ -318,10 +308,6 @@ char				**create_map(t_mlx *mlx, t_minimap *minimap);
 char				*add_mmap_line(t_mlx *mlx, t_minimap *mm, int y);
 void				ft_free_tab(void **tab);
 int					get_mmap_off(t_minimap *mm, int map_size, int pos);
-void				handle_door(t_mlx *mlx);
-void				handle_door(t_mlx *mlx);
-void				init_door_pix(t_mlx *mlx);
-void				render_door(t_mlx *mlx, t_image *img);
-// int					mouse_move(t_mlx *mlx, int x);
 int					mouse_move(t_mlx *mlx);
+void				draw_border(t_minimap *mm, int color);
 #endif

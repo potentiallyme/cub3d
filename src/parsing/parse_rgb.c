@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 15:41:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:14:42 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	check_rgb(t_data *data, t_file *tmp, char c)
 		if (tmp->s[i] == c && tmp->s[i + 1] == ' ')
 		{
 			split = ft_split(tmp->s + i + 2, ',');
+			// if (!split)
+			// 	return (rgb_error(data,c)); 
 			if (n == 0 && check_format(split))
 				set_rgb(data, split, c);
 			else

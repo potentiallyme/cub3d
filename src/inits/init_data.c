@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:04:48 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/14 19:16:04 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 14:00:48 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ void	init_mlx(t_mlx *game)
 	game->ply_speed = 0.0125;
 	game->rot_speed = 0.03;
 	game->gun = 0;
-	game->door = 0;
-	// mlx_mouse_move(game->mlx_p, game->win, S_W / 2, S_H / 2);
 	return ;
 }
 
-void check_data(t_mlx *mlx, t_data *data)
+void	check_data(t_mlx *mlx, t_data *data)
 {
 	if (data->file)
 		free(data->file);
@@ -56,7 +54,7 @@ void	parser(t_mlx *mlx, t_data *data, char **av)
 	data->file = return_gnl(fd);
 	string_to_list(data);
 	data->map2d = return_map(data);
-	data->square_map = make_square_map(data);
+	data->square_map = make_square_map(data, '1');
 	check_data(mlx, data);
 	if (check_file(data) != 4)
 		ft_exit(mlx, "Parsing error, make sure the map is valid", PARSER, 1);
@@ -84,7 +82,6 @@ void	init_data(t_mlx *mlx, t_data *data, char **av)
 	data->linked_file = 0;
 	data->ply = 0;
 	data->fire = 0;
-	data->door = 0;
 	parser(mlx, data, av);
 }
 
@@ -107,5 +104,4 @@ void	init_ray(t_ray *ray)
 	ray->line_height = 0;
 	ray->draw_start = 0;
 	ray->draw_end = 0;
-	ray->door = 0;
 }

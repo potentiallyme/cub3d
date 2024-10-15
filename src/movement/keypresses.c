@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keypresses.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:52:01 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/13 15:40:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:43:31 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,5 @@ int	key_press(int keycode, t_mlx *mlx)
 	}
 	else if (keycode == XK_f)
 		mlx->ply.fire = 1;
-	else if (keycode == XK_e)
-		mlx->ply.door = 1;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:19:29 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/13 15:40:20 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:43:28 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	img_thing(t_mlx *mlx, t_image *img, char *path, int size)
 			, &size, &size);
 	if (!img->img)
 	{
-		mlx_destroy_image(mlx->mlx_p, img->img);
+		ft_printf("%s\n", path);
 		ft_exit(mlx, "Mlx_xpm_file_to_image error", XPM, 1);	
 	}
 	img->pixels = (int *)mlx_get_data_addr(img->img, &img->pixel_bits,
@@ -64,7 +64,6 @@ void	init_images(t_mlx *game)
 {
 	game->tex.ply = my_xpm_to_file(game, game->data.ply, 240);
 	game->tex.fire = my_xpm_to_file(game, game->data.fire, 240);
-	game->tex.door = my_xpm_to_file(game, game->data.north, game->img_size);
 	game->tex.no = my_xpm_to_file(game, game->data.north, game->img_size);
 	game->tex.so = my_xpm_to_file(game, game->data.south, game->img_size);
 	game->tex.ea = my_xpm_to_file(game, game->data.east, game->img_size);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:55:41 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/14 19:13:52 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:43:03 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 # define S_W 640
 # define S_H 480
@@ -81,13 +81,12 @@ typedef struct s_data
 {
 	int				player_dir;
 	int				exit;
-	char			*north; //wall path
+	char			*north;
 	char			*south;
 	char			*west;
 	char			*east;
 	char			*ply;
 	char			*fire;
-	char			*door; //path
 	int				p_x;
 	int				p_y;
 	int				map_w;
@@ -117,7 +116,6 @@ typedef struct s_player
 	int				rot_r;
 	int				rot_l;
 	int				sprint;
-	int				door; //status
 	int				fire;
 	double			gauge;
 }					t_player;
@@ -141,7 +139,6 @@ typedef struct s_ray
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
-	int				door;
 }					t_ray;
 
 typedef struct s_image
@@ -157,7 +154,6 @@ typedef struct s_tex
 {
 	int				*ply;
 	int				*fire;
-	int				*door;
 	int				*no;
 	int				*so;
 	int				*ea;
@@ -183,7 +179,6 @@ typedef struct s_minimap
 	int				color_floor;
 	int				color_wall;
 	int				color_space;
-	int				color_door;
 }					t_minimap;
 
 typedef struct s_mlx
@@ -193,7 +188,6 @@ typedef struct s_mlx
 	int				img_size;
 	int				**tex_pix;
 	int				**ply_pix;
-	// int			**door_pix;
 	int				*gun;
 	void			*mlx_p;
 	void			*win;
@@ -205,9 +199,7 @@ typedef struct s_mlx
 	t_tex			tex;
 	t_image			minimap;
 	t_minimap		mm;
-	bool			door; //key_press
 }					t_mlx;
-
 
 void				set_walk_speed(t_mlx *mlx, int flag);
 void				draw_pix(t_image *img, int x, int y, int color);
@@ -223,7 +215,6 @@ void				init_tex_pix(t_mlx *mlx);
 void				init_ply_pix(t_mlx *mlx);
 void				init_player(t_mlx *mlx, t_player *ply);
 int					*my_xpm_to_file(t_mlx *game, char *path, int size);
-
 
 // ! MOVEMENT
 int					rotate_view(t_mlx *mlx, double rot_dir);
@@ -255,8 +246,9 @@ double				get_v_inter(t_mlx *mlx, double angle);
 double				get_h_inter(t_mlx *mlx, double angle);
 double				adjust_inter(double angle, double *inter, double *step,
 						int h);
-
-void	render_player(t_mlx *mlx, t_image *img);
+void				calc_line_height(t_ray *ray, t_player *ply);
+int					is_valid_pos_collision(char **map, int x, int y);
+void				render_player(t_mlx *mlx, t_image *img);
 void				render_image(t_mlx *mlx);
 int					is_valid_pos(t_data *data, double x, double y);
 int					is_not_wall(char **map, double x, double y);
@@ -301,10 +293,6 @@ char				**create_map(t_mlx *mlx, t_minimap *minimap);
 char				*add_mmap_line(t_mlx *mlx, t_minimap *mm, int y);
 void				ft_free_tab(void **tab);
 int					get_mmap_off(t_minimap *mm, int map_size, int pos);
-void				handle_door(t_mlx *mlx);
-void				handle_door(t_mlx *mlx);
-void				init_door_pix(t_mlx *mlx);
-void				render_door(t_mlx *mlx, t_image *img);
-// int					mouse_move(t_mlx *mlx, int x);
+void				draw_border(t_minimap *mm, int color);
 int					mouse_move(t_mlx *mlx);
 #endif

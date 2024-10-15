@@ -35,7 +35,7 @@ CUBE		:= main.c cube.c
 
 # INITS
 INT_DIR		:= inits
-SRC_INT		:= init_data.c init_ply.c init_img.c
+SRC_INT		:= init_data.c init_ply.c init_img.c init_tex.c
 INT			:= $(SRC_INT:%=$(INT_DIR)/%)
 
 # MOVEMENT
@@ -55,12 +55,12 @@ RC			:= $(SRC_RC:%=$(RC_DIR)/%)
 
 # UTILS
 UTL_DIR		:= utils
-SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c 
+SRC_UTL		:= extension_utils.c frees.c frees2.c init_utils.c list_utils.c parse_utils.c map_utils.c 
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS
 BUS_DIR     := bonus
-SRC_BUS     := minimap.c minimap2.c player.c door.c
+SRC_BUS     := minimap_bonus.c minimap2_bonus.c player_bonus.c mouse_bonus.c
 BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 
 # ALL SOURCES

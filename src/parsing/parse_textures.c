@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:02:02 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/13 15:41:49 by marvin           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:42:27 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,42 @@ char	*return_texture_paths(t_file *file, char *dir)
 	return (NULL);
 }
 
-void	set_texture(t_data *data, t_file *file)
+void	set_texture2(t_data *data)
 {
-	if (!ft_strcmp(file->s, "NO") && file->next)
-		data->north = ft_strdup(file->next->s);
-	else if (!ft_strcmp(file->s, "SO") && file->next)
-		data->south = ft_strdup(file->next->s);
-	else if (!ft_strcmp(file->s, "EA") && file->next)
-		data->east = ft_strdup(file->next->s);
-	else if (!ft_strcmp(file->s, "WE") && file->next)
-		data->west = ft_strdup(file->next->s);
+	free(data->ply);
 	data->ply = ft_strdup("./textures/gun_final.xpm");
+	free(data->fire);
 	data->fire = ft_strdup("./textures/gun_fire.xpm");
-	data->door = ft_strdup("./textures/door.xpm");
 	if (!data->ply)
 	{
 		ft_printf("%sERROR\nPlayer .xpm wrong!%s\n", RED_PR, RST);
 		return ;
 	}
+}
+
+void	set_texture(t_data *data, t_file *file)
+{
+	if (!ft_strcmp(file->s, "NO") && file->next)
+	{
+		free(data->north);
+		data->north = ft_strdup(file->next->s);
+	}
+	else if (!ft_strcmp(file->s, "SO") && file->next)
+	{
+		free(data->south);
+		data->south = ft_strdup(file->next->s);
+	}
+	else if (!ft_strcmp(file->s, "EA") && file->next)
+	{
+		free(data->east);
+		data->east = ft_strdup(file->next->s);
+	}
+	else if (!ft_strcmp(file->s, "WE") && file->next)
+	{
+		free(data->west);
+		data->west = ft_strdup(file->next->s);
+	}
+	set_texture2(data);
 }
 
 int	recursive_check(t_data *data, t_file *file, char *s, int i)

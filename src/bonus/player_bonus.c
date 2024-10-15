@@ -6,11 +6,9 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:31:42 by yu-chen           #+#    #+#             */
-<<<<<<<< HEAD:src/bonus/player.c
 /*   Updated: 2024/10/13 19:25:23 by lmoran           ###   ########.fr       */
-========
+
 /*   Updated: 2024/10/14 12:53:46 by yu-chen          ###   ########.fr       */
->>>>>>>> origin/yu-chen:src/bonus/player_bonus.c
 /*                                                                            */
 /* ************************************************************************** */
 

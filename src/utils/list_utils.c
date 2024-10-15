@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:20:26 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/14 19:13:41 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 11:49:53 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ void	add_to_list(t_file **lst, t_file *new_node)
 	}
 }
 
+int	is_texture_line(char *tmp, int *i)
+{
+	while (tmp[*i] == ' ')
+		(*i)++;
+	if ((tmp[*i] == 'N' && tmp[*i + 1] == 'O' && tmp[*i + 2] == ' ')
+		|| (tmp[*i] == 'S' && tmp[*i + 1] == 'O' && tmp[*i + 2] == ' ')
+		|| (tmp[*i] == 'E' && tmp[*i + 1] == 'A' && tmp[*i + 2] == ' ')
+		|| (tmp[*i] == 'W' && tmp[*i + 1] == 'E' && tmp[*i + 2] == ' '))
+	{
+		return (1);
+	}
+	return (0);
+}
+
 void	check_and_add(t_data *data, t_file *new, char *tmp)
 {
 	t_file	*second;
@@ -38,12 +52,7 @@ void	check_and_add(t_data *data, t_file *new, char *tmp)
 
 	i = 0;
 	second = NULL;
-	while (tmp[i] == ' ')
-		i++;
-	if ((tmp[i] == 'N' && tmp[i + 1] == 'O' && tmp[i + 2] == ' ')
-		|| (tmp[i] == 'S' && tmp[i + 1] == 'O' && tmp[i + 2] == ' ')
-		|| (tmp[i] == 'E' && tmp[i + 1] == 'A' && tmp[i + 2] == ' ')
-		|| (tmp[i] == 'W' && tmp[i + 1] == 'E' && tmp[i + 2] == ' '))
+	if (is_texture_line(tmp, &i))
 	{
 		second = malloc(sizeof(t_file));
 		if (!second)

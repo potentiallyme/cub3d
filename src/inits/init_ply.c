@@ -12,16 +12,6 @@
 
 #include "../../includes/cub3D.h"
 
-// void	mm_sec(t_mlx *game, t_data *data, int at, char *name)
-// {
-// 	int	s;
-
-// 	s = 20;
-// 	data->asset[at] = mlx_xpm_file_to_image(data->mlx_p, name, &s, &s);
-// 	if (!data->asset[at])
-// 		data_error(game, data);
-// }
-
 void	set_player(t_data *data, char c)
 {
 	if (c == 'N')
@@ -33,16 +23,6 @@ void	set_player(t_data *data, char c)
 	else if (c == 'E')
 		data->player_dir = EA;
 }
-
-// int	check_ply_num(int ply_num)
-// {
-// 	if (ply_num > 1)
-// 	{
-// 		ft_printf("%sGame has more than one player!%s\n", RED_PR, RST);
-// 		return (FALSE);
-// 	}
-// 	return (TRUE);
-// }
 
 int	get_player_pos(t_data *data)
 {
@@ -72,7 +52,6 @@ int	get_player_pos(t_data *data)
 
 void	set_player_cam(t_player **ply)
 {
-	// printf("%i\n", ply->nswe);
 	if ((*ply)->nswe == SO)
 	{
 		(*ply)->dir_x = 0;
@@ -115,6 +94,5 @@ void	init_player(t_mlx *mlx, t_player *ply)
 	ply->rot_l = 0;
 	ply->sprint = 0;
 	ply->gauge = 100;
-	ply->door = 0;
 	ply->fire = 0;
 }

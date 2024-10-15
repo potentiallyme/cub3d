@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:46:46 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/14 19:08:16 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 11:38:05 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ int	validate_move(t_mlx *mlx, double new_x, double new_y)
 		mlx->ply.ply_y = new_y;
 		moved = 1;
 	}
-	// printf("moved %i\n", moved);
 	return (moved);
 }
