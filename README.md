@@ -15,11 +15,12 @@ ESC to EXIT
 
 Any map can be used, so long as it fits the following criteria:
 
-It MUST contain paths to textures for the walls facing each direction, such as:
+It MUST contain paths to textures (XPM FILES) for the walls facing each direction, such as:
 NO path_to_texture.xpm
 SO path_to_texture.xpm
 EA path_to_texture.xpm
 WE path_to_texture.xpm
+For the best experience, use 64x64px xpm images.
 
 It MUST contain the RGB values for the ceiling and floor, such as:
 F x,x,x

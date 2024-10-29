@@ -1,0 +1,20 @@
+NO ./textures/red_wall.xpm
+SO ./textures/red_wall.xpm
+EA ./textures/red_wall.xpm
+WE ./textures/red_wall.xpm
+
+F 27,79,79
+C 43,193,193
+
+ 11111   11111
+110001111100011
+1000000S0000001
+100000000000001
+110000000000011
+ 1100000000011
+  11000000011
+   110000011
+    1100011
+     11011
+      111
+       1
