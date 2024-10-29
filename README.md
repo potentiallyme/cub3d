@@ -10,12 +10,12 @@
 
 ## INPUTS
 
-WS to move FORWARD and BACK
-AD to strafe LEFT and RIGHT
+WS to move FORWARD and BACK  
+AD to strafe LEFT and RIGHT  
 <- -> arrow keys to look LEFT and RIGHT  
-HOLD LSHIFT to SPRINT (limited gauge that needs to replenish)
-ESC to EXIT  
-F in BONUS version to FIRE  
+HOLD LSHIFT to SPRINT (limited gauge that needs to replenish)  
+ESC to EXIT    
+F in BONUS version to FIRE    
 
 ## PARSING AND MAP CREATION
 
