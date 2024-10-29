@@ -22,12 +22,12 @@ HOLD `LSHIFT` to SPRINT (limited gauge that needs to replenish)
 Any map can be used, so long as it fits the following criteria:  
   
 It MUST contain paths to textures (XPM FILES) for the walls facing each direction, such as:  
-<pre>
+`
 NO path_to_texture.xpm  
 SO path_to_texture.xpm  
 EA path_to_texture.xpm  
 WE path_to_texture.xpm  
-</pre>
+`
 For the best experience, use 64x64px xpm images.  
 
 It MUST contain the RGB values for the ceiling and floor, such as:
