@@ -1,5 +1,5 @@
-##Welcome to YU-CHEN and LMORAN's
-#<em>CUB3D</em></title>
+## Welcome to YU-CHEN and LMORAN's
+# **CUB3D**
 
 This is yu-chen and lmoran's version of Cub3D, a project at 42 PARIS which consists in using raycasting and rendering to create a simple 3D game similar to Wolfenstein 3D.  
   
