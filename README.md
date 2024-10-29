@@ -27,10 +27,11 @@ WE path_to_texture.xpm
 </pre>
 For the best experience, use 64x64px xpm images.  
 
-It MUST contain the RGB values for the ceiling and floor, such as:  
-F x,x,x  
-C x,x,x  
-  
+It MUST contain the RGB values for the ceiling and floor, such as:
+<pre>
+F 188,106,60 (brown)
+C 173,216,230 (light blue) 
+</pre>
 The map MUST be closed, and contain ONE player character. The player can face whatever direction is chosen by using N,S,W,E characters. Walls are '1' and empty spaces are '0', such as:  
 <pre>
 11111111  
