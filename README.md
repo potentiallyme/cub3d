@@ -1,4 +1,4 @@
-$$\color{lightblue}Welcome \space to \space YU-CHEN \space and \space LMORAN's \space <br /> \color{purple} CUB3D!$$
+$$\color{lightblue}Welcome \space to \space YU-CHEN \space and \space LMORAN's \n \color{purple} CUB3D!$$
 
 This is yu-chen and lmoran's version of Cub3D, a project at 42 PARIS which consists in using raycasting and rendering to create a simple 3D game similar to Wolfenstein 3D.  
   
