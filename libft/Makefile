@@ -8,8 +8,8 @@ NAME	=	libft.a
 # 								  COMMANDS									   #
 # **************************************************************************** #
 
-CC		=	@clang
-CFLAGS	=	-Wall -Wextra -Werror
+CC		=	@gcc
+CFLAGS	=	-Wall -Wextra -Werror -g3
 IFLAGS	=	-Iinc
 MK		=	@mkdir -p
 RM		=	@rm -rf
@@ -63,7 +63,7 @@ LIST		:=	$(SRC_LIST:%=$(LIST_DIR)/%)
 # MEMORY
 MEM_DIR		:=	memory
 SRC_MEM		:=	ft_bzero.c ft_calloc.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c \
-				ft_memset.c ft_free.c ft_free_any.c
+				ft_memset.c ft_free.c ft_free_tab.c
 MEM			:=	$(SRC_MEM:%=$(MEM_DIR)/%)
 
 # MISCELLANEOUS
@@ -86,7 +86,7 @@ PUT			:=	$(SRC_PUT:%=$(PUT_DIR)/%)
 # STRING
 STR_DIR		:=	string
 SRC_STR		:=	ft_atoi.c ft_itoa.c ft_char_trim.c ft_count_chars.c ft_cut_chars.c ft_linelen.c ft_split.c ft_strchr.c \
-				ft_strdup.c ft_striteri.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_split_2.c\
+				ft_strdup.c ft_striteri.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
 				ft_strmapi.c ft_strncmp.c ft_strstr.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
 				ft_strdup_double.c ft_strcmp.c ft_strlen_double.c ft_strjoin.c ft_strndup.c ft_atol.c
 STR 		:= 	$(SRC_STR:%=$(STR_DIR)/%)

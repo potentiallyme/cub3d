@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 15:46:33 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 21:34:48 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/21 17:41:29 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_if_map(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == ' ' || s[i] == '1')
+		if (is_invalid(s[i]) == FALSE || s[i] == ' ')
 			i++;
 		else
 			return (FALSE);
@@ -69,10 +69,15 @@ char	**return_map(t_data *data)
 	if (!tmp)
 		return (NULL);
 	map = (char **)malloc((count_lines(tmp) + 1) * sizeof(char *));
+	if (!map)
+		return (NULL);
 	i = 0;
 	while (tmp)
 	{
-		map[i] = ft_strdup(tmp->s);
+		if (!tmp->s)
+			map[i] = ft_strdup(" ");
+		else
+			map[i] = ft_strdup(tmp->s);
 		tmp = tmp->next;
 		i++;
 	}

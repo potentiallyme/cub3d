@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 16:06:19 by nino              #+#    #+#             */
-/*   Updated: 2024/10/15 14:15:49 by lmoran           ###   ########.fr       */
+/*   Created: 2024/01/25 17:52:29 by lmoran            #+#    #+#             */
+/*   Updated: 2024/10/13 13:44:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft.h"
 
-char	*ft_strndup(const char *s, int n)
+void	ft_free_tab(void **s)
 {
-	char	*dup;
-	int		i;
-	int		len;
+	int	i;
 
+	i = -1;
 	if (!s)
-		return (NULL);
-	len = 0;
-	i = 0;
-	if (len < n)
-		len = n;
-	dup = malloc(sizeof * dup * (len + 1));
-	if (!dup)
-		return (NULL);
-	while (n && s[i])
+		return ;
+	if (!s[0])
 	{
-		dup[i] = s[i];
-		i++;
-		n--;
+		free(s);
+		s = NULL;
+		return ;
 	}
-	dup[i] = 0;
-	return (dup);
+	while (s[++i])
+		free(s[i]);
+	if (s)
+	{
+		free(s);
+		s = NULL;
+	}
 }

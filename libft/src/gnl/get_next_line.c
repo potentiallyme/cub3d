@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:37:08 by nino              #+#    #+#             */
-/*   Updated: 2024/07/24 08:05:20 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/11 17:15:12 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ char	*get_next_line(int fd, int free_buf)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (0);
+	buf = malloc(sizeof * buf * (BUFFER_SIZE + 1));
 	line = function_name(fd, buf, backup);
 	free(buf);
 	buf = NULL;

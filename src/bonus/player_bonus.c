@@ -1,51 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   player_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/14 19:11:47 by lmoran           ###   ########.fr       */
+/*   Created: 2024/10/15 14:13:53 by lmoran            #+#    #+#             */
+/*   Updated: 2024/10/15 14:13:54 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	get_h_map(char **map)
+void	render_player(t_mlx *mlx, t_image *img)
 {
-	int	i;
+	int	y;
+	int	x;
+	int	hx;
+	int	hy;
 
-	i = 0;
-	while (map[i])
-		i++;
-	return (i);
-}
-
-char	*fill_map(char *map_line, int maxlen)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	new = ft_calloc(sizeof(char), maxlen + 1);
-	if (!new)
-		return (NULL);
-	while (map_line[i])
-	{
-		new[i] = map_line[i];
-		i++;
+	y = 280;
+	hy = 0;
+	if (mlx->ply.fire == 0 || mlx->gun == mlx->tex.fire)
+		mlx->gun = mlx->tex.ply;
+	else
+		mlx->gun = mlx->tex.fire;
+	while (y < S_H)
+	{	
+		x = 280;
+		hx = 0;
+		while (x < 520)
+		{
+			if (mlx->gun[hy * 240 + hx] > 0)
+				draw_pix(img, x, y, mlx->gun[hy * 240 + hx]);
+			x++;
+			hx++;
+		}
+		hy++;
+		y++;
 	}
-	while (i < maxlen)
-	{
-		new[i] = ' ';
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
-}
-
-long	get_color(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b << 0);
 }

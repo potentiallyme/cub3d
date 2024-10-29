@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:59 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 21:35:06 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/21 17:46:09 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-char	**fill_spaces(char **map) //! could be combined/used for creating square_map?
+char	**fill_spaces(char **map)
 {
 	int		i;
 	int		j;
@@ -34,9 +34,32 @@ char	**fill_spaces(char **map) //! could be combined/used for creating square_ma
 	return (s);
 }
 
-int	check_file(t_data *data)
+int	check_invalids(char **map)
 {
 	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'W' || map[i][j] == 'S'
+			|| map[i][j] == 'E' || map[i][j] == '1' || map[i][j] == '0'
+			|| map[i][j] == ' ' || map[i][j] == '\n')
+				j++;
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_file(t_data *data)
+{
+	int		i;
 	t_file	*tmp;
 
 	i = 0;
@@ -45,8 +68,7 @@ int	check_file(t_data *data)
 	i += check_rgb(data, tmp, 'F');
 	tmp = data->linked_file;
 	i += check_rgb(data, tmp, 'C');
-	// i += check_map(fill_spaces(data->map2d));
-	// i = check_texture_paths(data); // ?  TO FILE part
-	// print_textures(data, i);
-	return (i + 1);
+	i += check_invalids(data->map2d);
+	i += check_map(make_square_map(data, 'G'));
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:14:54 by nclassea          #+#    #+#             */
-/*   Updated: 2024/08/15 15:51:11 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/11 17:11:03 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ char	*ft_strjoin_gnl(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	str = (char *)malloc(sizeof(char) * (ft_strlength(s1) + ft_strlength(s2)
+	str = malloc(sizeof * str * (ft_strlength(s1) + ft_strlength(s2)
 				+ 1));
-	if (str == NULL)
-		return (NULL);
 	while (s1[i] != '\0')
 	{
 		str[i] = s1[i];

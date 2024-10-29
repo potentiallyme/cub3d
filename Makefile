@@ -4,9 +4,9 @@
 # **************************************************************************** #
 
 NAME		= cub3D
-CC			= @clang
+CC			= @gcc
 CFLAGS		= -Wall -Wextra -Werror
-LFLAGS		= -Lminilibx-linux -lmlx -L/lib/x86_64-linux-gnu -lX11 -lXext -lXrandr -lXi -lm -Iminilibx-linux -o
+LFLAGS		= -Lminilibx-linux -lmlx -L/lib/x86_64-linux-gnu -lX11 -lXext -lXrandr -lXi -lm -Iminilibx-linux -g3 -o
 HEAD		= includes/cub3D.h
 MK			= @mkdir -p
 RM			= @rm -rf
@@ -31,11 +31,11 @@ MLX_PATH = minilibx-linux
 # **************************************************************************** #
 
 # CUB3D
-CUBE		:= cube.c
+CUBE		:= main.c cube.c 
 
 # INITS
 INT_DIR		:= inits
-SRC_INT		:= init_data.c
+SRC_INT		:= init_data.c init_ply.c init_img.c init_tex.c
 INT			:= $(SRC_INT:%=$(INT_DIR)/%)
 
 # MOVEMENT
@@ -50,22 +50,26 @@ PRS			:= $(SRC_PRS:%=$(PRS_DIR)/%)
 
 # RAYCASTING
 RC_DIR		:= raycasting
-SRC_RC		:= raycasting.c rendering.c
+SRC_RC		:= raycasting.c rendering.c raycasting2.c
 RC			:= $(SRC_RC:%=$(RC_DIR)/%)	
 
 # UTILS
 UTL_DIR		:= utils
-SRC_UTL		:= extension_utils.c frees.c init_utils.c list_utils.c parse_utils.c map_utils.c
+SRC_UTL		:= extension_utils.c frees.c frees2.c init_utils.c list_utils.c parse_utils.c map_utils.c 
 UTL			:= $(SRC_UTL:%=$(UTL_DIR)/%)
 
 # BONUS
-BUS_DIR     := ../bonus
-SRC_BUS     := minimap.c
+BUS_DIR     := bonus
+SRC_BUS     := minimap_bonus.c minimap2_bonus.c player_bonus.c mouse_bonus.c
 BUS         := $(SRC_BUS:%=$(BUS_DIR)/%)
 
 # ALL SOURCES
 SRCS_DIR	:= src
-ALL_SRCS	:= $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL) $(BUS)
+ifeq ($(BONUS),1)
+    ALL_SRCS := $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL) $(BUS)
+else
+    ALL_SRCS := $(CUBE) $(INT) $(MVT) $(PRS) $(RC) $(UTL)
+endif
 SRCS		:= $(ALL_SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS
@@ -114,7 +118,7 @@ $(INDI)▓▓░░░░░░░░░░░░░░░░░░▒▒▒▒�
 # 								     RULES									   #
 # **************************************************************************** #
 
-all: $(LIBFT) $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
 
 $(OBJS_DIR)/%.o: %.c $(HEAD)
 	$(MK) $(@D)
@@ -127,7 +131,7 @@ $(LIBFT):
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(LIBFT) $(LFLAGS) $(NAME) $(MLX)
-	@printf "\r"
+	@printf "                                                                                                      \r"
 	$(CMPLT)
 
 $(MLX): minilibx-linux
@@ -139,18 +143,19 @@ $(MLX): minilibx-linux
 minilibx-linux:
 	@git clone https://github.com/42Paris/minilibx-linux.git $@
 
-bonus:
+bonus: clean
 	make all BONUS=1
 
 clean:
 	@rm -f $(LIBFT)
-	@printf "\r\n\r$(BOLD)$(GREEN)ALL CLEAN!     \n\n$(RESET)"
 	$(RM) $(OBJS)
+	@printf "\r\n\r$(BOLD)$(GREEN)ALL CLEAN!     \n\n$(RESET)"
 
 fclean: clean
 	@make fclean -C $(LIBFT_PATH)
 	@rm -rf $(NAME)
-	@printf "\b\b$(FADE)$(RED)(MLX REMOVED!)$(PEACH)\n\n"
+	@rm -rf $(MLX_PATH)
+	@printf "\b\b$(FADE)$(RED)(MLX REMOVED!)$(SPINK)\n\n"
 	$(RM) $(NAME)
 
 re: fclean all

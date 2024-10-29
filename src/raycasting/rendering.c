@@ -6,13 +6,13 @@
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:48:45 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/07 20:51:34 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/15 14:14:19 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void img_do(t_mlx *mlx, t_image *img, int h, int w)
+void	img_do(t_mlx *mlx, t_image *img, int h, int w)
 {
 	img->img = NULL;
 	img->pixels = NULL;
@@ -21,13 +21,13 @@ void img_do(t_mlx *mlx, t_image *img, int h, int w)
 	img->endian = 0;
 	img->img = mlx_new_image(mlx->mlx_p, w, h);
 	if (!img->img)
-		ft_exit(mlx);
+		ft_exit(mlx, "Mlx_new_image rendering error", ALL, 1);
 	img->pixels = (int *)mlx_get_data_addr(img->img, &img->pixel_bits,
 			&img->size_line, &img->endian);
 	return ;
 }
 
-void	set_frame_img_pixel(t_mlx *mlx,  t_image *img, int x, int y)
+void	set_frame_img_pixel(t_mlx *mlx, t_image *img, int x, int y)
 {
 	if (mlx->tex_pix[y][x] > 0)
 		draw_pix(img, x, y, mlx->tex_pix[y][x]);
@@ -35,15 +35,19 @@ void	set_frame_img_pixel(t_mlx *mlx,  t_image *img, int x, int y)
 		draw_pix(img, x, y, mlx->data.ceiling);
 	else if (y < S_H - 1)
 		draw_pix(img, x, y, mlx->data.floor);
-			
+}
+
+void	free_mm(t_mlx *mlx)
+{
+	if (&mlx->mm)
+		ft_free_tab((void **)mlx->mm.map);
 }
 
 void	render_image(t_mlx *mlx)
 {
-	t_image img;
-	int x;
-	int y;
-
+	t_image	img;
+	int		x;
+	int		y;
 
 	img.img = NULL;
 	img_do(mlx, &img, S_H, S_W);
@@ -58,6 +62,12 @@ void	render_image(t_mlx *mlx)
 		}
 		y++;
 	}
+	if (BONUS)
+	{
+		render_player(mlx, &img);
+		render_mmap_img(mlx, &img);
+	}
 	mlx_put_image_to_window(mlx->mlx_p, mlx->win, img.img, 0, 0);
 	mlx_destroy_image(mlx->mlx_p, img.img);
+	free_mm(mlx);
 }

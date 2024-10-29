@@ -3,39 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:23:14 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 21:13:10 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/21 16:18:33 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-void	pr_str(t_file *f)
+int	get_w(t_data *d)
 {
-	t_file	*tpm;
+	t_file	*tmp;
+	int		line;
 
-	tpm = f;
-	while (tpm)
+	tmp = return_map_start(d->linked_file);
+	line = 0;
+	while (tmp)
 	{
-		ft_printf("tpm->s: %s\n", tpm->s);
-		tpm = tpm->next;
+		if (ft_strlen(tmp->s) > line)
+			line = ft_strlen(tmp->s);
+		tmp = tmp->next;
 	}
+	return (line);
 }
 
-// void	print_data(t_data *data)
-// {
-// 	ft_printf("file:\n%s\n", data->file);
-// 	pr_str(data->linked_file);
-// 	ft_printf("map:\n");
-// 	ft_putstr_double(data->map2d);
-// }
+int	get_h(t_data *d)
+{
+	t_file	*tmp;
+	int		line;
 
-// void	print_textures(t_data *data, int i)
-// {
-// 	ft_printf("\ni: %i\nNO: %s\nSO: %s\nWE: %s\nEA: %s\n", i, data->north,
-// 		data->south, data->west, data->east);
-// 	ft_printf("F: %i,%i,%i\nC: %i,%i,%i\n\n", data->floor[0], data->floor[1],
-// 		data->floor[2], data->ceiling[0], data->ceiling[1], data->ceiling[2]);
-// }
+	tmp = return_map_start(d->linked_file);
+	line = 0;
+	while (tmp)
+	{
+		if (!tmp->s)
+			break ;
+		line++;
+		tmp = tmp->next;
+	}
+	return (line);
+}
+
+int	is_invalid(char c)
+{
+	if (c == '1' || c == '0' || c == 'N'
+		|| c == 'S' || c == 'E' || c == 'W' || c == 'G')
+		return (FALSE);
+	return (TRUE);
+}
+
+int	is_player(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (TRUE);
+	return (FALSE);
+}

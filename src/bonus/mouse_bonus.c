@@ -1,51 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   mouse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/14 19:11:47 by lmoran           ###   ########.fr       */
+/*   Created: 2024/10/14 11:26:07 by yu-chen           #+#    #+#             */
+/*   Updated: 2024/10/15 14:56:08 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	get_h_map(char **map)
+int	mouse_move(t_mlx *mlx)
 {
-	int	i;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (map[i])
-		i++;
-	return (i);
-}
-
-char	*fill_map(char *map_line, int maxlen)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	new = ft_calloc(sizeof(char), maxlen + 1);
-	if (!new)
-		return (NULL);
-	while (map_line[i])
-	{
-		new[i] = map_line[i];
-		i++;
-	}
-	while (i < maxlen)
-	{
-		new[i] = ' ';
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
-}
-
-long	get_color(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b << 0);
+	mlx_mouse_get_pos(mlx->mlx_p, mlx->win, &x, &y);
+	if (x > S_W / 2 + 100)
+		rotate_view(mlx, 0.75);
+	if (x < S_W / 2 - 100)
+		rotate_view(mlx, -0.75);
+	if (x < 0 || x > S_W)
+		mlx_mouse_move(mlx->mlx_p, mlx->win, S_W / 2, S_H / 2);
+	return (1);
 }

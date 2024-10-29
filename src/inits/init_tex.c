@@ -1,51 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   init_tex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 15:15:52 by yu-chen           #+#    #+#             */
-/*   Updated: 2024/10/14 19:11:47 by lmoran           ###   ########.fr       */
+/*   Created: 2024/10/15 11:53:03 by yu-chen           #+#    #+#             */
+/*   Updated: 2024/10/15 14:15:11 by lmoran           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-int	get_h_map(char **map)
+void	init_tex(t_tex *tex)
+{
+	tex->ply = 0;
+	tex->fire = 0;
+	tex->no = 0;
+	tex->so = 0;
+	tex->ea = 0;
+	tex->we = 0;
+	tex->dir = 0;
+	tex->pos = 0;
+	tex->step = 0;
+	tex->x = 0;
+	tex->y = 0;
+}
+
+void	init_tex_pix(t_mlx *mlx)
 {
 	int	i;
 
 	i = 0;
-	while (map[i])
-		i++;
-	return (i);
-}
-
-char	*fill_map(char *map_line, int maxlen)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	new = ft_calloc(sizeof(char), maxlen + 1);
-	if (!new)
-		return (NULL);
-	while (map_line[i])
+	if (mlx->tex_pix)
+		ft_free_tab((void **)mlx->tex_pix);
+	mlx->tex_pix = cub_malloc(mlx, TEX_PIX, S_H + 1, sizeof * mlx->tex_pix);
+	while (i < S_H)
 	{
-		new[i] = map_line[i];
+		mlx->tex_pix[i] = cub_malloc(mlx, TEX_PIX, (S_W + 1),
+				sizeof * mlx->tex_pix[i]);
 		i++;
 	}
-	while (i < maxlen)
-	{
-		new[i] = ' ';
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
-}
-
-long	get_color(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b << 0);
 }

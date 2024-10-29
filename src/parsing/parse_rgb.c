@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmoran <lmoran@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yu-chen <yu-chen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:26:17 by lmoran            #+#    #+#             */
-/*   Updated: 2024/10/07 14:51:29 by lmoran           ###   ########.fr       */
+/*   Updated: 2024/10/21 15:29:08 by yu-chen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_format(char **s)
 	int	n;
 	int	i;
 
-	if (!s || !s[2])
+	if (!s || !s[0] || !s[1] || !s[2])
 		return (FAIL);
 	i = 0;
 	while (s[i])
@@ -44,11 +44,6 @@ int	recheck_format(int *i)
 	return (1);
 }
 
-long get_color(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b << 0);
-}
-
 void	set_rgb(t_data *data, char **split, char c)
 {
 	if (c == 'F')
@@ -66,12 +61,13 @@ void	set_rgb(t_data *data, char **split, char c)
 	ft_free(split);
 }
 
-int	rgb_error(t_data *data, char c)
+int	rgb_error(char **split, t_data *data, char c)
 {
 	if (c == 'F')
 		data->floor = -1;
 	else if (c == 'C')
 		data->ceiling = -1;
+	ft_free(split);
 	return (0);
 }
 
@@ -93,7 +89,7 @@ int	check_rgb(t_data *data, t_file *tmp, char c)
 			if (n == 0 && check_format(split))
 				set_rgb(data, split, c);
 			else
-				return (rgb_error(data, c));
+				return (rgb_error(split, data, c));
 			n++;
 		}
 		tmp = tmp->next;
