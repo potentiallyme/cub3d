@@ -1,3 +1,5 @@
+$$\color{lightblue}Welcome \space to \space YU-CHEN \space and \space LMORAN's \space \color{purple} CUB3D!$$
+
 This is yu-chen and lmoran's version of Cub3D, a project at 42 PARIS which consists in using raycasting and rendering to create a simple 3D game similar to Wolfenstein 3D.  
   
 We use the MinilibX a simple X-Window programming API in C to render our game, thus it is recommended to use a MAC or LINUX machine to compile the game.  
