@@ -8,7 +8,7 @@
   
 ###### To access our bonuses (wall collisions, animations, and a simple minimap), compile with the bonus flag. To get the base game back, 'make re'.  
 
-#### INPUTS
+### INPUTS
 
 WS to move FORWARD and BACK  
 AD to strafe LEFT and RIGHT  
@@ -17,7 +17,7 @@ HOLD LSHIFT to SPRINT (limited gauge that needs to replenish)
 F in BONUS version to FIRE  
 ESC to EXIT  
 
-#### PARSING AND MAP CREATION
+### PARSING AND MAP CREATION
 
 Any map can be used, so long as it fits the following criteria:  
   
