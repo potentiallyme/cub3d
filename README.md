@@ -36,7 +36,7 @@ The map MUST be closed, and contain ONE player character. The player can face wh
 11111111  
 10111001  
 10001111  
-11N01 1  
+11S01 1  
  111111  
   
 In this example map, the player will be facing North when the game launches. This map is valid, as the map is closed and contains a player, even if there is an inaccessible room, and an empty area inside the map.  
